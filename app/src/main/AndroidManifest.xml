@@ -24,10 +24,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".PedidosActivity" />
-        <activity android:name=".DetalhesMensaActivity" />
-        <activity android:name=".Notificacoes"></activity>
+        <activity android:name=".e_MainActivity" />
+        <activity android:name=".e_PedidosActivity" />
+        <activity android:name=".e_DetalhesMensaActivity" />
+        <activity android:name=".e_Notificacoes" />
+        <activity android:name=".c_main" />
+        <activity android:name=".c_itemListaementa" />
+        <activity android:name=".c_ementa" />
+        <activity android:name=".c_reservar_mesa" />
+        <activity android:name=".c_contactos"></activity>
     </application>
 
 </manifest>
