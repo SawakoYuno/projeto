@@ -8,6 +8,6 @@ public class Notificacoes extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notificacoes);
+        setContentView(R.layout.activity_E_notificacoes);
     }
 }

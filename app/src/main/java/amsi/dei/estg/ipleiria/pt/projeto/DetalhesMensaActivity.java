@@ -8,7 +8,7 @@ public class DetalhesMensaActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detalhes_mensa);
+        setContentView(R.layout.activity_E_detalhes_mensa);
 
     }
 }
