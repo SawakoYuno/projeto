@@ -24,10 +24,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".PedidosActivity" />
-        <activity android:name=".DetalhesMensaActivity" />
-        <activity android:name=".Notificacoes"></activity>
+        <activity android:name=".E_MainActivity" />
+        <activity android:name=".E_PedidosActivity" />
+        <activity android:name=".E_DetalhesMensaActivity" />
+        <activity android:name=".E_Notificacoes" />
+        <activity android:name=".C_main"></activity>
     </application>
 
 </manifest>
