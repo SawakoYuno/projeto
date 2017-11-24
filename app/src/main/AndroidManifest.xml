@@ -32,7 +32,8 @@
         <activity android:name=".c_itemListaementa" />
         <activity android:name=".c_ementa" />
         <activity android:name=".c_reservar_mesa" />
-        <activity android:name=".c_contactos"></activity>
+        
+
     </application>
 
 </manifest>
