@@ -32,8 +32,10 @@
         <activity android:name=".c_itemListaementa" />
         <activity android:name=".c_ementa" />
         <activity android:name=".c_reservar_mesa" />
-        
-
+        <activity android:name=".c_contactos" />
+        <activity android:name=".c_funcionalidades" />
+        <activity android:name=".c_pedirbebida" />
+        <activity android:name=".c_lista_pedidos"></activity>
     </application>
 
 </manifest>
