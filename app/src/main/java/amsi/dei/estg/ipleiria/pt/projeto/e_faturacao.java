@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-public class faturacao extends AppCompatActivity {
+public class e_faturacao extends AppCompatActivity {
     private String getArray_spinnerPagamentos[];
     private String array_spinnerIva[];
     @Override

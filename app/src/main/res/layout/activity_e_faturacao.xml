@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:weightSum="1"
-    tools:context="amsi.dei.estg.ipleiria.pt.projeto.faturacao">
+    tools:context="amsi.dei.estg.ipleiria.pt.projeto.e_faturacao">
 
     <LinearLayout
         android:layout_width="match_parent"
