@@ -13,11 +13,22 @@
 
     <!-- Login progress -->
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="43dp" />
+
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="140dp"
         app:srcCompat="@drawable/loguito" />
+
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Vanilla"
+        android:textAlignment="center" />
 
     <ProgressBar
         android:id="@+id/login_progress"

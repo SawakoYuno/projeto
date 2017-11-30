@@ -2,5 +2,13 @@
 <resources>
     <color name="colorPrimary">#626fb4</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ff4081</color>
+
+    <color name="colorBaunilha">#ff7f00</color>
+    <color name="colorBaunilhaDark">#8b4513</color>
+    <color name="colorAccentBaunulha">#8B864E</color>
+    <color name="colorFundo">#FAFAD2</color>
+
+
+
 </resources>

@@ -43,7 +43,7 @@ public class e_main extends AppCompatActivity {
         MenuItem item_editar = menu.findItem(R.id.itemEditar);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(item_editar);
 
-        return true;
+        return super.onCreateOptionsMenu(menu);
 
     }
 
