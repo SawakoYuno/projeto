@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="1">
 
@@ -26,10 +26,10 @@
             android:id="@+id/txtNmesa"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.06"
             android:text="7"
             android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_weight="0.06" />
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/imageDetalhesmesa"
@@ -76,12 +76,12 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="210dp"
+        android:layout_height="183dp"
         android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="125dp"
-            android:layout_height="match_parent"
+            android:layout_height="180dp"
             android:orientation="vertical">
 
             <Button
@@ -151,7 +151,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="38dp"
         android:orientation="horizontal">
 
         <Button

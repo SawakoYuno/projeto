@@ -11,7 +11,7 @@ public class e_faturacao extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_faturacao);
+        setContentView(R.layout.activity_e_faturacao);
 
         /*----------PRENCHER O SPINNER DE TIPO DE PAGAMENTOS---------*/
         getArray_spinnerPagamentos=new String[3];

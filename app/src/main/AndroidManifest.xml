@@ -17,17 +17,25 @@
         <activity
             android:name=".Login"
             android:label="@string/app_name"
-            android:screenOrientation="landscape">
+           >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".e_main" />
-        <activity android:name=".e_pedidos" />
-        <activity android:name=".e_detalhesMensa" />
-        <activity android:name=".e_notificacoes" />
+        <activity android:name=".e_main"
+            android:screenOrientation="landscape"
+            />
+        <activity android:name=".e_pedidos"
+            android:screenOrientation="landscape"
+            />
+        <activity android:name=".e_detalhesMensa"
+            android:screenOrientation="landscape"
+            />
+        <activity android:name=".e_notificacoes"
+            android:screenOrientation="landscape"
+            />
         <activity android:name=".c_main" />
         <activity android:name=".c_itemListaementa" />
         <activity android:name=".c_ementa" />
