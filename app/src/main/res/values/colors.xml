@@ -4,10 +4,11 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#ff4081</color>
 
+    <color name="colorVermelho">#40E0D0</color>
     <color name="colorBaunilha">#ff7f00</color>
-    <color name="colorBaunilhaDark">#8b4513</color>
+    <color name="colorBaunilhaDark">#20B2AA</color>
     <color name="colorAccentBaunulha">#8B864E</color>
-    <color name="colorFundo">#FAFAD2</color>
+    <color name="colorFundo">#F0F8FF</color>
 
 
 

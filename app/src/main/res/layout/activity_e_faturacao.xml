@@ -30,8 +30,8 @@
             android:text="7" />
 
         <Space
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="21dp"
+            android:layout_height="30dp"
             android:layout_weight="1" />
     </LinearLayout>
 
@@ -289,7 +289,7 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/btnIprimir"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Imprimir" />
