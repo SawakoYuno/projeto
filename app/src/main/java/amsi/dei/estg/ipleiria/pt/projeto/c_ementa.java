@@ -33,19 +33,6 @@ public class c_ementa extends AppCompatActivity {
         adaptador = new ListaEmentaAdapter(this, artigoList);
         listaEmenta.setAdapter(adaptador);
 
-        listaEmenta.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-
-                //long idArtigoSelect = SingletonLivros.getInstance(ListaLivros.this).pesquisarLivroPosition(i).getIdLivro();
-
-                Intent detalhes = new Intent(getApplicationContext(), DetalhesLivro.class);
-
-                detalhes.putExtra(EXTRA_ID, idLivroSelect);
-
-                startActivityForResult(detalhes, RC_Detalhes_Livro);
-            }
-        });
     }
 }

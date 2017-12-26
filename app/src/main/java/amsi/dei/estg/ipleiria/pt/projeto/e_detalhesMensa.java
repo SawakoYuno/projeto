@@ -8,7 +8,7 @@ public class e_detalhesMensa extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_e_detalhes_mensa);
+        setContentView(R.layout.activity_e_detalhes_mesa);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 

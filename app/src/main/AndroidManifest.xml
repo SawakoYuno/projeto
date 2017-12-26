@@ -68,7 +68,6 @@
         <activity
             android:name=".c_lista_pedidos"
             android:parentActivityName=".c_funcionalidades" />
-        <activity android:name=".c_detalhes_ementa"></activity>
     </application>
 
 </manifest>
