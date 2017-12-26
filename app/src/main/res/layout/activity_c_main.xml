@@ -49,13 +49,6 @@
             android:layout_width="match_parent"
             android:layout_height="14dp" />
 
-        <Button
-            android:id="@+id/btnClassificacao"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Classificação"
-            android:textSize="18sp" />
-
         <Space
             android:layout_width="match_parent"
             android:layout_height="14dp" />
