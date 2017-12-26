@@ -9,5 +9,7 @@ public class c_ementa extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_c_ementa);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 }

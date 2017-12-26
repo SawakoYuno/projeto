@@ -9,5 +9,7 @@ public class c_funcionalidades extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_c_funcionalidades);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 }

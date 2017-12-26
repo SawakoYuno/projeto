@@ -9,5 +9,7 @@ public class e_notificacoes extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_e_notificacoes);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 }

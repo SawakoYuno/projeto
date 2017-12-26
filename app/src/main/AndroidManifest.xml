@@ -44,6 +44,12 @@
         <activity android:name=".c_funcionalidades" />
         <activity android:name=".c_pedirbebida" />
         <activity android:name=".c_lista_pedidos"></activity>
+
+
+        <!-- PARENT
+        <activity android:name=".DetalhesEstatico"
+            android:parentActivityName=".MainActivity"/> -->
+
     </application>
 
 </manifest>

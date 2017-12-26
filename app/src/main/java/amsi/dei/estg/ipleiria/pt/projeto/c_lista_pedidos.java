@@ -9,5 +9,7 @@ public class c_lista_pedidos extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_c_lista_pedidos);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 }

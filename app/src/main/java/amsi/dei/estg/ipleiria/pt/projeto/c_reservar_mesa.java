@@ -9,5 +9,7 @@ public class c_reservar_mesa extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_c_reservar_mesa);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 }

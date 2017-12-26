@@ -14,6 +14,8 @@ public class e_pedidos extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_e_pedidos);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         txtNmesa = (TextView) findViewById(R.id.txtNmesa);
 
