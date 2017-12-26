@@ -24,31 +24,56 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- EMPREGADO -->
         <activity android:name=".e_main"
             android:screenOrientation="landscape"
             />
+
         <activity android:name=".e_pedidos"
             android:screenOrientation="landscape"
+            android:parentActivityName=".e_main"
             />
         <activity android:name=".e_detalhesMensa"
             android:screenOrientation="landscape"
+            android:parentActivityName=".e_pedidos"
             />
         <activity android:name=".e_notificacoes"
             android:screenOrientation="landscape"
+            android:parentActivityName=".e_main"
             />
+
+        <activity android:name=".e_faturacao"
+            android:screenOrientation="landscape"
+            android:parentActivityName=".e_main"
+            />
+
+        <!-- CLIENTE -->
         <activity android:name=".c_main" />
-        <activity android:name=".c_itemListaementa" />
-        <activity android:name=".c_ementa" />
-        <activity android:name=".c_reservar_mesa" />
-        <activity android:name=".c_contactos" />
-        <activity android:name=".c_funcionalidades" />
-        <activity android:name=".c_pedirbebida" />
-        <activity android:name=".c_lista_pedidos"></activity>
+
+        <activity android:name=".c_itemListaementa"
+            android:parentActivityName=".c_ementa"/>
+
+        <activity android:name=".c_ementa"
+            android:parentActivityName=".c_main"/>
+
+        <activity android:name=".c_reservar_mesa"
+            android:parentActivityName=".c_main"/>
+
+        <activity android:name=".c_contactos"
+            android:parentActivityName=".c_main"/>
+
+        <activity android:name=".c_funcionalidades"
+            android:parentActivityName=".c_main"/>
+
+        <activity android:name=".c_pedirbebida"
+            android:parentActivityName=".c_funcionalidades" />
+
+        <activity android:name=".c_lista_pedidos"
+            android:parentActivityName=".c_funcionalidades"></activity>
 
 
-        <!-- PARENT
-        <activity android:name=".DetalhesEstatico"
-            android:parentActivityName=".MainActivity"/> -->
+
 
     </application>
 
