@@ -16,8 +16,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Login"
-            android:label="@string/app_name"
-           >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,55 +25,50 @@
         </activity>
 
         <!-- EMPREGADO -->
-        <activity android:name=".e_main"
-            android:screenOrientation="landscape"
-            />
-
-        <activity android:name=".e_pedidos"
-            android:screenOrientation="landscape"
+        <activity
+            android:name=".e_main"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".e_pedidos"
             android:parentActivityName=".e_main"
-            />
-        <activity android:name=".e_detalhesMensa"
-            android:screenOrientation="landscape"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".e_detalhesMensa"
             android:parentActivityName=".e_pedidos"
-            />
-        <activity android:name=".e_notificacoes"
-            android:screenOrientation="landscape"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".e_notificacoes"
             android:parentActivityName=".e_main"
-            />
-
-        <activity android:name=".e_faturacao"
-            android:screenOrientation="landscape"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".e_faturacao"
             android:parentActivityName=".e_main"
-            />
+            android:screenOrientation="landscape" />
 
         <!-- CLIENTE -->
         <activity android:name=".c_main" />
-
-        <activity android:name=".c_itemListaementa"
-            android:parentActivityName=".c_ementa"/>
-
-        <activity android:name=".c_ementa"
-            android:parentActivityName=".c_main"/>
-
-        <activity android:name=".c_reservar_mesa"
-            android:parentActivityName=".c_main"/>
-
-        <activity android:name=".c_contactos"
-            android:parentActivityName=".c_main"/>
-
-        <activity android:name=".c_funcionalidades"
-            android:parentActivityName=".c_main"/>
-
-        <activity android:name=".c_pedirbebida"
+        <activity
+            android:name=".c_itemListaementa"
+            android:parentActivityName=".c_ementa" />
+        <activity
+            android:name=".c_ementa"
+            android:parentActivityName=".c_main" />
+        <activity
+            android:name=".c_reservar_mesa"
+            android:parentActivityName=".c_main" />
+        <activity
+            android:name=".c_contactos"
+            android:parentActivityName=".c_main" />
+        <activity
+            android:name=".c_funcionalidades"
+            android:parentActivityName=".c_main" />
+        <activity
+            android:name=".c_pedirbebida"
             android:parentActivityName=".c_funcionalidades" />
-
-        <activity android:name=".c_lista_pedidos"
-            android:parentActivityName=".c_funcionalidades"></activity>
-
-
-
-
+        <activity
+            android:name=".c_lista_pedidos"
+            android:parentActivityName=".c_funcionalidades" />
+        <activity android:name=".c_detalhes_ementa"></activity>
     </application>
 
 </manifest>
