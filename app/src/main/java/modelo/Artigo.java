@@ -7,29 +7,29 @@ package modelo;
 public class Artigo {
 
     /* ATRIBUTOS */
-    private int id;
-    private int id_tipo_ementa;
+    private Integer id;
+    private Integer id_tipo_ementa;
     private String nome;
     private String detalhes;
-    private int preco;
-    private int quantidade;
+    private Integer preco;
+    private Integer quantidade;
     private String imagem;
 
 
     /* MÉTODOS */
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public long getId_tipo_ementa() {
+    public Integer getId_tipo_ementa() {
         return id_tipo_ementa;
     }
 
-    public void setId_tipo_ementa(int id_tipo_ementa) {
+    public void setId_tipo_ementa(Integer id_tipo_ementa) {
         this.id_tipo_ementa = id_tipo_ementa;
     }
 
@@ -49,19 +49,19 @@ public class Artigo {
         this.detalhes = detalhes;
     }
 
-    public int getPreco() {
+    public Integer getPreco() {
         return preco;
     }
 
-    public void setPreco(int preco) {
+    public void setPreco(Integer preco) {
         this.preco = preco;
     }
 
-    public int getQuantidade() {
+    public Integer getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(int quantidade) {
+    public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
     }
 
@@ -75,7 +75,7 @@ public class Artigo {
 
     /* CONSTRUTOR */
 
-    public Artigo(int id, int id_tipo_ementa, String nome, String detalhes, int preco, int quantidade, String imagem) {
+    public Artigo(Integer id, Integer id_tipo_ementa, String nome, String detalhes, Integer preco, Integer quantidade, String imagem) {
         this.id = id;
         this.id_tipo_ementa = id_tipo_ementa;
         this.nome = nome;
