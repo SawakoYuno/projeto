@@ -33,6 +33,7 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_e_pedidos);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -52,15 +53,18 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener {
         adaptador = new ListaEmentaAdapter(this, artigoList);
         listaArtigo.setAdapter(adaptador);
 
+
         listaArtigo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+                System.out.println("---> oncreat4");
             }
         });
 
-        final SwipeRefreshLayout refreshLayout = findViewById(R.id.swipeRefreshLista);
 
+
+        final SwipeRefreshLayout refreshLayout = findViewById(R.id.swipeRefreshLista);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -90,6 +94,7 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener {
     protected void onResume() {
         adaptador.refresh(SingletonArtigo.getInstance(this).getArtigo());
         super.onResume();
+
     }
 
     @Override
@@ -97,6 +102,7 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener {
         adaptador = new ListaEmentaAdapter(getApplication(), lista);
         listaArtigo.setAdapter(adaptador);
         adaptador.refresh(lista);
+
     }
 
     @Override

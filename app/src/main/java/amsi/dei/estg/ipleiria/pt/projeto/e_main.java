@@ -27,7 +27,6 @@ public class e_main extends AppCompatActivity {
     public void onClick(View v) {
         Button btn = (Button) v;
         String texto = btn.getText().toString(); //importante
-        // System.out.println("OnClick para o botão:" + btn);
 
         Intent intent = new Intent(getApplicationContext(), e_pedidos.class);
         intent.putExtra(e_pedidos.btn, texto);
