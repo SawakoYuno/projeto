@@ -55,7 +55,7 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener {
         adaptador = new ListaEmentaAdapter(this, artigoList);
         listaArtigo.setAdapter(adaptador);
 
-               listaArtigo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listaArtigo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
@@ -99,7 +99,7 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener {
 
     @Override
     public void onRefreshListaArtigos(List<Artigo> lista) {
-        adaptador = new ListaEmentaAdapter(getApplication(), lista);
+        adaptador = new ListaEmentaAdapter(this, lista);
         listaArtigo.setAdapter(adaptador);
         adaptador.refresh(lista);
 

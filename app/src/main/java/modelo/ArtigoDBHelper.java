@@ -17,7 +17,7 @@ public class ArtigoDBHelper extends SQLiteOpenHelper{
     private static final int DB_VERSION = 1;
     private static final String ID_ARTIGO = "id";
 
-    private static final String ID_TIPO_EMENTA_ARTIGO = "id_tipo_ementa";
+    private static final String ID_TIPO_EMENTA_ARTIGO = "id_tipo_artigo";
     private static final String NOME_ARTIGO = "nome";
     private static final String DETALHES_ARTIGO = "detalhes";
     private static final String PRECO_ARTIGO = "preco";
@@ -101,6 +101,31 @@ public class ArtigoDBHelper extends SQLiteOpenHelper{
             return artigos;
         }
 
+    public List<Artigo> getAllArtigosCarneDB()
+    {
+        List<Artigo> artigos = new ArrayList<>();
+        Cursor ponteiro = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + ID_TIPO_EMENTA_ARTIGO + " LIKE " + "3", null);
+
+        if (ponteiro.moveToFirst())
+        {
+            do{
+                Artigo tempArtigo = new Artigo(
+
+                        ponteiro.getInt(1),
+                        ponteiro.getInt(2),
+                        ponteiro.getString(3),
+                        ponteiro.getString(4),
+                        ponteiro.getInt(5),
+                        ponteiro.getInt(6),
+                        ponteiro.getInt(7));
+
+                artigos.add(tempArtigo);
+            }while(ponteiro.moveToNext());
+        }
+        ponteiro.close();
+
+        return artigos;
+    }
 
 }
 

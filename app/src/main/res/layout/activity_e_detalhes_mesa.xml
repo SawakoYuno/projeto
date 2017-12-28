@@ -76,11 +76,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Nº vezes chamado:"
+            android:text="Nome:"
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/txtnome"
             android:layout_width="56dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -100,11 +100,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Nº vezes visita"
+            android:text="Quantidade de pessoas:"
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/txtQntPessoas"
             android:layout_width="56dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

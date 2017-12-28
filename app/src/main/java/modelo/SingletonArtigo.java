@@ -5,6 +5,7 @@ package modelo;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -31,7 +32,7 @@ public class SingletonArtigo implements ArtigoListener {
     private static ArtigoDBHelper dbHelper = null;
 
     //---------URL API ARTIGO-----------
-    private String mUrlAPIArtigos = "http://10.0.2.2:8888/artigos";
+    private String mUrlAPIArtigos = "http://10.0.2.2:8888/artigo";
     //----------------------------------
 
     private static RequestQueue volleyQueue = null;
@@ -57,16 +58,13 @@ public class SingletonArtigo implements ArtigoListener {
 
         artigos = new ArrayList<>();
 
-        //gerarFakeData();
 
         dbHelper = new ArtigoDBHelper(context);
         artigos = dbHelper.getAllArtigosDB();
 
     }
 
-    private void gerarFakeData(){
-        artigos.add(new Artigo( 1,2 ,"Bitoque de porco", "impecavel", 12, 1, R.drawable.bitoque_porco));
-    }
+
 
     public void lerBD()
     {
