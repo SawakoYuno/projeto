@@ -9,9 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Utilizador on 27/12/2017.
- */
+
 
 public class ArtigoDBHelper extends SQLiteOpenHelper{
     private static final String DB_NAME = "projeto";
@@ -93,7 +91,7 @@ public class ArtigoDBHelper extends SQLiteOpenHelper{
                             ponteiro.getString(4),
                             ponteiro.getInt(5),
                             ponteiro.getInt(6),
-                            ponteiro.getString(7));
+                            ponteiro.getInt(7));
 
                     artigos.add(tempArtigo);
                 }while(ponteiro.moveToNext());

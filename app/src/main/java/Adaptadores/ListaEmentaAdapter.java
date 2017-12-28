@@ -6,54 +6,51 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-/*import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;*/
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.List;
 
 import amsi.dei.estg.ipleiria.pt.projeto.R;
 import modelo.Artigo;
 
-/**
- * Created by Utilizador on 26/12/2017.
- */
 
 public class ListaEmentaAdapter extends BaseAdapter {
     private Context contexto;
     private LayoutInflater inflater;
-    private List<Artigo> listaEmenta;
-
+    private List<Artigo> listaArtigo;
     private ViewHolder viewHolder;
 
     class ViewHolder
     {
         ImageView imagem;
-        TextView txtDescricao;
     }
 
 
-    public ListaEmentaAdapter(Context context, List<Artigo> listaEmenta){
+    public ListaEmentaAdapter(Context context, List<Artigo> listaArtigo){
         this.contexto = context;
-        this.listaEmenta = listaEmenta;
+        this.listaArtigo = listaArtigo;
     }
 
 
     public void refresh(List<Artigo> listaDeEmenta)
     {
-        listaEmenta = listaDeEmenta;
+        listaArtigo = listaDeEmenta;
         notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return listaEmenta.size();
+        return listaArtigo.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return listaEmenta.get(i);
+        return listaArtigo.get(i);
     }
 
     @Override
@@ -67,25 +64,25 @@ public class ListaEmentaAdapter extends BaseAdapter {
         View v = view;
 
         if (v == null) {
+
             inflater = LayoutInflater.from(contexto);
-            v = inflater.inflate(R.layout.item_c_listaementa, viewGroup, false);
+            v = inflater.inflate(R.layout.item_grelha_artigo, viewGroup, false);
 
             viewHolder = new ViewHolder();
 
-            viewHolder.imagem = v.findViewById(R.id.imagem);
-            viewHolder.txtDescricao = v.findViewById(R.id.txtDescricao);
+            viewHolder.imagem = v.findViewById(R.id.imgItemG);
         }else{
             viewHolder = (ViewHolder) view.getTag();
         }
 
-        Artigo artigo = listaEmenta.get(i);
+        Artigo artigo = listaArtigo.get(i);
 
-        viewHolder.txtDescricao.setText(artigo.getDetalhes());
+
        //viewHolder.imagem.setImageResource(artigo.getImagem());
 
 
-        /* -----------------------------IMAGEM-----------------------
-        viewHolder.imagem.setImageResource(artigo.getImagem());
+        // -----------------------------IMAGEM-----------------------
+       // viewHolder.imagem.setImageResource(artigo.getImagem());
 
         Glide.with(contexto)
                 .load(artigo.getImagem())
@@ -94,7 +91,7 @@ public class ListaEmentaAdapter extends BaseAdapter {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(viewHolder.imagem);
 
-         -----------------------------IMAGEM-----------------------*/
+         //-----------------------------IMAGEM-----------------------
 
         v.setTag(viewHolder);
 

@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import amsi.dei.estg.ipleiria.pt.projeto.R;
 import listeners.ArtigoListener;
 import utils.ArtigoJsonParser;
 
@@ -30,7 +31,7 @@ public class SingletonArtigo implements ArtigoListener {
     private static ArtigoDBHelper dbHelper = null;
 
     //---------URL API ARTIGO-----------
-    private String mUrlAPIArtigos = "http://10.0.2.2:888/artigo";
+    private String mUrlAPIArtigos = "http://10.0.2.2:8888/artigos";
     //----------------------------------
 
     private static RequestQueue volleyQueue = null;
@@ -56,9 +57,15 @@ public class SingletonArtigo implements ArtigoListener {
 
         artigos = new ArrayList<>();
 
+        //gerarFakeData();
+
         dbHelper = new ArtigoDBHelper(context);
         artigos = dbHelper.getAllArtigosDB();
 
+    }
+
+    private void gerarFakeData(){
+        artigos.add(new Artigo( 1,2 ,"Bitoque de porco", "impecavel", 12, 1, R.drawable.bitoque_porco));
     }
 
     public void lerBD()

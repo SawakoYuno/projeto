@@ -28,14 +28,15 @@ public class ArtigoJsonParser {
                 JSONObject artigo = (JSONObject) response.get(i);
 
                 int idArtigo = artigo.getInt("id");
-                int id_tipo_ementa = artigo.getInt("id_tipo_ementa");
+                int id_tipo_ementa = artigo.getInt("id_tipo_artigo");
                 String nome = artigo.getString("nome");
                 String detalhes = artigo.getString("detalhes");
                 int preco = artigo.getInt("preco");
                 int quantidade = artigo.getInt("quantidade");
-                String capa = artigo.getString("imagem");
+                //int imagem = artigo.getInt("imagem");
+                int imagem = 0;
 
-                Artigo auxArtigo = new Artigo( idArtigo, id_tipo_ementa, nome, detalhes, preco, quantidade, capa);
+                Artigo auxArtigo = new Artigo( idArtigo, id_tipo_ementa, nome, detalhes, preco, quantidade ,imagem);
                 tempListaArtigos.add(auxArtigo);
             }
         } catch (JSONException e) {
@@ -57,9 +58,9 @@ public class ArtigoJsonParser {
             String detalhes = artigo.getString("detalhes");
             int preco = artigo.getInt("preco");
             int quantidade = artigo.getInt("quantidade");
-            String capa = artigo.getString("imagem");
+            int imagem = artigo.getInt("imagem");
 
-            Artigo auxArtigo = new Artigo( idArtigo, id_tipo_ementa, nome, detalhes, preco, quantidade, capa);
+            Artigo auxArtigo = new Artigo( idArtigo, id_tipo_ementa, nome, detalhes, preco, quantidade, imagem);
             return auxArtigo;
 
         } catch (JSONException e) {

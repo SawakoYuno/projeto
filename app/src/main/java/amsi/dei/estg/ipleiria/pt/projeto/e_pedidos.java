@@ -8,10 +8,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +25,7 @@ import modelo.SingletonArtigo;
 public class e_pedidos extends AppCompatActivity implements ArtigoListener {
 
     private ListaEmentaAdapter adaptador;
-    private ListView listaArtigo;
+    private GridView listaArtigo;
     private List<Artigo> artigoList;
 
     public static final String btn = "BTN";
@@ -44,21 +46,19 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener {
 
         txtNmesa = (TextView) findViewById(R.id.txtNmesa);
 
-       extra = getIntent().getExtras();
+        extra = getIntent().getExtras();
 
-       txtNmesa.setText(extra.getString("BTN"));
+        txtNmesa.setText(extra.getString("BTN"));
 
         artigoList = SingletonArtigo.getInstance(this).getArtigo();
-        listaArtigo = (ListView) findViewById(R.id.ListaMenu);
+        listaArtigo = (GridView) findViewById(R.id.ListaMenu);
         adaptador = new ListaEmentaAdapter(this, artigoList);
         listaArtigo.setAdapter(adaptador);
 
-
-        listaArtigo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+               listaArtigo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                System.out.println("---> oncreat4");
             }
         });
 

@@ -13,7 +13,7 @@ public class Artigo {
     private String detalhes;
     private Integer preco;
     private Integer quantidade;
-    private String imagem;
+    private Integer imagem;
 
 
     /* MÉTODOS */
@@ -65,17 +65,17 @@ public class Artigo {
         this.quantidade = quantidade;
     }
 
-    public String getImagem() {
+    public Integer getImagem() {
         return imagem;
     }
 
-    public void setImagem(String imagem) {
+    public void setImagem(Integer imagem) {
         this.imagem = imagem;
     }
 
     /* CONSTRUTOR */
 
-    public Artigo(Integer id, Integer id_tipo_ementa, String nome, String detalhes, Integer preco, Integer quantidade, String imagem) {
+    public Artigo(Integer id, Integer id_tipo_ementa, String nome, String detalhes, Integer preco, Integer quantidade ,Integer imagem) {
         this.id = id;
         this.id_tipo_ementa = id_tipo_ementa;
         this.nome = nome;
