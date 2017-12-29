@@ -89,6 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="click"
                 android:text="Entradas"
                 android:textAllCaps="false" />
 
@@ -97,6 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="click"
                 android:text="Carne"
                 android:textAllCaps="false" />
 
@@ -105,6 +107,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="click"
                 android:text="Peixe"
                 android:textAllCaps="false" />
 
@@ -113,6 +116,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="click"
                 android:text="Sobremensa"
                 android:textAllCaps="false" />
 
@@ -121,6 +125,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="click"
                 android:text="Bebidas"
                 android:textAllCaps="false" />
         </LinearLayout>

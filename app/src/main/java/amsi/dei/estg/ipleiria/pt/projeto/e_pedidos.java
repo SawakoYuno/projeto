@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -105,5 +106,15 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener {
     @Override
     public void onUpdateListaArtigosBD(Artigo artigo, int operacao) {
 
+    }
+
+    public void click(View view) {
+        String type = ((Button) view).getText().toString();
+
+        switch (type)
+        {
+            case "Carne":
+                adapter.setDataList(stringList1);
+                break;
     }
 }

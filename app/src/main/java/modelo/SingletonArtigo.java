@@ -168,6 +168,8 @@ public class SingletonArtigo implements ArtigoListener {
         this.artigoListener = artigoListener;
     }
 
+
+
     @Override
     public void onRefreshListaArtigos(List<Artigo> listaArtigo) {
 
