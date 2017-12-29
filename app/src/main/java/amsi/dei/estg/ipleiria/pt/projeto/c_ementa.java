@@ -1,20 +1,17 @@
 package amsi.dei.estg.ipleiria.pt.projeto;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.List;
 
-import Adaptadores.ListaEmentaAdapter;
+import Adaptadores.ListaArtigoAdapter;
 import modelo.Artigo;
 
 public class c_ementa extends AppCompatActivity {
 
-    private ListaEmentaAdapter adaptador;
+    private ListaArtigoAdapter adaptador;
     private ListView listaEmenta;
     private List<Artigo> artigoList;
 
@@ -30,7 +27,7 @@ public class c_ementa extends AppCompatActivity {
 
 
         listaEmenta = (ListView) findViewById(R.id.ListaEmenta);
-        adaptador = new ListaEmentaAdapter(this, artigoList);
+        adaptador = new ListaArtigoAdapter(this, artigoList);
         listaEmenta.setAdapter(adaptador);
 
 

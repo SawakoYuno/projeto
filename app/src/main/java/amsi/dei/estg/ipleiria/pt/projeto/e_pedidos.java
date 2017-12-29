@@ -9,22 +9,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
-import Adaptadores.ListaEmentaAdapter;
+import Adaptadores.ListaArtigoAdapter;
 import listeners.ArtigoListener;
 import modelo.Artigo;
 import modelo.SingletonArtigo;
 
 public class e_pedidos extends AppCompatActivity implements ArtigoListener {
 
-    private ListaEmentaAdapter adaptador;
+    private ListaArtigoAdapter adaptador;
     private GridView listaArtigo;
     private List<Artigo> artigoList;
 
@@ -52,7 +49,7 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener {
 
         artigoList = SingletonArtigo.getInstance(this).getArtigo();
         listaArtigo = (GridView) findViewById(R.id.ListaMenu);
-        adaptador = new ListaEmentaAdapter(this, artigoList);
+        adaptador = new ListaArtigoAdapter(this, artigoList);
         listaArtigo.setAdapter(adaptador);
 
         listaArtigo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -85,7 +82,7 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener {
         //?!?!?
         final List<Artigo> tempList = new ArrayList<>();
 
-        listaArtigo.setAdapter(new ListaEmentaAdapter(getApplicationContext(), tempList));
+        listaArtigo.setAdapter(new ListaArtigoAdapter(getApplicationContext(), tempList));
 
         return true;
     }
@@ -99,7 +96,7 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener {
 
     @Override
     public void onRefreshListaArtigos(List<Artigo> lista) {
-        adaptador = new ListaEmentaAdapter(this, lista);
+        adaptador = new ListaArtigoAdapter(this, lista);
         listaArtigo.setAdapter(adaptador);
         adaptador.refresh(lista);
 

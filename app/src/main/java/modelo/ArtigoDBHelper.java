@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,26 +25,31 @@ public class ArtigoDBHelper extends SQLiteOpenHelper{
     private static final String QUANTIDADE_ARTIGO = "quantidade";
     private static final String IMAGEM = "imagem";
 
+
     private final SQLiteDatabase sqLiteDatabase;
 
     public ArtigoDBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         sqLiteDatabase = getWritableDatabase();
+
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
         String query = "CREATE TABLE "+TABLE_NAME+ " (" +
-                "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
+                ID_ARTIGO + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
                 ID_TIPO_EMENTA_ARTIGO + " INTEGER NOT NULL," +
                 NOME_ARTIGO + " VARCHAR(25) NOT NULL," +
                 DETALHES_ARTIGO + " VARCHAR(100) NOT NULL," +
                 PRECO_ARTIGO + " DECIMAL NOT NULL," +
-                QUANTIDADE_ARTIGO + " INTEGER);";
+                QUANTIDADE_ARTIGO + " INTEGER, " +
+                IMAGEM + "VARCHAR(200) NOT NULL);";
 
         sqLiteDatabase.execSQL(query);
     }
+
+
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
@@ -91,7 +97,7 @@ public class ArtigoDBHelper extends SQLiteOpenHelper{
                             ponteiro.getString(4),
                             ponteiro.getInt(5),
                             ponteiro.getInt(6),
-                            ponteiro.getInt(7));
+                            ponteiro.getString(7));
 
                     artigos.add(tempArtigo);
                 }while(ponteiro.moveToNext());
@@ -117,7 +123,7 @@ public class ArtigoDBHelper extends SQLiteOpenHelper{
                         ponteiro.getString(4),
                         ponteiro.getInt(5),
                         ponteiro.getInt(6),
-                        ponteiro.getInt(7));
+                        ponteiro.getString(7));
 
                 artigos.add(tempArtigo);
             }while(ponteiro.moveToNext());

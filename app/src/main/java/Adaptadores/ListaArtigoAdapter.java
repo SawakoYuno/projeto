@@ -1,40 +1,48 @@
 package Adaptadores;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
+import java.io.File;
+import java.nio.file.Path;
 import java.util.List;
 
 import amsi.dei.estg.ipleiria.pt.projeto.R;
 import modelo.Artigo;
+import modelo.ArtigoDBHelper;
 
-/**
- * Created by Utilizador on 29/12/2017.
- */
 
-public class ListaEmentaAdapter extends BaseAdapter {
+public class ListaArtigoAdapter extends BaseAdapter {
     private Context contexto;
     private LayoutInflater inflater;
     private List<Artigo> listaArtigo;
     private ViewHolder viewHolder;
-    //private String ParteFinalNome;
+    private String ParteFinalNome;
+
 
 
     class ViewHolder
     {
         ImageView imagem;
-        TextView descricao;
     }
 
-    public ListaEmentaAdapter(Context context, List<Artigo> listaArtigo){
+
+    public ListaArtigoAdapter(Context context, List<Artigo> listaArtigo){
         this.contexto = context;
         this.listaArtigo = listaArtigo;
     }
@@ -53,7 +61,7 @@ public class ListaEmentaAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int i) {
-        return i;
+        return listaArtigo.get(i);
     }
 
     @Override
@@ -67,33 +75,54 @@ public class ListaEmentaAdapter extends BaseAdapter {
         View v = view;
 
         if (v == null) {
+
             inflater = LayoutInflater.from(contexto);
-            v = inflater.inflate(R.layout.item_c_listaementa, viewGroup, false);
+            v = inflater.inflate(R.layout.item_grelha_artigo, viewGroup, false);
 
             viewHolder = new ViewHolder();
 
-            viewHolder.imagem = v.findViewById(R.id.imagem);
-            viewHolder.descricao = v.findViewById(R.id.txtDescricao);
-
+            viewHolder.imagem = v.findViewById(R.id.imgItemG);
         }else{
             viewHolder = (ViewHolder) view.getTag();
         }
 
         Artigo artigo = listaArtigo.get(i);
 
-        /**********************************************************************/
+       String ParteFinalNome = artigo.getImagem();
+
+       //  pictureBox.Image = Image.FromFile(Path.GetDirectoryName(Application.ExecutablePath) + @"\imagens\" + imagem);
+      // viewHolder.imagem.setImageResource(artigo.getImagem());
+      //ImageView.setImageURI(Uri.parse(new File("/sdcard/cats.jpg").toString()));
+        //viewHolder.imagem.setImageResource(Uri.parse(new File("/sdcard/cats.jpg").toString()));
+
+        // -----------------------------IMAGEM-----------------------
+       // viewHolder.imagem.setImageResource(artigo.getImagem());
+
+
+        /*
+string ParteFinalNome;
+
+ pictureBox.Image = Image.FromFile(Path.GetDirectoryName(Application.ExecutablePath) + @"\imagens\" + imagem);*/
+
+//context.getApplicationInfo().dataDir + "/databases/";
+
+
+        //viewHolder.imagem.setImageResource(contexto.getApplicationInfo().dataDir + "/drawable/" + ParteFinalNome.toString());
+
+
         Glide.with(contexto)
                 .load(artigo.getImagem())
                 .placeholder(R.drawable.bife_a_portuguesa)
                 .thumbnail(0f)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(viewHolder.imagem);
-        /**********************************************************************/
 
-        viewHolder.descricao.setText(artigo.getDetalhes());
+         //-----------------------------IMAGEM-----------------------
 
         v.setTag(viewHolder);
 
         return v;
     }
+
+
 }

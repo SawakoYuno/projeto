@@ -13,7 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.01"
-        android:text="TextView" />
+        android:text="Ementa"
+        android:textAlignment="center"
+        android:textSize="50sp" />
 
     <ListView
         android:id="@+id/ListaEmenta"
