@@ -5,8 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.ContactsContract;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,6 +29,7 @@ public class PedidoDBHelper extends SQLiteOpenHelper{
     private static final String DATA_PEDIDO = "data_pedido";
 
     private final SQLiteDatabase sqLiteDatabase;
+
 
     public PedidoDBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -95,19 +100,29 @@ public class PedidoDBHelper extends SQLiteOpenHelper{
 
     public List<Pedidos> getAllPedidosDB()
     {
+
         List<Pedidos> pedidos = new ArrayList<>();
         Cursor ponteiro = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME, null);
 
         if (ponteiro.moveToFirst())
         {
             do{
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+                Date date = null;
+                try {
+                    date = dateFormat.parse(ponteiro.getString(4));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
                 Pedidos tempPedidods = new Pedidos(
 
                         (int) 0,
                         ponteiro.getInt(1),
                         ponteiro.getInt(2),
                         ponteiro.getInt(3),
-                        ponteiro.getString(4)); //tipo data
+                        date);
+                       // ponteiro.getString(dateFormat.toString())); //tipo data
 
                 tempPedidods.setId(ponteiro.getInt(0));
 

@@ -9,42 +9,42 @@ import java.util.Date;
 public class Pedidos {
 
     /* ATRIBUTOS */
-    private int id;
-    private int id_user;
-    private int id_mesa;
-    private int id_estado;
+    private Integer id;
+    private Integer id_user;
+    private Integer id_mesa;
+    private Integer id_estado;
     private Date data_pedido;
 
     /* MÉTODOS */
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getId_user() {
+    public Integer getId_user() {
         return id_user;
     }
 
-    public void setId_user(int id_user) {
+    public void setId_user(Integer id_user) {
         this.id_user = id_user;
     }
 
-    public int getId_mesa() {
+    public Integer getId_mesa() {
         return id_mesa;
     }
 
-    public void setId_mesa(int id_mesa) {
+    public void setId_mesa(Integer id_mesa) {
         this.id_mesa = id_mesa;
     }
 
-    public int getId_estado() {
+    public Integer getId_estado() {
         return id_estado;
     }
 
-    public void setId_estado(int id_estado) {
+    public void setId_estado(Integer id_estado) {
         this.id_estado = id_estado;
     }
 
@@ -58,7 +58,7 @@ public class Pedidos {
 
 
     /* CONSTRUTOR */
-    public Pedidos(int id, int id_user, int id_mesa, int id_estado, Date data_pedido) {
+    public Pedidos(Integer id, Integer id_user, Integer id_mesa, Integer id_estado, Date data_pedido) {
         this.id = id;
         this.id_user = id_user;
         this.id_mesa = id_mesa;

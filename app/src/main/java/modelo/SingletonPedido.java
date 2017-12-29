@@ -162,9 +162,9 @@ public class SingletonPedido implements PedidoListener{
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("token", "AMSI-TOKEN");
                 params.put("id", pedidos.getId().toString());
-                params.put("id_user", pedidos.getId_user());
-                params.put("id_mesa", pedidos.getId_mesa());
-                params.put("id_estado", pedidos.getId_estado());
+                params.put("id_user", pedidos.getId_user().toString());
+                params.put("id_mesa", pedidos.getId_mesa().toString());
+                params.put("id_estado", pedidos.getId_estado().toString());
                 params.put("data_pedido", pedidos.getData_pedido().toString());
 
                 return params;
@@ -175,9 +175,9 @@ public class SingletonPedido implements PedidoListener{
 
     }
 
-    public void atualizarPedidoAPI(final long idlivro, final Livro livro, final Context context) {
+    public void atualizarPedidoAPI(final int id, final Pedidos pedidos, final Context context) {
 
-        StringRequest putRequest = new StringRequest(Request.Method.PUT, mUrlAPIlivros + "/" + idlivro,
+        StringRequest putRequest = new StringRequest(Request.Method.PUT, mUrlAPIPedidos + "/" + id,
                 new Response.Listener<String>()
                 {
                     @Override
@@ -185,7 +185,7 @@ public class SingletonPedido implements PedidoListener{
                         // response
                         Log.d("Response", response);
 
-                        livrosListener.onUpdateListaLivrosBD(LivroJsonParser.parserJsonLivro(response,context),2);
+                        pedidoListener.onUpdateListaPedidosBD(PedidoJsonParser.parserJsonPedidos(response,context),2);
                     }
                 },
                 new Response.ErrorListener()
@@ -203,11 +203,11 @@ public class SingletonPedido implements PedidoListener{
             {
                 Map<String, String>  params = new HashMap<String, String> ();
                 params.put("token", "AMSI-TOKEN");
-                params.put("titulo", livro.getTitulo());
-                params.put("serie", livro.getSerie());
-                params.put("autor", livro.getAutor());
-                params.put("ano", livro.getAno().toString());
-                params.put("capa", livro.getCapa().toString());
+                params.put("id", pedidos.getId().toString());
+                params.put("id_user", pedidos.getId_user().toString());
+                params.put("id_mesa", pedidos.getId_mesa().toString());
+                params.put("id_estado", pedidos.getId_estado().toString());
+                params.put("data_pedido", pedidos.getData_pedido().toString());
 
                 return params;
             }
@@ -217,6 +217,39 @@ public class SingletonPedido implements PedidoListener{
         volleyQueue.add(putRequest);
     }
 
+    public void eliminarPedidoAPI(final Pedidos pedidos,final int id, final Context context) {
+
+        StringRequest dr = new StringRequest(Request.Method.DELETE, mUrlAPIPedidos + "/" + id,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("Response", response);
+
+                        pedidoListener.onUpdateListaPedidosBD(pedidos,3);
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error.
+                        Log.d("Error.Response", error.getMessage());
+                    }
+                }
+
+
+        );
+        volleyQueue.add(dr);
+    }
+
+
+    public void setPedidosListener(PedidoListener pedidosListener)
+    {
+        this.pedidoListener = pedidosListener;
+    }
+
+
     @Override
     public void onRefreshListaPedidos(List<Pedidos> listaPedidos) {
 
@@ -224,6 +257,22 @@ public class SingletonPedido implements PedidoListener{
 
     @Override
     public void onUpdateListaPedidosBD(Pedidos pedidos, int operacao) {
+
+        switch (operacao){
+            case 1:
+                adicionarPedidoBD(pedidos);
+                break;
+
+            case 2:
+                editarPedidoBD(pedidos);
+                break;
+
+            case 3:
+                removerPedidoBD(pedidos);
+                break;
+        }
+
+        pedidoListener.onRefreshListaPedidos(getPedidos());
 
     }
 }

@@ -111,8 +111,8 @@ string ParteFinalNome;
 
 
         Glide.with(contexto)
-                .load(artigo.getImagem())
-                .placeholder(contexto.getApplicationInfo().dataDir + "/drawable/" + ParteFinalNome.toString())
+                .load(contexto.getApplicationInfo().dataDir + "/drawable/" + ParteFinalNome.toString())
+                .placeholder(R.drawable.costoleta_de_porco_com_molho_balsamico)
                 .thumbnail(0f)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(viewHolder.imagem);

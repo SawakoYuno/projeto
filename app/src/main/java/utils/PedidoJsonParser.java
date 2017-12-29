@@ -10,7 +10,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import modelo.Pedidos;
 
@@ -29,11 +31,19 @@ public class PedidoJsonParser {
 
                 JSONObject pedidos = (JSONObject) response.get(i);
 
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+                Date date = null;
+                try {
+                    date = dateFormat.parse(pedidos.getString("data_pedido"));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
                 int idPedido = pedidos.getInt("id");
                 int idUser = pedidos.getInt("id_user");
                 int idMesa = pedidos.getInt("id_mesa");
                 int idEstado = pedidos.getInt("id_estado");
-                int data_pedido = pedidos.getInt("data_pedido"); //tipo data
+                Date data_pedido = date; //tipo data
 
                 Pedidos auxPedidos = new Pedidos( idPedido, idUser, idMesa, idEstado, data_pedido);
                 tempListaPedidos.add(auxPedidos);
@@ -53,11 +63,20 @@ public class PedidoJsonParser {
 
             JSONObject pedidos = new JSONObject(response);
 
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+            Date date = null;
+            try {
+                date = dateFormat.parse(pedidos.getString("data_pedido"));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
             int idPedido = pedidos.getInt("id");
             int idUser = pedidos.getInt("id_user");
             int idMesa = pedidos.getInt("id_mesa");
             int idEstado = pedidos.getInt("id_estado");
-            int data_pedido = pedidos.getInt("data_pedido"); //tipo data
+            Date data_pedido = date;
 
             Pedidos auxPedidos = new Pedidos( idPedido, idUser, idMesa, idEstado, data_pedido);
             return auxPedidos;
