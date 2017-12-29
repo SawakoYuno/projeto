@@ -23,46 +23,71 @@
             android:textAlignment="center"
             android:textSize="50sp" />
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
         <Button
             android:id="@+id/btnChamarEmpregado"
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:layout_weight="1"
-            android:background="@drawable/botaovermelho"
+            android:background="@android:color/darker_gray"
             android:text="Chamar Empregado"
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textSize="25sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/btnPedirBebida"
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:layout_weight="1"
-            android:background="@drawable/botaovermelho"
+            android:background="@android:color/darker_gray"
             android:text="Pedir Bebida"
             android:textAllCaps="false"
             android:textSize="25sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/btnPedirFatura"
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:layout_weight="1"
-            android:background="@drawable/botaovermelho"
+            android:background="@android:color/darker_gray"
             android:text="Pedir Fatura"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textSize="25sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/btnVerLista"
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:layout_weight="1"
-            android:background="@drawable/botaovermelho"
+            android:background="@android:color/darker_gray"
             android:text="Ver Lista de Pedidos"
             android:textAllCaps="false"
             android:textSize="25sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
     </LinearLayout>
 
 </LinearLayout>
