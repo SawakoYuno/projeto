@@ -35,7 +35,6 @@ public class ListaArtigoAdapter extends BaseAdapter {
     private String ParteFinalNome;
 
 
-
     class ViewHolder
     {
         ImageView imagem;
@@ -88,34 +87,14 @@ public class ListaArtigoAdapter extends BaseAdapter {
 
         Artigo artigo = listaArtigo.get(i);
 
-       String ParteFinalNome = artigo.getImagem();
-
-       //  pictureBox.Image = Image.FromFile(Path.GetDirectoryName(Application.ExecutablePath) + @"\imagens\" + imagem);
-      // viewHolder.imagem.setImageResource(artigo.getImagem());
-      //ImageView.setImageURI(Uri.parse(new File("/sdcard/cats.jpg").toString()));
-        //viewHolder.imagem.setImageResource(Uri.parse(new File("/sdcard/cats.jpg").toString()));
-
-        // -----------------------------IMAGEM-----------------------
-       // viewHolder.imagem.setImageResource(artigo.getImagem());
 
 
-        /*
-string ParteFinalNome;
 
- pictureBox.Image = Image.FromFile(Path.GetDirectoryName(Application.ExecutablePath) + @"\imagens\" + imagem);*/
+        //-----------------------------IMAGEM-----------------------
 
-//context.getApplicationInfo().dataDir + "/databases/";
-
-
-        //viewHolder.imagem.setImageResource(contexto.getApplicationInfo().dataDir + "/drawable/" + ParteFinalNome.toString());
-
-
-        Glide.with(contexto)
-                .load(contexto.getApplicationInfo().dataDir + "/drawable/" + ParteFinalNome.toString())
-                .placeholder(R.drawable.costoleta_de_porco_com_molho_balsamico)
-                .thumbnail(0f)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(viewHolder.imagem);
+        String ParteFinalNome = artigo.getImagem();
+        int drawableResourceId = contexto.getResources().getIdentifier(ParteFinalNome.substring(0, ParteFinalNome.length()-4), "drawable", contexto.getPackageName());
+        viewHolder.imagem.setImageResource(drawableResourceId);
 
          //-----------------------------IMAGEM-----------------------
 
