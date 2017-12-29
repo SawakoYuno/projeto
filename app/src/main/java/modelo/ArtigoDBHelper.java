@@ -23,7 +23,7 @@ public class ArtigoDBHelper extends SQLiteOpenHelper{
     private static final String DETALHES_ARTIGO = "detalhes";
     private static final String PRECO_ARTIGO = "preco";
     private static final String QUANTIDADE_ARTIGO = "quantidade";
-    private static final String IMAGEM = "imagem";
+    private static final String IMAGEM = "imagem_artigo";
 
 
     private final SQLiteDatabase sqLiteDatabase;

@@ -33,7 +33,7 @@ public class ArtigoJsonParser {
                 String detalhes = artigo.getString("detalhes");
                 int preco = artigo.getInt("preco");
                 int quantidade = artigo.getInt("quantidade");
-                String imagem = artigo.getString("imagem");
+                String imagem = artigo.getString("imagem_artigo");
                 //int imagem = 0;
 
                 Artigo auxArtigo = new Artigo( idArtigo, id_tipo_ementa, nome, detalhes, preco, quantidade ,imagem);
@@ -58,7 +58,7 @@ public class ArtigoJsonParser {
             String detalhes = artigo.getString("detalhes");
             int preco = artigo.getInt("preco");
             int quantidade = artigo.getInt("quantidade");
-            String imagem = artigo.getString("imagem");
+            String imagem = artigo.getString("imagem_artigo");
 
             Artigo auxArtigo = new Artigo( idArtigo, id_tipo_ementa, nome, detalhes, preco, quantidade, imagem);
             return auxArtigo;

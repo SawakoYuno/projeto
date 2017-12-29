@@ -154,7 +154,7 @@ public class SingletonArtigo implements ArtigoListener {
                 params.put("detalhes", artigo.getDetalhes());
                 params.put("preco", artigo.getPreco().toString());
                 params.put("quantidade", artigo.getQuantidade().toString());
-                params.put("imagem", artigo.getImagem().toString());
+                params.put("imagem_artigo", artigo.getImagem().toString());
 
                 return params;
             }

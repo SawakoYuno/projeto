@@ -11,8 +11,6 @@
     <!-- VERIFICAR LIGAÇÃO À INTERNET -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -74,6 +72,7 @@
         <activity
             android:name=".c_lista_pedidos"
             android:parentActivityName=".c_funcionalidades" />
+        <activity android:name=".e_reserva"></activity>
     </application>
 
 </manifest>
