@@ -117,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="click"
-                android:text="Sobremensa"
+                android:text="Sobremesa"
                 android:textAllCaps="false" />
 
             <Button

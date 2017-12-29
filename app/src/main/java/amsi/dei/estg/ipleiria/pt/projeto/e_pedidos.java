@@ -18,13 +18,16 @@ import java.util.List;
 import Adaptadores.ListaArtigoAdapter;
 import listeners.ArtigoListener;
 import modelo.Artigo;
+import modelo.ArtigoDBHelper;
 import modelo.SingletonArtigo;
+import modelo.SingletonPedido;
 
 public class e_pedidos extends AppCompatActivity implements ArtigoListener {
 
     private ListaArtigoAdapter adaptador;
     private GridView listaArtigo;
     private List<Artigo> artigoList;
+
 
     public static final String btn = "BTN";
     private TextView txtNmesa;
@@ -61,7 +64,6 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener {
         });
 
 
-
         final SwipeRefreshLayout refreshLayout = findViewById(R.id.swipeRefreshLista);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -73,8 +75,7 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener {
 
     }
 
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu_e_main, menu);
 
@@ -111,10 +112,22 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener {
     public void click(View view) {
         String type = ((Button) view).getText().toString();
 
-        switch (type)
-        {
-            case "Carne":
-                adapter.setDataList(stringList1);
+        switch (type) {
+            case "Entradas":
+                SingletonArtigo.getInstance(this).getArtigoTipoAPI("entradas", this);
                 break;
+            case "Carne":
+                SingletonArtigo.getInstance(this).getArtigoTipoAPI("carne", this);
+                break;
+            case "Peixe":
+                SingletonArtigo.getInstance(this).getArtigoTipoAPI("peixe", this);
+                break;
+            case "Sobremesas":
+                SingletonArtigo.getInstance(this).getArtigoTipoAPI("sobremesa", this);
+                break;
+            case "Bebidas":
+                SingletonArtigo.getInstance(this).getArtigoTipoAPI("bebidas", this);
+                break;
+        }
     }
 }

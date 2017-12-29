@@ -32,7 +32,7 @@ public class SingletonArtigo implements ArtigoListener {
     private static ArtigoDBHelper dbHelper = null;
 
     //---------URL API ARTIGO-----------
-    private String mUrlAPIArtigos = "http://10.0.2.2:8888/artigo";
+    private String mUrlAPIArtigos = "http://10.0.2.2:8888/artigos";
     //----------------------------------
 
     private static RequestQueue volleyQueue = null;
@@ -119,6 +119,36 @@ public class SingletonArtigo implements ArtigoListener {
         volleyQueue.add(jsonArrayRequest);
 
     }
+
+    /***********************************************************/
+    public void getArtigoTipoAPI(String tipo, final Context context)
+    {
+        //, boolean isConnected
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, mUrlAPIArtigos  + "/tipo/" + tipo, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+
+                        artigos = ArtigoJsonParser.parserJsonArtigo(response,context);
+
+                        //adicionarArtigosBD(artigos);
+
+                        artigoListener.onRefreshListaArtigos(artigos);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println("Erro ao fazer o pedido JSonArray!!");
+                    }
+                }
+        );
+
+        volleyQueue.add(jsonArrayRequest);
+
+    }
+
+    /***********************************************************/
 
     public void atualizarArtigoAPI(final int id, final Artigo artigo, final Context context)
     {
