@@ -112,12 +112,16 @@ string ParteFinalNome;
 
         Glide.with(contexto)
                 .load(artigo.getImagem())
-                .placeholder(R.drawable.bife_a_portuguesa)
+                .placeholder(contexto.getApplicationInfo().dataDir + "/drawable/" + ParteFinalNome.toString())
                 .thumbnail(0f)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(viewHolder.imagem);
 
          //-----------------------------IMAGEM-----------------------
+
+
+
+
 
         v.setTag(viewHolder);
 

@@ -1,22 +1,33 @@
 package modelo;
 
 import android.content.Context;
+import android.util.Log;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import listeners.PedidoListener;
+import utils.PedidoJsonParser;
 
 /**
  * Created by Utilizador on 29/12/2017.
  */
 
 public class SingletonPedido implements PedidoListener{
-    private static SingletonArtigo INSTANCE = null;
-    private static ArtigoDBHelper dbHelper = null;
+    private static SingletonPedido INSTANCE = null;
+    private static PedidoDBHelper dbHelper = null;
 
     //---------URL API ARTIGO-----------
     private String mUrlAPIPedidos = "http://10.0.2.2:8888/pedidos";
@@ -45,8 +56,165 @@ public class SingletonPedido implements PedidoListener{
 
 
         dbHelper = new PedidoDBHelper(context);
-        pedidos = dbHelper.get();
+        pedidos = dbHelper.getAllPedidosDB();
 
+    }
+
+    public void lerDB()
+    {
+        pedidos = dbHelper.getAllPedidosDB();
+    }
+
+    public List<Pedidos> getPedidos() {
+        return dbHelper.getAllPedidosDB();
+    }
+
+    public boolean adicionarPedidoBD(Pedidos pedidos)
+    {
+        long result = dbHelper.adicionarPedidoBD(pedidos);
+
+        return result > 0;
+    }
+
+    public boolean removerPedidoBD(Pedidos pedido)
+    {
+        return dbHelper.removerPedidosDB(pedido.getId()) && pedidos.remove(pedido);
+    }
+
+
+    public void adicionarPedidosBD(List<Pedidos> listaPedidos)
+    {
+        for (Pedidos pedidos: listaPedidos)
+        {
+            dbHelper.adicionarPedidoBD(pedidos);
+        }
+
+        //return true;
+    }
+
+    public boolean editarPedidoBD(Pedidos pedido)
+    {
+        if (dbHelper.guardarPedidoDB(pedido))
+        {
+            Pedidos novoPedido = null;
+
+            for (Pedidos lv:pedidos) {
+                if (lv.getId() == pedido.getId())
+                    novoPedido = pedidos.set(pedidos.indexOf(lv), pedido);
+            }
+
+            return pedidos.contains(novoPedido);
+        }
+
+        return false;
+    }
+
+
+    public void getAllPedidosAPI(final Context context)
+    {
+        //, boolean isConnected
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, mUrlAPIPedidos, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+
+                        pedidos = PedidoJsonParser.parserJsonLivros(response,context);
+
+                        adicionarPedidosBD(pedidos);
+
+                        pedidoListener.onRefreshListaPedidos(pedidos);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println("Erro ao fazer o pedido JSonArray!!");
+                    }
+                }
+        );
+        // Adding JsonObject request to request queue
+        volleyQueue.add(jsonArrayRequest);
+
+    }
+
+    public void adicionarPedidoAPI(final Pedidos pedidos, final Context context) {
+
+       StringRequest postRequest = new StringRequest(Request.Method.POST, mUrlAPIPedidos,
+
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("Response", response);
+                        System.out.println("----> RESPOSTA ADD POST: " +response);
+
+                        pedidoListener.onUpdateListaPedidosBD(PedidoJsonParser.parserJsonPedidos(response,context),1);
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error.Response", error.getMessage());
+                    }
+                }
+        ) {
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("token", "AMSI-TOKEN");
+                params.put("id", pedidos.getId().toString());
+                params.put("id_user", pedidos.getId_user());
+                params.put("id_mesa", pedidos.getId_mesa());
+                params.put("id_estado", pedidos.getId_estado());
+                params.put("data_pedido", pedidos.getData_pedido().toString());
+
+                return params;
+            }
+        };
+
+        volleyQueue.add(postRequest);
+
+    }
+
+    public void atualizarPedidoAPI(final long idlivro, final Livro livro, final Context context) {
+
+        StringRequest putRequest = new StringRequest(Request.Method.PUT, mUrlAPIlivros + "/" + idlivro,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+
+                        livrosListener.onUpdateListaLivrosBD(LivroJsonParser.parserJsonLivro(response,context),2);
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", error.getMessage());
+                    }
+                }
+        ) {
+
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String> ();
+                params.put("token", "AMSI-TOKEN");
+                params.put("titulo", livro.getTitulo());
+                params.put("serie", livro.getSerie());
+                params.put("autor", livro.getAutor());
+                params.put("ano", livro.getAno().toString());
+                params.put("capa", livro.getCapa().toString());
+
+                return params;
+            }
+
+        };
+
+        volleyQueue.add(putRequest);
     }
 
     @Override
