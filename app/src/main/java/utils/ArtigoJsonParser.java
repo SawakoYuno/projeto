@@ -36,6 +36,7 @@ public class ArtigoJsonParser {
                 String imagem = artigo.getString("imagem_artigo");
                 //int imagem = 0;
 
+
                 Artigo auxArtigo = new Artigo( idArtigo, id_tipo_ementa, nome, detalhes, preco, quantidade ,imagem);
                 tempListaArtigos.add(auxArtigo);
             }
