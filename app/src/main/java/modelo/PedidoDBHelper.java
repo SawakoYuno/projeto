@@ -28,13 +28,13 @@ public class PedidoDBHelper extends SQLiteOpenHelper{
     private static final String ID_ESTADO = "id_estado";
     private static final String DATA_PEDIDO = "data_pedido";
 
-    private final SQLiteDatabase sqLiteDatabase;
+    private SQLiteDatabase sqLiteDatabase;
 
 
     public PedidoDBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         sqLiteDatabase = getWritableDatabase();
-
+        //this.onCreate(sqLiteDatabase);
     }
 
 
@@ -44,9 +44,8 @@ public class PedidoDBHelper extends SQLiteOpenHelper{
                 "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
                 ID_USER + " INTEGER NOT NULL," +
                 ID_MESA + " INTEGER NOT NULL," +
-                ID_PEDIDO + " INTEGER NOT NULL," +
-                ID_ESTADO + " INTEGER NOT NULL" +
-                DATA_PEDIDO + " DATE;";
+                ID_ESTADO + " INTEGER NOT NULL," +
+                DATA_PEDIDO + " DATE);";
 
         sqLiteDatabase.execSQL(query);
     }
@@ -69,10 +68,12 @@ public class PedidoDBHelper extends SQLiteOpenHelper{
         item.put(ID_PEDIDO, pedidos.getId());
         item.put(ID_USER, pedidos.getId_user());
         item.put(ID_MESA, pedidos.getId_mesa());
-        item.put(ID_PEDIDO, pedidos.getData_pedido().toString());
         item.put(ID_ESTADO, pedidos.getId_estado());
-        item.put(DATA_PEDIDO, pedidos.getData_pedido().toString());
 
+        if(pedidos.getData_pedido() != null)
+        {
+            item.put(DATA_PEDIDO, pedidos.getData_pedido().toString());
+        }
 
         idPedido = sqLiteDatabase.insert(TABLE_NAME, null, item);
 
@@ -110,7 +111,8 @@ public class PedidoDBHelper extends SQLiteOpenHelper{
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
                 Date date = null;
                 try {
-                    date = dateFormat.parse(ponteiro.getString(4));
+                    if (ponteiro.getString(4) != null)//só para testar
+                        date = dateFormat.parse(ponteiro.getString(4));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }

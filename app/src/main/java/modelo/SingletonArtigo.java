@@ -76,6 +76,23 @@ public class SingletonArtigo implements ArtigoListener {
     }
 
 
+    public Artigo pesquisarArtigoID(int id)
+    {
+        for (Artigo lv:artigos) {
+         if (lv.getId() == id)
+             return lv;
+
+        }
+        return null;
+    }
+
+    public Artigo pesquisarArtigoPosition(int i)
+    {
+        return artigos.get(i);
+    }
+
+
+
     public boolean adicionarArtigoBD(Artigo artigo)
     {
         long result = dbHelper.adicionarArtigoBD(artigo);

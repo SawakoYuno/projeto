@@ -14,10 +14,10 @@ import java.util.List;
 
 public class ArtigoDBHelper extends SQLiteOpenHelper{
     private static final String DB_NAME = "projeto";
-    private static final String TABLE_NAME = "artigo";
+    private static final String TABLE_NAME = "artigos";
     private static final int DB_VERSION = 1;
-    private static final String ID_ARTIGO = "id";
 
+    private static final String ID_ARTIGO = "id";
     private static final String ID_TIPO_EMENTA_ARTIGO = "id_tipo_artigo";
     private static final String NOME_ARTIGO = "nome";
     private static final String DETALHES_ARTIGO = "detalhes";
@@ -26,12 +26,13 @@ public class ArtigoDBHelper extends SQLiteOpenHelper{
     private static final String IMAGEM = "imagem_artigo";
 
 
-    private final SQLiteDatabase sqLiteDatabase;
+    private SQLiteDatabase sqLiteDatabase;
 
     public ArtigoDBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         sqLiteDatabase = getWritableDatabase();
-
+        //force (isto nao devia ser feito, mas ninguem tem k saber)
+        //this.onCreate(sqLiteDatabase);
     }
 
     @Override
@@ -44,7 +45,7 @@ public class ArtigoDBHelper extends SQLiteOpenHelper{
                 DETALHES_ARTIGO + " VARCHAR(100) NOT NULL," +
                 PRECO_ARTIGO + " DECIMAL NOT NULL," +
                 QUANTIDADE_ARTIGO + " INTEGER, " +
-                IMAGEM + "VARCHAR(200) NOT NULL);";
+                IMAGEM + " VARCHAR(200) NOT NULL);";
 
         sqLiteDatabase.execSQL(query);
     }
@@ -91,13 +92,13 @@ public class ArtigoDBHelper extends SQLiteOpenHelper{
                 do{
                     Artigo tempArtigo = new Artigo(
 
+                            ponteiro.getInt(0),
                             ponteiro.getInt(1),
-                            ponteiro.getInt(2),
+                            ponteiro.getString(2),
                             ponteiro.getString(3),
-                            ponteiro.getString(4),
+                            ponteiro.getInt(4),
                             ponteiro.getInt(5),
-                            ponteiro.getInt(6),
-                            ponteiro.getString(7));
+                            ponteiro.getString(6));
 
                     artigos.add(tempArtigo);
                 }while(ponteiro.moveToNext());
@@ -107,31 +108,6 @@ public class ArtigoDBHelper extends SQLiteOpenHelper{
             return artigos;
         }
 
-    public List<Artigo> getAllArtigosCarneDB()
-    {
-        List<Artigo> artigos = new ArrayList<>();
-        Cursor ponteiro = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + ID_TIPO_EMENTA_ARTIGO + " LIKE " + "3", null);
-
-        if (ponteiro.moveToFirst())
-        {
-            do{
-                Artigo tempArtigo = new Artigo(
-
-                        ponteiro.getInt(1),
-                        ponteiro.getInt(2),
-                        ponteiro.getString(3),
-                        ponteiro.getString(4),
-                        ponteiro.getInt(5),
-                        ponteiro.getInt(6),
-                        ponteiro.getString(7));
-
-                artigos.add(tempArtigo);
-            }while(ponteiro.moveToNext());
-        }
-        ponteiro.close();
-
-        return artigos;
-    }
 
 }
 

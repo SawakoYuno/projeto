@@ -72,7 +72,7 @@
         <activity
             android:name=".c_lista_pedidos"
             android:parentActivityName=".c_funcionalidades" />
-        <activity android:name=".e_reserva"></activity>
+        <activity android:name=".e_reserva" />
     </application>
 
 </manifest>

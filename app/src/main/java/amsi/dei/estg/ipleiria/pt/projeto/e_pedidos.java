@@ -1,5 +1,7 @@
 package amsi.dei.estg.ipleiria.pt.projeto;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,28 +12,37 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import Adaptadores.ListaArtigoAdapter;
+import Adaptadores.ListaEmentaAdapter;
+import Adaptadores.ListaPedidoAdapter;
 import listeners.ArtigoListener;
+import listeners.PedidoListener;
 import modelo.Artigo;
 import modelo.ArtigoDBHelper;
+import modelo.Pedidos;
 import modelo.SingletonArtigo;
 import modelo.SingletonPedido;
 
-public class e_pedidos extends AppCompatActivity implements ArtigoListener {
+public class e_pedidos extends AppCompatActivity implements ArtigoListener, PedidoListener {
 
-    private ListaArtigoAdapter adaptador;
-    private GridView listaArtigo;
+    private ListaArtigoAdapter adaptadorDaList;
+    private ListaPedidoAdapter adaptadordaGrid;
+    private GridView listaviewArtigos;
+    private ListView listviewPedidos;
     private List<Artigo> artigoList;
-
-
+    private List<Pedidos> pedidosList;
+    private Context context;
     public static final String btn = "BTN";
+    public static final String EXTRA_ID_Artigo = "artigo_id";
     private TextView txtNmesa;
     private Bundle extra;
+    private int i = 0;
 
 
     @Override
@@ -42,8 +53,12 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         SingletonArtigo.getInstance(this).setArtigoListener(this);
+        SingletonPedido.getInstance(this).setPedidosListener(this);
+
+
         SingletonArtigo.getInstance(this).getAllArtigoAPI(this);
 
+       final List<Artigo> listaPedidos = new ArrayList<>();
 
         txtNmesa = (TextView) findViewById(R.id.txtNmesa);
 
@@ -51,14 +66,32 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener {
 
         txtNmesa.setText(extra.getString("BTN"));
 
-        artigoList = SingletonArtigo.getInstance(this).getArtigo();
-        listaArtigo = (GridView) findViewById(R.id.ListaMenu);
-        adaptador = new ListaArtigoAdapter(this, artigoList);
-        listaArtigo.setAdapter(adaptador);
+        SingletonPedido.getInstance(this).getAllPedidosAPI(this);
 
-        listaArtigo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        artigoList = SingletonArtigo.getInstance(this).getArtigo();
+        pedidosList = SingletonPedido.getInstance(this).getPedidos();
+
+        listaviewArtigos = (GridView) findViewById(R.id.ListaMenu);
+        listviewPedidos = (ListView) findViewById(R.id.ListaPedidos);
+
+        adaptadorDaList = new ListaArtigoAdapter(this, SingletonArtigo.getInstance(this).getArtigo());
+        adaptadordaGrid = new ListaPedidoAdapter(this, listaPedidos);
+
+        listaviewArtigos.setAdapter(adaptadorDaList);
+        listviewPedidos.setAdapter(adaptadordaGrid);
+
+
+        listaviewArtigos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Artigo idArtigoSelect = SingletonArtigo.getInstance(e_pedidos.this).pesquisarArtigoPosition(i);
+
+                listaPedidos.add(idArtigoSelect);
+
+
+                ListaPedidoAdapter ListaPedidoAdapterv2 = new ListaPedidoAdapter(context, listaPedidos);
+                listviewPedidos.setAdapter(ListaPedidoAdapterv2);
 
             }
         });
@@ -68,7 +101,7 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                adaptador.notifyDataSetChanged();
+                adaptadorDaList.notifyDataSetChanged();
                 refreshLayout.setRefreshing(false);
             }
         });
@@ -84,25 +117,29 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener {
         //?!?!?
         final List<Artigo> tempList = new ArrayList<>();
 
-        listaArtigo.setAdapter(new ListaArtigoAdapter(getApplicationContext(), tempList));
+        listaviewArtigos.setAdapter(new ListaArtigoAdapter(getApplicationContext(), tempList));
 
-        return true;
+
+
+       return true;
     }
 
     @Override
     protected void onResume() {
-        adaptador.refresh(SingletonArtigo.getInstance(this).getArtigo());
+        adaptadorDaList.refresh(SingletonArtigo.getInstance(this).getArtigo());
         super.onResume();
 
     }
 
     @Override
     public void onRefreshListaArtigos(List<Artigo> lista) {
-        adaptador = new ListaArtigoAdapter(this, lista);
-        listaArtigo.setAdapter(adaptador);
-        adaptador.refresh(lista);
+        adaptadorDaList = new ListaArtigoAdapter(this, lista);
+        listaviewArtigos.setAdapter(adaptadorDaList);
+        adaptadorDaList.refresh(lista);
 
     }
+
+
 
     @Override
     public void onUpdateListaArtigosBD(Artigo artigo, int operacao) {
@@ -122,12 +159,22 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener {
             case "Peixe":
                 SingletonArtigo.getInstance(this).getArtigoTipoAPI("peixe", this);
                 break;
-            case "Sobremesas":
+            case "Sobremesa":
                 SingletonArtigo.getInstance(this).getArtigoTipoAPI("sobremesa", this);
                 break;
             case "Bebidas":
                 SingletonArtigo.getInstance(this).getArtigoTipoAPI("bebidas", this);
                 break;
         }
+    }
+
+    @Override
+    public void onRefreshListaPedidos(List<Pedidos> listaPedidos) {
+
+    }
+
+    @Override
+    public void onUpdateListaPedidosBD(Pedidos pedidos, int operacao) {
+
     }
 }
