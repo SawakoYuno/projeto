@@ -15,7 +15,9 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import Adaptadores.ListaArtigoAdapter;
@@ -26,6 +28,7 @@ import listeners.PedidoListener;
 import listeners.PedidosEmArtigoListener;
 import modelo.Artigo;
 import modelo.ArtigoDBHelper;
+import modelo.Mesa;
 import modelo.Pedidos;
 import modelo.PedidosEmArtigo;
 import modelo.SingletonArtigo;
@@ -41,6 +44,7 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
     private List<Artigo> artigoList;
     private List<Pedidos> pedidosList;
     private List<PedidosEmArtigo> pedidosEmArtigosList;
+    private Pedidos pedidos;
     private Context context;
     public static final String btn = "BTN";
     public static final String EXTRA_ID_Artigo = "artigo_id";
@@ -48,6 +52,8 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
     private Bundle extra;
     private int i = 0;
     private List<Artigo> listaPedidos = new ArrayList<>();
+
+
 
 
     @Override
@@ -196,6 +202,35 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
 
     public void OnClickEnviar(View view) {
 
-        //listaPedidos.add(idArtigoSelect);
+
+        int id_user = 4;
+        int id_mesa;
+        int id_estado;
+        //Date data_pedido;
+        Date data_pedido = new Date().getTime();
+
+       /* id_user = pedidos.getId_user();
+        id_mesa = pedidos.getId_mesa();
+        id_estado = pedidos.getId_estado();
+        data_pedido = pedidos.getData_pedido();*/
+
+        id_mesa = Integer.parseInt(btn);
+        id_estado = 2;
+        data_pedido = Time.
+
+        //pedidos = SingletonPedido.getInstance(this).pesquisarLivroID(idLivro);
+        pedidos = new Pedidos((int) 0,
+                id_user,
+                id_mesa,
+                id_estado,
+                data_pedido
+
+
+         //       );
+
+        /* for (i = 0; i < listaPedidos.size(); i++)
+        {
+
+        }*/
     }
 }
