@@ -95,6 +95,7 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
 
                 Artigo idArtigoSelect = SingletonArtigo.getInstance(e_pedidos.this).pesquisarArtigoPosition(i);
                 atualizaPedido(idArtigoSelect);
+
                 /*listaPedidos.add(idArtigoSelect);
 
                 ListaPedidoAdapter ListaPedidoAdapterv2 = new ListaPedidoAdapter(context, listaPedidos);
@@ -193,4 +194,8 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
     }
 
 
+    public void OnClickEnviar(View view) {
+
+        //listaPedidos.add(idArtigoSelect);
+    }
 }
