@@ -208,7 +208,7 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
         int id_estado;
         //Date data_pedido;
         Date data_pedido = new Date().getTime();
-
+//5
        /* id_user = pedidos.getId_user();
         id_mesa = pedidos.getId_mesa();
         id_estado = pedidos.getId_estado();
