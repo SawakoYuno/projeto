@@ -7,24 +7,24 @@ package modelo;
 public class PedidosEmArtigo {
 
     /* ATRIBUTOS */
-    private int id_pedidos_em_artigo;
-    private int id_pedidos;
+    private Integer id_artigo;
+    private Integer id_pedidos;
     private String obs;
 
     /* MÉTODOS */
-    public int getId_pedidos_em_artigo() {
-        return id_pedidos_em_artigo;
+    public Integer getId_artigo() {
+        return id_artigo;
     }
 
-    public void setId_pedidos_em_artigo(int id_pedidos_em_artigo) {
-        this.id_pedidos_em_artigo = id_pedidos_em_artigo;
+    public void getId_artigo(Integer id_artigo) {
+        this.id_artigo = id_artigo;
     }
 
-    public long getId_pedidos() {
+    public Integer getId_pedidos() {
         return id_pedidos;
     }
 
-    public void setId_pedidos(int id_pedidos) {
+    public void setId_pedidos(Integer id_pedidos) {
         this.id_pedidos = id_pedidos;
     }
 
@@ -37,8 +37,8 @@ public class PedidosEmArtigo {
     }
 
     /* CONSTRUTOR */
-    public PedidosEmArtigo(int id_pedidos_em_artigo, int id_pedidos, String obs) {
-        this.id_pedidos_em_artigo = id_pedidos_em_artigo;
+    public PedidosEmArtigo(Integer id_artigo, Integer id_pedidos, String obs) {
+        this.id_artigo = id_artigo;
         this.id_pedidos = id_pedidos;
         this.obs = obs;
     }

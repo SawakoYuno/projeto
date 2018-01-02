@@ -23,26 +23,31 @@ import Adaptadores.ListaEmentaAdapter;
 import Adaptadores.ListaPedidoAdapter;
 import listeners.ArtigoListener;
 import listeners.PedidoListener;
+import listeners.PedidosEmArtigoListener;
 import modelo.Artigo;
 import modelo.ArtigoDBHelper;
 import modelo.Pedidos;
+import modelo.PedidosEmArtigo;
 import modelo.SingletonArtigo;
 import modelo.SingletonPedido;
+import modelo.SingletonPedidosEmArtigo;
 
 public class e_pedidos extends AppCompatActivity implements ArtigoListener, PedidoListener {
 
     private ListaArtigoAdapter adaptadorDaList;
-    private ListaPedidoAdapter adaptadordaGrid;
+    private ListaPedidoAdapter adaptadordaListVP;
     private GridView listaviewArtigos;
     private ListView listviewPedidos;
     private List<Artigo> artigoList;
     private List<Pedidos> pedidosList;
+    private List<PedidosEmArtigo> pedidosEmArtigosList;
     private Context context;
     public static final String btn = "BTN";
     public static final String EXTRA_ID_Artigo = "artigo_id";
     private TextView txtNmesa;
     private Bundle extra;
     private int i = 0;
+    private List<Artigo> listaPedidos = new ArrayList<>();
 
 
     @Override
@@ -54,11 +59,13 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
 
         SingletonArtigo.getInstance(this).setArtigoListener(this);
         SingletonPedido.getInstance(this).setPedidosListener(this);
+       // SingletonPedidosEmArtigo.getInstance(this).setPedidosEmArtigoListener(this);
 
 
         SingletonArtigo.getInstance(this).getAllArtigoAPI(this);
 
-       final List<Artigo> listaPedidos = new ArrayList<>();
+        //final List<Artigo> listaPedidos = new ArrayList<>();
+
 
         txtNmesa = (TextView) findViewById(R.id.txtNmesa);
 
@@ -70,15 +77,16 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
 
         artigoList = SingletonArtigo.getInstance(this).getArtigo();
         pedidosList = SingletonPedido.getInstance(this).getPedidos();
+       // pedidosEmArtigosList = SingletonPedidosEmArtigo.getInstance(this).getPedidosEmArtigoList();
 
         listaviewArtigos = (GridView) findViewById(R.id.ListaMenu);
         listviewPedidos = (ListView) findViewById(R.id.ListaPedidos);
 
         adaptadorDaList = new ListaArtigoAdapter(this, SingletonArtigo.getInstance(this).getArtigo());
-        adaptadordaGrid = new ListaPedidoAdapter(this, listaPedidos);
+        adaptadordaListVP = new ListaPedidoAdapter(this, listaPedidos);
 
         listaviewArtigos.setAdapter(adaptadorDaList);
-        listviewPedidos.setAdapter(adaptadordaGrid);
+        listviewPedidos.setAdapter(adaptadordaListVP);
 
 
         listaviewArtigos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -86,12 +94,12 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 Artigo idArtigoSelect = SingletonArtigo.getInstance(e_pedidos.this).pesquisarArtigoPosition(i);
-
-                listaPedidos.add(idArtigoSelect);
-
+                atualizaPedido(idArtigoSelect);
+                /*listaPedidos.add(idArtigoSelect);
 
                 ListaPedidoAdapter ListaPedidoAdapterv2 = new ListaPedidoAdapter(context, listaPedidos);
-                listviewPedidos.setAdapter(ListaPedidoAdapterv2);
+                listviewPedidos.setAdapter(ListaPedidoAdapterv2);*/
+
 
             }
         });
@@ -106,6 +114,12 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
             }
         });
 
+    }
+
+    public void atualizaPedido(Artigo artigo)
+    {
+        listaPedidos.add(artigo);
+        adaptadordaListVP.refresh(listaPedidos);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -177,4 +191,6 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
     public void onUpdateListaPedidosBD(Pedidos pedidos, int operacao) {
 
     }
+
+
 }

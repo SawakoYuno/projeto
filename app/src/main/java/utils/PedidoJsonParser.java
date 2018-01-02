@@ -22,7 +22,7 @@ import modelo.Pedidos;
 
 public class PedidoJsonParser {
 
-    public static ArrayList<Pedidos> parserJsonLivros(JSONArray response, Context context){
+    public static ArrayList<Pedidos> parserJsonPedidos(JSONArray response, Context context){
 
         ArrayList<Pedidos> tempListaPedidos = new ArrayList<Pedidos>();
 

@@ -41,6 +41,7 @@ public class SingletonArtigo implements ArtigoListener {
 
     private List<Artigo> artigos;
 
+    private ArtigoDBHelper artigoDBHelper;
 
 
     public static synchronized SingletonArtigo getInstance(Context context) {
@@ -112,18 +113,21 @@ public class SingletonArtigo implements ArtigoListener {
 
     public void getAllArtigoAPI(final Context context)
     {
+
         //, boolean isConnected
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, mUrlAPIArtigos, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
 
-                        artigos = ArtigoJsonParser.parserJsonArtigo(response,context);
 
-                        adicionarArtigosBD(artigos);
+                            artigos = ArtigoJsonParser.parserJsonArtigo(response, context);
 
-                        artigoListener.onRefreshListaArtigos(artigos);
-                    }
+                            adicionarArtigosBD(artigos);
+
+                            artigoListener.onRefreshListaArtigos(artigos);
+                        }
+
                 },
                 new Response.ErrorListener() {
                     @Override
@@ -134,6 +138,7 @@ public class SingletonArtigo implements ArtigoListener {
         );
         // Adding JsonObject request to request queue
         volleyQueue.add(jsonArrayRequest);
+
 
     }
 

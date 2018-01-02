@@ -34,9 +34,9 @@ public class ListaPedidoAdapter extends BaseAdapter {
 
     }
 
-    public ListaPedidoAdapter(Context contexto, List<Artigo> listaArtigos) {
+    public ListaPedidoAdapter(Context contexto, List<Artigo> listaPedidos) {
         this.contexto = contexto;
-        this.listaPedidos = listaArtigos;
+        this.listaPedidos = listaPedidos;
     }
 
     public void refresh(List<Artigo> listaPedidos)
@@ -58,7 +58,7 @@ public class ListaPedidoAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int i) {
-        return i;
+        return listaPedidos.get(i).getId();
     }
 
     @Override
@@ -79,7 +79,7 @@ public class ListaPedidoAdapter extends BaseAdapter {
         Artigo artigo = listaPedidos.get(i);
 
         viewHolder.txtNome.setText(artigo.getNome());
-        viewHolder.txtQuant.setText(artigo.getQuantidade());
+        viewHolder.txtQuant.setText(artigo.getQuantidade().toString());
 
         v.setTag(viewHolder);
 

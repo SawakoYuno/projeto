@@ -32,8 +32,6 @@ public class ListaArtigoAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private List<Artigo> listaArtigo;
     private ViewHolder viewHolder;
-    private String ParteFinalNome;
-
 
 
     class ViewHolder
@@ -66,7 +64,7 @@ public class ListaArtigoAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int i) {
-        return i;
+        return listaArtigo.get(i).getId();
     }
 
     @Override

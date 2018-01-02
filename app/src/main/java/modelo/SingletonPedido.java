@@ -118,7 +118,7 @@ public class SingletonPedido implements PedidoListener{
                     @Override
                     public void onResponse(JSONArray response) {
 
-                        pedidos = PedidoJsonParser.parserJsonLivros(response,context);
+                        pedidos = PedidoJsonParser.parserJsonPedidos(response,context);
 
                         adicionarPedidosBD(pedidos);
 
