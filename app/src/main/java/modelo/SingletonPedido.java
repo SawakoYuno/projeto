@@ -275,4 +275,13 @@ public class SingletonPedido implements PedidoListener{
         pedidoListener.onRefreshListaPedidos(getPedidos());
 
     }
+
+    public Pedidos pesquisarPedidoID(long id)
+    {
+        for (Pedidos pd:pedidos) {
+            if (pd.getId() == id)
+                return pd;
+        }
+        return null;
+    }
 }

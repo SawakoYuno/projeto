@@ -1,6 +1,9 @@
 package modelo;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Utilizador on 26/12/2017.
@@ -14,6 +17,8 @@ public class Pedidos {
     private Integer id_mesa;
     private Integer id_estado;
     private Date data_pedido;
+
+    private ArrayList<Artigo> ListArtigos;
 
     /* MÉTODOS */
     public Integer getId() {
@@ -59,11 +64,18 @@ public class Pedidos {
 
     /* CONSTRUTOR */
     public Pedidos(Integer id, Integer id_user, Integer id_mesa, Integer id_estado, Date data_pedido) {
+
+        ListArtigos = new ArrayList<>();
+
         this.id = id;
         this.id_user = id_user;
         this.id_mesa = id_mesa;
         this.id_estado = id_estado;
         this.data_pedido = data_pedido;
+    }
+
+    public ArrayList<Artigo> getArtigos(){
+        return ListArtigos;
     }
 
 }

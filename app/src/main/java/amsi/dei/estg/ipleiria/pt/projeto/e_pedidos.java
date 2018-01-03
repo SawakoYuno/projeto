@@ -16,9 +16,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import Adaptadores.ListaArtigoAdapter;
 import Adaptadores.ListaEmentaAdapter;
@@ -65,7 +68,7 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
 
         SingletonArtigo.getInstance(this).setArtigoListener(this);
         SingletonPedido.getInstance(this).setPedidosListener(this);
-       // SingletonPedidosEmArtigo.getInstance(this).setPedidosEmArtigoListener(this);
+        SingletonPedidosEmArtigo.getInstance(this).setPedidosEmArtigoListener((PedidosEmArtigoListener) this);
 
 
         SingletonArtigo.getInstance(this).getAllArtigoAPI(this);
@@ -83,7 +86,7 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
 
         artigoList = SingletonArtigo.getInstance(this).getArtigo();
         pedidosList = SingletonPedido.getInstance(this).getPedidos();
-       // pedidosEmArtigosList = SingletonPedidosEmArtigo.getInstance(this).getPedidosEmArtigoList();
+        pedidosEmArtigosList = SingletonPedidosEmArtigo.getInstance(this).getPedidosEmArtigoList();
 
         listaviewArtigos = (GridView) findViewById(R.id.ListaMenu);
         listviewPedidos = (ListView) findViewById(R.id.ListaPedidos);
@@ -201,36 +204,44 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
 
 
     public void OnClickEnviar(View view) {
-
-
         int id_user = 4;
         int id_mesa;
         int id_estado;
-        //Date data_pedido;
-        Date data_pedido = getTimw
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
+        Date data_pedido = new Date();
+        String dateTime = dateFormat.format(data_pedido);
+        System.out.println("Current Date Time : " + dateTime);
 
-       /* id_user = pedidos.getId_user();
-        id_mesa = pedidos.getId_mesa();
-        id_estado = pedidos.getId_estado();
-        data_pedido = pedidos.getData_pedido();*/
+        int id = listaPedidos.get(i).getId();
+        int id_tipo_ementa = listaPedidos.get(i).getId_tipo_ementa();
+        String nome = listaPedidos.get(i).getNome();
+        String detalhes = listaPedidos.get(i).getDetalhes();
+        int preco = listaPedidos.get(i).getPreco();
+        int quantidade = listaPedidos.get(i).getQuantidade();
+        String imagem = listaPedidos.get(i).getImagem();
+//        int id_pedidos = pedidosEmArtigosList.get(listaPedidos.get(id));
+        ArrayList<Artigo>ListaArtigos;
 
         id_mesa = Integer.parseInt(btn);
         id_estado = 2;
-        data_pedido = Time.
 
-        //pedidos = SingletonPedido.getInstance(this).pesquisarLivroID(idLivro);
-        pedidos = new Pedidos((int) 0,
+               pedidos = new Pedidos(
+                id,
                 id_user,
                 id_mesa,
                 id_estado,
-                data_pedido
+                data_pedido);
+
+        ListaArtigos = pedidos.getArtigos();
+        ListaArtigos.add(new Artigo(id, id_tipo_ementa, nome, detalhes, preco, quantidade, imagem));
+        Artigo novoArtigo = ListaArtigos.get(1);
+        novoArtigo = new Artigo(id, id_tipo_ementa, nome, detalhes, preco, quantidade, imagem);
 
 
-         //       );
+       for (i = 0; i > listaPedidos.size(); i++)
+       {
+           //listaPedidos.get(id) = pedidosEmArtigosList.get();
 
-        /* for (i = 0; i < listaPedidos.size(); i++)
-        {
-
-        }*/
+       }
     }
 }
