@@ -66,7 +66,7 @@ public class Pedidos {
     public Pedidos(Integer id, Integer id_user, Integer id_mesa, Integer id_estado, Date data_pedido) {
 
         ListArtigos = new ArrayList<>();
-
+//dfg
         this.id = id;
         this.id_user = id_user;
         this.id_mesa = id_mesa;
