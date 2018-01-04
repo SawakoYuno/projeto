@@ -124,8 +124,6 @@ public class PedidoDBHelper extends SQLiteOpenHelper{
                 }
 
                 Pedidos tempPedidods = new Pedidos(
-
-                        (int) 0,
                         ponteiro.getInt(1),
                         ponteiro.getInt(2),
                         ponteiro.getInt(3),

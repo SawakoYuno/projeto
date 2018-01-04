@@ -2,6 +2,7 @@ package modelo;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -63,6 +64,7 @@ public class SingletonPedidosEmArtigo implements PedidosEmArtigoListener{
         dbHelper = new PedidoEmArtigoDBHelper(context);
         pedidosEmArtigoList = dbHelper.getAllPedidosEmArtigoDB();
 
+
     }
 
     public void lerBD()
@@ -118,7 +120,7 @@ public class SingletonPedidosEmArtigo implements PedidosEmArtigoListener{
                         pedidosEmArtigoList = PedidosEmArtigoJsonParser.parserJsonPedidosEmArtigo(response,context);
 
                         adicionarPedidosEmArtigosBD(pedidosEmArtigoList);
-
+                        Toast.makeText(context, "Fez pedido", Toast.LENGTH_SHORT).show();
                         pedidosEmArtigoListener.onRefreshListaPedidosEmArtigo(pedidosEmArtigoList);
                     }
                 },
@@ -134,7 +136,7 @@ public class SingletonPedidosEmArtigo implements PedidosEmArtigoListener{
 
     }
 
-    public void adicionarPedidoEmArtigoAPI(final PedidosEmArtigo pedidosEmArtigo, final Context context) {
+    public void adicionarPedidoEmArtigoAPI(final Artigo artigo, final Integer idPedido, final Context context) {
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, mUrlAPIPedidosEmArtigos,
 
@@ -142,7 +144,7 @@ public class SingletonPedidosEmArtigo implements PedidosEmArtigoListener{
                     @Override
                     public void onResponse(String response) {
                         Log.d("Response", response);
-                        System.out.println("----> RESPOSTA ADD POST: " +response);
+                        System.out.println("----> RESPOSTA ADD PedidoEmArtigo: " +response);
 
                         pedidosEmArtigoListener.onUpdateListaPedidosEmArtigoBD(PedidosEmArtigoJsonParser.parserJsonPedidosEmArtigo(response,context),1);
                     }
@@ -157,10 +159,9 @@ public class SingletonPedidosEmArtigo implements PedidosEmArtigoListener{
         ) {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("token", "AMSI-TOKEN");
-                params.put("id_artigo", pedidosEmArtigo.getId_artigo().toString());
-                params.put("id_pedidos", pedidosEmArtigo.getId_pedidos().toString());
-                params.put("obs", pedidosEmArtigo.getObs().toString());
+                params.put("id_artigo", artigo.getId().toString());
+                params.put("id_pedidos", idPedido.toString());
+                params.put("obs", "");
 
                 return params;
             }

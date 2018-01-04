@@ -45,7 +45,7 @@ import modelo.SingletonArtigo;
 import modelo.SingletonPedido;
 import modelo.SingletonPedidosEmArtigo;
 
-public class e_pedidos extends AppCompatActivity implements ArtigoListener, PedidoListener {
+public class e_pedidos extends AppCompatActivity implements ArtigoListener, PedidoListener, PedidosEmArtigoListener {
 
     private ListaArtigoAdapter adaptadorDaList;
     private ListaPedidoAdapter adaptadordaListVP;
@@ -61,7 +61,7 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
     private TextView txtNmesa;
     private Bundle extra;
     private int i = 0;
-
+    private Integer idPedido;
     private List<Artigo> listaPedidos = new ArrayList<>();
     private String mUrlAPIPedidos = "http://10.0.2.2:8888/pedidos";
 
@@ -77,7 +77,7 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
 
         SingletonArtigo.getInstance(this).setArtigoListener(this);
         SingletonPedido.getInstance(this).setPedidosListener(this);
-        SingletonPedidosEmArtigo.getInstance(this).setPedidosEmArtigoListener((PedidosEmArtigoListener) this);
+        SingletonPedidosEmArtigo.getInstance(this).setPedidosEmArtigoListener(this);
 
 
         SingletonArtigo.getInstance(this).getAllArtigoAPI(this);
@@ -208,7 +208,14 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
 
     @Override
     public void onUpdateListaPedidosBD(Pedidos pedidos, int operacao) {
+        idPedido = pedidos.getId();
 
+        for(Artigo meuPedido:listaPedidos)
+        {
+            SingletonPedidosEmArtigo.getInstance(this).adicionarPedidoEmArtigoAPI(meuPedido, idPedido, this);
+
+        }
+    // JOAQUIM FAZ O SWITCH!!!
     }
 
 
@@ -231,11 +238,10 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
 //        int id_pedidos = pedidosEmArtigosList.get(listaPedidos.get(id));
         ArrayList<Artigo>ListaArtigos;
 
-        id_mesa = Integer.parseInt(btn);
+        id_mesa = Integer.parseInt(txtNmesa.getText().toString());
         id_estado = 2;
 
                pedidos = new Pedidos(
-                id,
                 id_user,
                 id_mesa,
                 id_estado,
@@ -247,25 +253,18 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
 
         ListaArtigos = pedidos.getArtigos();
         ListaArtigos.add(new Artigo(id, id_tipo_ementa, nome, detalhes, preco, quantidade, imagem));
-        Artigo novoArtigo = ListaArtigos.get(1);
-        novoArtigo = new Artigo(id, id_tipo_ementa, nome, detalhes, preco, quantidade, imagem);
 
 
-       for (i = 0; i > listaPedidos.size(); i++)
-       {
-           //listaPedidos.get(id) = pedidosEmArtigosList.get();
+ //foreach
+    }
 
-       }
-        //supostamente é pedido.
-        for(Artigo meuPedido:listaPedidos) //hmm temos de por isto a funcionar para testar
-        {
+    @Override
+    public void onRefreshListaPedidosEmArtigo(List<PedidosEmArtigo> pedidosEmArtigoList) {
 
-            StringRequest meuPost = new StringRequest(){protected Map<String, String> getParams(){
-            HashMap map = new HashMap<String, String>();
-                map.put("id_pedidos", pedidos.getId().toString());
-                map.put("id_artigo", pedidos.getArtigos().get(id).toString());
-            return map;
-        }};
-        }
+    }
+
+    @Override
+    public void onUpdateListaPedidosEmArtigoBD(PedidosEmArtigo pedidosEmArtigo, int operacao) {
+
     }
 }

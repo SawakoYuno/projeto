@@ -16,7 +16,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -157,9 +159,9 @@ public class SingletonPedido implements PedidoListener{
                         Log.d("Response", response);
                         System.out.println("----> RESPOSTA ADD POST: " +response);
 
+                        adicionarPedidoBD(PedidoJsonParser.parserJsonPedidos(response,context));
                         pedidoListener.onUpdateListaPedidosBD(PedidoJsonParser.parserJsonPedidos(response,context),1);
 
-                        //try catch duvidoso.
                         try {
                             JSONObject meuPedido = new JSONObject(response);
                             paraObjeto(meuPedido, context);
@@ -176,10 +178,13 @@ public class SingletonPedido implements PedidoListener{
                     }
                 }
         ) {
+/*Date data_pedido;
+           data_pedido c = data_pedido.getInstance();
+           SimpleDateFormat df = new SimpleDateFormat("yyyy-M-dd");
+           String data = df.format(c.getTime());*/
+
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("token", "AMSI-TOKEN");
-                params.put("id", pedidos.getId().toString());
                 params.put("id_user", pedidos.getId_user().toString());
                 params.put("id_mesa", pedidos.getId_mesa().toString());
                 params.put("id_estado", pedidos.getId_estado().toString());

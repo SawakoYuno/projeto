@@ -45,7 +45,7 @@ public class PedidoJsonParser {
                 int idEstado = pedidos.getInt("id_estado");
                 Date data_pedido = date; //tipo data
 
-                Pedidos auxPedidos = new Pedidos( idPedido, idUser, idMesa, idEstado, data_pedido);
+                Pedidos auxPedidos = new Pedidos(idUser, idMesa, idEstado, data_pedido);
                 tempListaPedidos.add(auxPedidos);
             }
         } catch (JSONException e) {
@@ -78,7 +78,7 @@ public class PedidoJsonParser {
             int idEstado = pedidos.getInt("id_estado");
             Date data_pedido = date;
 
-            Pedidos auxPedidos = new Pedidos( idPedido, idUser, idMesa, idEstado, data_pedido);
+            Pedidos auxPedidos = new Pedidos(idUser, idMesa, idEstado, data_pedido);
             return auxPedidos;
 
         } catch (JSONException e) {
