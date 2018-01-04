@@ -10,8 +10,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.GsonBuilder;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -92,6 +95,13 @@ public class SingletonPedido implements PedidoListener{
         //return true;
     }
 
+
+    public static Pedidos paraObjeto(JSONObject object, Context context)
+    {
+        GsonBuilder gson = new GsonBuilder();
+        return gson.create().fromJson(object.toString(), Pedidos.class);
+    }
+
     public boolean editarPedidoBD(Pedidos pedido)
     {
         if (dbHelper.guardarPedidoDB(pedido))
@@ -148,6 +158,14 @@ public class SingletonPedido implements PedidoListener{
                         System.out.println("----> RESPOSTA ADD POST: " +response);
 
                         pedidoListener.onUpdateListaPedidosBD(PedidoJsonParser.parserJsonPedidos(response,context),1);
+
+                        //try catch duvidoso.
+                        try {
+                            JSONObject meuPedido = new JSONObject(response);
+                            paraObjeto(meuPedido, context);
+                            } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 },
 

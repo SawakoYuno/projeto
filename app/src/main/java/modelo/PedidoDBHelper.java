@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.ContactsContract;
 
+import org.json.JSONObject;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -79,6 +81,10 @@ public class PedidoDBHelper extends SQLiteOpenHelper{
 
         return idPedido;
     }
+
+
+
+
 
     public boolean guardarPedidoDB(Pedidos pedidos)
     {

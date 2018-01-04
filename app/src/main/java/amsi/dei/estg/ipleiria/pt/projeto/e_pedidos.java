@@ -15,13 +15,20 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONObject;
+
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import Adaptadores.ListaArtigoAdapter;
 import Adaptadores.ListaEmentaAdapter;
@@ -54,7 +61,9 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
     private TextView txtNmesa;
     private Bundle extra;
     private int i = 0;
+
     private List<Artigo> listaPedidos = new ArrayList<>();
+    private String mUrlAPIPedidos = "http://10.0.2.2:8888/pedidos";
 
 
 
@@ -212,7 +221,7 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
         String dateTime = dateFormat.format(data_pedido);
         System.out.println("Current Date Time : " + dateTime);
 
-        int id = listaPedidos.get(i).getId();
+        final int id = listaPedidos.get(i).getId();
         int id_tipo_ementa = listaPedidos.get(i).getId_tipo_ementa();
         String nome = listaPedidos.get(i).getNome();
         String detalhes = listaPedidos.get(i).getDetalhes();
@@ -232,6 +241,10 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
                 id_estado,
                 data_pedido);
 
+               SingletonPedido.getInstance(this).adicionarPedidoAPI(pedidos, this);
+
+
+
         ListaArtigos = pedidos.getArtigos();
         ListaArtigos.add(new Artigo(id, id_tipo_ementa, nome, detalhes, preco, quantidade, imagem));
         Artigo novoArtigo = ListaArtigos.get(1);
@@ -243,5 +256,16 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
            //listaPedidos.get(id) = pedidosEmArtigosList.get();
 
        }
+        //supostamente é pedido.
+        for(Artigo meuPedido:listaPedidos) //hmm temos de por isto a funcionar para testar
+        {
+
+            StringRequest meuPost = new StringRequest(){protected Map<String, String> getParams(){
+            HashMap map = new HashMap<String, String>();
+                map.put("id_pedidos", pedidos.getId().toString());
+                map.put("id_artigo", pedidos.getArtigos().get(id).toString());
+            return map;
+        }};
+        }
     }
 }
