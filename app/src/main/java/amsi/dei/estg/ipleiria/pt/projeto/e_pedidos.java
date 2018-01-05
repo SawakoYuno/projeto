@@ -24,6 +24,7 @@ import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -223,10 +224,16 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
         int id_user = 4;
         int id_mesa;
         int id_estado;
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
-        Date data_pedido = new Date();
+
+       // Date data_pedido;
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Date data_pedido = (c.getTime());
+
+
+       /* SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
         String dateTime = dateFormat.format(data_pedido);
-        System.out.println("Current Date Time : " + dateTime);
+        System.out.println("Current Date Time : " + dateTime);*/
 
         final int id = listaPedidos.get(i).getId();
         int id_tipo_ementa = listaPedidos.get(i).getId_tipo_ementa();

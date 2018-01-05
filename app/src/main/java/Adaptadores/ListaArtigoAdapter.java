@@ -74,6 +74,7 @@ public class ListaArtigoAdapter extends BaseAdapter {
 
         if (v == null) {
 
+
             inflater = LayoutInflater.from(contexto);
             v = inflater.inflate(R.layout.item_grelha_artigo, viewGroup, false);
 

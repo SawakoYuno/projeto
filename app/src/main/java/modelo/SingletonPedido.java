@@ -3,10 +3,14 @@ package modelo;
 import android.content.Context;
 import android.util.Log;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -16,6 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -162,6 +167,8 @@ public class SingletonPedido implements PedidoListener{
                         adicionarPedidoBD(PedidoJsonParser.parserJsonPedidos(response,context));
                         pedidoListener.onUpdateListaPedidosBD(PedidoJsonParser.parserJsonPedidos(response,context),1);
 
+
+
                         try {
                             JSONObject meuPedido = new JSONObject(response);
                             paraObjeto(meuPedido, context);
@@ -174,24 +181,48 @@ public class SingletonPedido implements PedidoListener{
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("Error.Response", error.getMessage());
+                        //Log.d("Error.Response", error.getMessage());
+
+                        // exemplo da net, error 400
+                        NetworkResponse response = error.networkResponse;
+                        if (error instanceof ServerError && response != null) {
+                            try {
+                                String res = new String(response.data,
+                                        HttpHeaderParser.parseCharset(response.headers, "utf-8"));
+                                // Now you can use any deserializer to make sense of data
+                                JSONObject obj = new JSONObject(res);
+                            } catch (UnsupportedEncodingException e1) {
+                                // Couldn't properly decode data to string
+                                e1.printStackTrace();
+                            } catch (JSONException e2) {
+                                // returned data is not JSONObject?
+                                e2.printStackTrace();
+                            }
+                        }
+
                     }
                 }
         ) {
-/*Date data_pedido;
-           data_pedido c = data_pedido.getInstance();
-           SimpleDateFormat df = new SimpleDateFormat("yyyy-M-dd");
-           String data = df.format(c.getTime());*/
+
 
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("id_user", pedidos.getId_user().toString());
                 params.put("id_mesa", pedidos.getId_mesa().toString());
                 params.put("id_estado", pedidos.getId_estado().toString());
-                params.put("data_pedido", pedidos.getData_pedido().toString());
-
+                //params.put("data_pedido", pedidos.getData_pedido().toString());
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-M-dd");
+                String data = df.format(pedidos.getData_pedido());
+                params.put("data_pedido", data);
                 return params;
             }
+
+           @Override
+           public Map<String, String> getHeaders() throws AuthFailureError {
+               Map<String, String> params = new HashMap<String, String>();
+               params.put("Content-Type", "application/json");
+               return params;
+           }
         };
 
         volleyQueue.add(postRequest);

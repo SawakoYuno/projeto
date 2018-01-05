@@ -23,7 +23,7 @@ import modelo.Artigo;
 public class ListaEmentaAdapter extends BaseAdapter {
     private Context contexto;
     private LayoutInflater inflater;
-    private List<Artigo> listaArtigo;
+    private List<Artigo> listaEmenta;
     private ViewHolder viewHolder;
     //private String ParteFinalNome;
 
@@ -34,31 +34,31 @@ public class ListaEmentaAdapter extends BaseAdapter {
         TextView descricao;
     }
 
-    public ListaEmentaAdapter(Context context, List<Artigo> listaArtigo){
+    public ListaEmentaAdapter(Context context, List<Artigo> listaEmenta){
         this.contexto = context;
-        this.listaArtigo = listaArtigo;
+        this.listaEmenta = listaEmenta;
     }
 
 
-    public void refresh(List<Artigo> listaDeEmenta)
+    public void refresh(List<Artigo> listaEmenta)
     {
-        listaArtigo = listaDeEmenta;
+        this.listaEmenta = listaEmenta;
         notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return listaArtigo.size();
+        return listaEmenta.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return i;
+        return listaEmenta.get(i);
     }
 
     @Override
     public long getItemId(int i) {
-        return i;
+        return listaEmenta.get(i).getId();
     }
 
     @Override
@@ -79,16 +79,13 @@ public class ListaEmentaAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) view.getTag();
         }
 
-        Artigo artigo = listaArtigo.get(i);
+        Artigo artigo = listaEmenta.get(i);
 
-        /**********************************************************************/
-        Glide.with(contexto)
-                .load(artigo.getImagem())
-                .placeholder(R.drawable.bife_a_portuguesa)
-                .thumbnail(0f)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(viewHolder.imagem);
-        /**********************************************************************/
+        String ParteFinalNome = artigo.getImagem();
+
+        int drawableResourceId = contexto.getResources().getIdentifier(ParteFinalNome.substring(0, ParteFinalNome.length()-4), "drawable", contexto.getPackageName());
+
+        viewHolder.imagem.setImageResource(drawableResourceId);
 
         viewHolder.descricao.setText(artigo.getDetalhes());
 
