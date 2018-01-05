@@ -74,7 +74,6 @@ public class c_pedirbebida extends AppCompatActivity implements ArtigoListener{
         GridView grelhaBedida = (GridView) findViewById(R.id.grelhaBedida);
         grelhaBedida.setAdapter(adaptadorBebidas);
 
-
     }
 
 

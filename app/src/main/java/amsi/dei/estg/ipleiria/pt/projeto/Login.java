@@ -88,6 +88,13 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                     /*JsonObjectRequest request = new JsonObjectRequest(response);
+
+                String tipo = response.getString("tipo");
+
+                JsonObject dados = response.getJSONObject("dados");*/
+
                 attemptLogin();
             }
         });
@@ -336,7 +343,9 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
 
             if (success) {
                 finish();
-                Intent intent = new Intent(getApplicationContext(), c_main.class);
+
+                Intent intent = new Intent(getApplicationContext(), e_main.class);
+                //mudar e_main para c_main para testar cliente
                 startActivity(intent);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
