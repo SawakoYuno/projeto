@@ -30,7 +30,7 @@ public class PedidoEmArtigoDBHelper extends SQLiteOpenHelper {
     public PedidoEmArtigoDBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         sqLiteDatabase = getWritableDatabase();
-      //  onCreate(sqLiteDatabase);
+        onCreate(sqLiteDatabase);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class PedidoEmArtigoDBHelper extends SQLiteOpenHelper {
             String query = "DROP TABLE IF EXISTS " + TABLE_NAME;
             sqLiteDatabase.execSQL(query);
 
-            onCreate(sqLiteDatabase);
+           // onCreate(sqLiteDatabase);
         }
     }
 
