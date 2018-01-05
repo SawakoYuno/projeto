@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="amsi.dei.estg.ipleiria.pt.projeto.c_itemListaementa">
+
+    <ImageView
+        android:id="@+id/imagemBebida"
+        android:layout_width="113dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.25"
+        app:srcCompat="@color/colorAccentBaunulha" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/txtNome"
+            android:layout_width="171dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="sumo de laranja" />
+
+    </LinearLayout>
+
+</LinearLayout>

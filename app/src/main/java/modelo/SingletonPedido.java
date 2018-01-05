@@ -175,7 +175,13 @@ public class SingletonPedido implements PedidoListener{
                         try {
                             System.out.println("---> Resposta pedido: " + response);
 
+
+                            Pedidos novoPedido = PedidoJsonParser.parserJsonPedidos(response.toString(), context);
+                            System.out.println("ID: " +novoPedido.getId());
+
                             VolleyLog.v("Response:%n %s", response.toString(4));
+
+                            pedidoListener.onUpdateListaPedidosBD(novoPedido, 1);
 
                         } catch (JSONException e) {
                             System.out.println("---> Erro pedido: " + e);

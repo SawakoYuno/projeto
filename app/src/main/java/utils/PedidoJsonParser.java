@@ -63,7 +63,7 @@ public class PedidoJsonParser {
 
             JSONObject pedidos = new JSONObject(response);
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-M-dd");
             Date date = null;
             try {
                 date = dateFormat.parse(pedidos.getString("data_pedido"));
@@ -79,6 +79,7 @@ public class PedidoJsonParser {
             Date data_pedido = date;
 
             Pedidos auxPedidos = new Pedidos(idUser, idMesa, idEstado, data_pedido);
+            auxPedidos.setId(idPedido);
             return auxPedidos;
 
         } catch (JSONException e) {

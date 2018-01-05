@@ -2,6 +2,7 @@ package amsi.dei.estg.ipleiria.pt.projeto;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -63,7 +64,7 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
     private Bundle extra;
     private int i = 0;
     private Integer idPedido;
-    private List<Artigo> listaPedidos = new ArrayList<>();
+    private List<Artigo> listaPedidos = new ArrayList<>();//X
     private String mUrlAPIPedidos = "http://10.0.2.2:8888/pedidos";
 
 
@@ -85,7 +86,6 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
 
         //final List<Artigo> listaPedidos = new ArrayList<>();
 
-
         txtNmesa = (TextView) findViewById(R.id.txtNmesa);
 
         extra = getIntent().getExtras();
@@ -99,13 +99,15 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
         pedidosEmArtigosList = SingletonPedidosEmArtigo.getInstance(this).getPedidosEmArtigoList();
 
         listaviewArtigos = (GridView) findViewById(R.id.ListaMenu);
-        listviewPedidos = (ListView) findViewById(R.id.ListaPedidos);
+        listviewPedidos = (ListView) findViewById(R.id.ListaPedidos);//X
 
         adaptadorDaList = new ListaArtigoAdapter(this, SingletonArtigo.getInstance(this).getArtigo());
-        adaptadordaListVP = new ListaPedidoAdapter(this, listaPedidos);
+        adaptadordaListVP = new ListaPedidoAdapter(this, listaPedidos);//X
 
         listaviewArtigos.setAdapter(adaptadorDaList);
-        listviewPedidos.setAdapter(adaptadordaListVP);
+        listviewPedidos.setAdapter(adaptadordaListVP);//X
+
+        //Intent criarPedido = getIntent();
 
 
         listaviewArtigos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -122,7 +124,7 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
 
 
             }
-        });
+        });//X
 
 
         final SwipeRefreshLayout refreshLayout = findViewById(R.id.swipeRefreshLista);
@@ -136,7 +138,7 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
 
     }
 
-    public void atualizaPedido(Artigo artigo)
+    public void atualizaPedido(Artigo artigo)//X
     {
         listaPedidos.add(artigo);
         adaptadordaListVP.refresh(listaPedidos);
@@ -216,6 +218,9 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
             SingletonPedidosEmArtigo.getInstance(this).adicionarPedidoEmArtigoAPI(meuPedido, idPedido, this);
 
         }
+
+        Intent voltarAtras = new Intent();
+        setResult(200, voltarAtras);
     // JOAQUIM FAZ O SWITCH!!!
     }
 
@@ -246,7 +251,7 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
         ArrayList<Artigo>ListaArtigos;
 
         id_mesa = Integer.parseInt(txtNmesa.getText().toString());
-        id_estado = 2;
+        id_estado = 1;
 
                pedidos = new Pedidos(
                 id_user,
@@ -262,7 +267,7 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
         ListaArtigos.add(new Artigo(id, id_tipo_ementa, nome, detalhes, preco, quantidade, imagem));
 
 
- //foreach
+        //foreach
     }
 
     @Override
@@ -274,4 +279,6 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
     public void onUpdateListaPedidosEmArtigoBD(PedidosEmArtigo pedidosEmArtigo, int operacao) {
 
     }
+
+
 }

@@ -67,7 +67,7 @@ public class PedidoDBHelper extends SQLiteOpenHelper{
         ContentValues item = new ContentValues();
         long idPedido;
 
-        item.put(ID_PEDIDO, pedidos.getId());
+        //item.put(ID_PEDIDO, pedidos.getId());
         item.put(ID_USER, pedidos.getId_user());
         item.put(ID_MESA, pedidos.getId_mesa());
         item.put(ID_ESTADO, pedidos.getId_estado());
@@ -90,7 +90,7 @@ public class PedidoDBHelper extends SQLiteOpenHelper{
     {
         ContentValues item = new ContentValues();
 
-        item.put(ID_PEDIDO, pedidos.getId());
+        //item.put(ID_PEDIDO, pedidos.getId());
         item.put(ID_USER, pedidos.getId_user());
         item.put(ID_MESA, pedidos.getId_mesa());
         item.put(ID_ESTADO, pedidos.getId_estado());

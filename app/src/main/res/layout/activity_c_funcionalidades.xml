@@ -50,6 +50,7 @@
             android:layout_height="20dp"
             android:layout_weight="1"
             android:background="@android:color/darker_gray"
+            android:onClick="OnclickFuncionalidades"
             android:text="Pedir Bebida"
             android:textAllCaps="false"
             android:textSize="25sp" />

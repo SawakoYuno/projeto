@@ -76,6 +76,7 @@ public class Artigo {
     /* CONSTRUTOR */
 
     public Artigo(Integer id, Integer id_tipo_ementa, String nome, String detalhes, Integer preco, Integer quantidade ,String imagem) {
+
         this.id = id;
         this.id_tipo_ementa = id_tipo_ementa;
         this.nome = nome;
