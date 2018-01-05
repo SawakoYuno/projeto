@@ -63,7 +63,7 @@ public class PedidoJsonParser {
 
             JSONObject pedidos = new JSONObject(response);
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date date = null;
             try {
                 date = dateFormat.parse(pedidos.getString("data_pedido"));

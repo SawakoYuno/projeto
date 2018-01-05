@@ -42,11 +42,13 @@
             android:text="Nome:"
             android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/txt"
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/txtNome"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textPersonName" />
 
     </LinearLayout>
 
@@ -65,14 +67,72 @@
             android:id="@+id/textView14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nº de pessoas:"
+            android:text="Nº de Telefone:"
             android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/txt"
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/txtNtelefone"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="27dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/ghj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quantidade De Pessoas:"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/txtQuantiPessoas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="27dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/asdfasdf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Horario:"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/txtHorario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textPersonName" />
 
     </LinearLayout>
 
@@ -90,7 +150,8 @@
         <Button
             android:id="@+id/btnReservar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:onClick="OnClickReservar"
             android:text="Resevar" />
     </LinearLayout>
 

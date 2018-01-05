@@ -10,8 +10,10 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.GsonBuilder;
@@ -156,76 +158,40 @@ public class SingletonPedido implements PedidoListener{
 
     public void adicionarPedidoAPI(final Pedidos pedidos, final Context context) {
 
-       StringRequest postRequest = new StringRequest(Request.Method.POST, mUrlAPIPedidos,
+        HashMap<String, String> params = new HashMap<String,String>();
+        params.put("id_user", pedidos.getId_user().toString());
+        params.put("id_mesa", pedidos.getId_mesa().toString());
+        params.put("id_estado", pedidos.getId_estado().toString());
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-M-dd");
+        String data = df.format(pedidos.getData_pedido());
+        params.put("data_pedido", data);
 
-                new Response.Listener<String>() {
+        System.out.println("---> params: " + params);
+
+        JsonObjectRequest req = new JsonObjectRequest
+                (Request.Method.POST, mUrlAPIPedidos, new JSONObject(params), new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(String response) {
-                        Log.d("Response", response);
-                        System.out.println("----> RESPOSTA ADD POST: " +response);
-
-                        adicionarPedidoBD(PedidoJsonParser.parserJsonPedidos(response,context));
-                        pedidoListener.onUpdateListaPedidosBD(PedidoJsonParser.parserJsonPedidos(response,context),1);
-
-
-
+                    public void onResponse(JSONObject response) {
                         try {
-                            JSONObject meuPedido = new JSONObject(response);
-                            paraObjeto(meuPedido, context);
-                            } catch (JSONException e) {
-                            e.printStackTrace();
+                            System.out.println("---> Resposta pedido: " + response);
+
+                            VolleyLog.v("Response:%n %s", response.toString(4));
+
+                        } catch (JSONException e) {
+                            System.out.println("---> Erro pedido: " + e);
                         }
                     }
-                },
 
-                new Response.ErrorListener() {
-                    @Override
+                }, new Response.ErrorListener() {
+
                     public void onErrorResponse(VolleyError error) {
-                        //Log.d("Error.Response", error.getMessage());
 
-                        // exemplo da net, error 400
-                        NetworkResponse response = error.networkResponse;
-                        if (error instanceof ServerError && response != null) {
-                            try {
-                                String res = new String(response.data,
-                                        HttpHeaderParser.parseCharset(response.headers, "utf-8"));
-                                // Now you can use any deserializer to make sense of data
-                                JSONObject obj = new JSONObject(res);
-                            } catch (UnsupportedEncodingException e1) {
-                                // Couldn't properly decode data to string
-                                e1.printStackTrace();
-                            } catch (JSONException e2) {
-                                // returned data is not JSONObject?
-                                e2.printStackTrace();
-                            }
-                        }
-
+                        System.out.println("---> Erro pedido 2: " + error);
+                        error.printStackTrace();
                     }
-                }
-        ) {
+                });
 
-
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("id_user", pedidos.getId_user().toString());
-                params.put("id_mesa", pedidos.getId_mesa().toString());
-                params.put("id_estado", pedidos.getId_estado().toString());
-                //params.put("data_pedido", pedidos.getData_pedido().toString());
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-M-dd");
-                String data = df.format(pedidos.getData_pedido());
-                params.put("data_pedido", data);
-                return params;
-            }
-
-           @Override
-           public Map<String, String> getHeaders() throws AuthFailureError {
-               Map<String, String> params = new HashMap<String, String>();
-               params.put("Content-Type", "application/json");
-               return params;
-           }
-        };
-
-        volleyQueue.add(postRequest);
+        volleyQueue.add(req);
 
     }
 
