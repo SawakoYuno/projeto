@@ -62,13 +62,12 @@ public class e_main extends AppCompatActivity {
             if (resultCode == 200)
             {
                 //Toast.makeText(this, "Pedidos criado com sucesso", Toast.LENGTH_SHORT).show();
-                Snackbar.make(findViewById(R.id.ListaPedidos), "Pedidos criado com sucesso", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(R.id.layoutEMAIN), "Pedidos criado com sucesso", Snackbar.LENGTH_SHORT).show();
                // adaptadordaListVP.notifyDataSetChanged();
             }else
             {
-                //Ou usas Toast Ou SnackBar, ok Jéssica ? boooooooobs ^^ meti snack para veres como fica
                 //Toast.makeText(this, "Erro ao criar os pedidos", Toast.LENGTH_SHORT).show();
-                Snackbar.make(findViewById(R.id.ListaPedidos), "Erro ao criar o Pedidos", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(R.id.layoutEMAIN), "Erro ao criar o Pedidos", Snackbar.LENGTH_SHORT).show();
             }
 
     }

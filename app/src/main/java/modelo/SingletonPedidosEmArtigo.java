@@ -35,7 +35,7 @@ public class SingletonPedidosEmArtigo implements PedidosEmArtigoListener{
     private static PedidoEmArtigoDBHelper dbHelper = null;
 
     //---------URL API PEDIDOS_EM_ARTIGOS-----------
-    private String mUrlAPIPedidosEmArtigos = "http://10.0.2.2:8888/pedidos-em-artigo";
+    private String mUrlAPIPedidosEmArtigos = "http://10.0.2.2:8888/pedidos-em-artigos";
     //----------------------------------
 
     private static RequestQueue volleyQueue = null;
@@ -136,7 +136,7 @@ public class SingletonPedidosEmArtigo implements PedidosEmArtigoListener{
 
     }
 
-    public void adicionarPedidoEmArtigoAPI(final Artigo artigo, final Integer idPedido, final Context context) {
+    public void adicionarPedidoEmArtigoAPI(final Artigo artigo, final Integer idPedido, final Integer atual, final Integer fim, final Context context) {
 
         System.out.println("---> Pedido em Artigo : " + idPedido);
         StringRequest postRequest = new StringRequest(Request.Method.POST, mUrlAPIPedidosEmArtigos,
@@ -147,7 +147,8 @@ public class SingletonPedidosEmArtigo implements PedidosEmArtigoListener{
                         Log.d("Response", response);
                         System.out.println("----> RESPOSTA ADD PedidoEmArtigo: " +response);
 
-                        pedidosEmArtigoListener.onUpdateListaPedidosEmArtigoBD(PedidosEmArtigoJsonParser.parserJsonPedidosEmArtigo(response,context),1);
+                        if (atual == fim)
+                            pedidosEmArtigoListener.onUpdateListaPedidosEmArtigoBD(PedidosEmArtigoJsonParser.parserJsonPedidosEmArtigo(response,context),1);
                     }
                 },
 

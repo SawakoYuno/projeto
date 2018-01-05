@@ -65,8 +65,6 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
     private int i = 0;
     private Integer idPedido;
     private List<Artigo> listaPedidos = new ArrayList<>();//X
-    private String mUrlAPIPedidos = "http://10.0.2.2:8888/pedidos";
-
 
 
 
@@ -213,14 +211,17 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
     public void onUpdateListaPedidosBD(Pedidos pedidos, int operacao) {
         idPedido = pedidos.getId();
 
+        Integer max = listaPedidos.size();
+        Integer i = 0;
+
         for(Artigo meuPedido:listaPedidos)
         {
-            SingletonPedidosEmArtigo.getInstance(this).adicionarPedidoEmArtigoAPI(meuPedido, idPedido, this);
+            i++;
+            SingletonPedidosEmArtigo.getInstance(this).adicionarPedidoEmArtigoAPI(meuPedido, idPedido, i, max, this);
 
         }
+        //podia ter posto com for normal, mas agora olha
 
-        Intent voltarAtras = new Intent();
-        setResult(200, voltarAtras);
     // JOAQUIM FAZ O SWITCH!!!
     }
 
@@ -277,7 +278,11 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
 
     @Override
     public void onUpdateListaPedidosEmArtigoBD(PedidosEmArtigo pedidosEmArtigo, int operacao) {
-
+        Intent voltarAtras = new Intent();
+        setResult(200, voltarAtras);
+        /*Intent goBack = new Intent(this, e_main.class);
+        startActivity(goBack);*/
+        finish();
     }
 
 
