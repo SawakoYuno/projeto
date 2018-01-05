@@ -148,12 +148,9 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
 
         MenuItem item = menu.findItem(R.id.itemEditar);
 
-        //?!?!?
         final List<Artigo> tempList = new ArrayList<>();
 
         listaviewArtigos.setAdapter(new ListaArtigoAdapter(getApplicationContext(), tempList));
-
-
 
        return true;
     }

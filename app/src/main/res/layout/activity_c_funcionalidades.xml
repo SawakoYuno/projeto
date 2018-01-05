@@ -34,6 +34,7 @@
             android:layout_height="20dp"
             android:layout_weight="1"
             android:background="@android:color/darker_gray"
+            android:onClick="onClickFuncionalidades"
             android:text="Chamar Empregado"
             android:textAlignment="center"
             android:textAllCaps="false"
@@ -50,7 +51,7 @@
             android:layout_height="20dp"
             android:layout_weight="1"
             android:background="@android:color/darker_gray"
-            android:onClick="OnclickFuncionalidades"
+            android:onClick="onClickFuncionalidades"
             android:text="Pedir Bebida"
             android:textAllCaps="false"
             android:textSize="25sp" />
@@ -67,6 +68,7 @@
             android:layout_weight="1"
             android:background="@android:color/darker_gray"
             android:text="Pedir Fatura"
+            android:onClick="onClickFuncionalidades"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textSize="25sp" />
 
@@ -82,6 +84,7 @@
             android:layout_weight="1"
             android:background="@android:color/darker_gray"
             android:text="Ver Lista de Pedidos"
+            android:onClick="onClickFuncionalidades"
             android:textAllCaps="false"
             android:textSize="25sp" />
 
