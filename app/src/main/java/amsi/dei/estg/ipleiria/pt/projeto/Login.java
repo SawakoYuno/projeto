@@ -30,6 +30,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.gson.JsonObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,6 +66,7 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
     private View mProgressView;
     private View mLoginFormView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,11 +93,11 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
             @Override
             public void onClick(View view) {
 
-                     /*JsonObjectRequest request = new JsonObjectRequest(response);
+                JsonObjectRequest request = new JsonObjectRequest();
 
                 String tipo = response.getString("tipo");
 
-                JsonObject dados = response.getJSONObject("dados");*/
+                JsonObject dados = response.getJSONObject("dados");
 
                 attemptLogin();
             }
