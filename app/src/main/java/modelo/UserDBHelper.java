@@ -44,6 +44,8 @@ public class UserDBHelper extends SQLiteOpenHelper{
         sqLiteDatabase.execSQL(query);
     }
 
+    //
+
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
@@ -52,7 +54,7 @@ public class UserDBHelper extends SQLiteOpenHelper{
             String query = "DROP TABLE IF EXISTS " + TABLE_NAME;
             sqLiteDatabase.execSQL(query);
 
-            onCreate(sqLiteDatabase);
+            //onCreate(sqLiteDatabase);
         }
     }
 

@@ -32,7 +32,7 @@ public class SingletonArtigo implements ArtigoListener {
     private static ArtigoDBHelper dbHelper = null;
 
     //---------URL API ARTIGO-----------
-    private String mUrlAPIArtigos = "http://10.0.2.2:8888/artigos";
+    private String mUrlAPIArtigos = "http://192.168.1.135:8888/artigos";
     //----------------------------------
 
     private static RequestQueue volleyQueue = null;
