@@ -219,7 +219,6 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
         }
         //podia ter posto com for normal, mas agora olha
 
-        // JOAQUIM FAZ O SWITCH!!!
     }
 
 
@@ -233,6 +232,10 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date data_pedido = (c.getTime());
 
+        // Date hora_pedido;
+        Calendar cs = Calendar.getInstance();
+        SimpleDateFormat dfs = new SimpleDateFormat("HH:mm:ss");
+        Date hora_pedido = (c.getTime());
 
        /* SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
         String dateTime = dateFormat.format(data_pedido);
@@ -248,14 +251,15 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
 //        int id_pedidos = pedidosEmArtigosList.get(listaPedidos.get(id));
         ArrayList<Artigo>ListaArtigos;
 
-        id_mesa = Integer.parseInt(txtNmesa.getText().toString());
+        id_mesa = 1;
         id_estado = 1;
 
         pedidos = new Pedidos(
                 id_user,
                 id_mesa,
                 id_estado,
-                data_pedido);
+                data_pedido,
+                hora_pedido);
 
         SingletonPedido.getInstance(this).adicionarPedidoAPI(pedidos, this);
 
@@ -265,7 +269,6 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
         ListaArtigos.add(new Artigo(id, id_tipo_ementa, nome, detalhes, preco, quantidade, imagem));
 
 
-        //foreach
     }
 
     @Override

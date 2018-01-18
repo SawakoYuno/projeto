@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Login"
+            android:name=".e_main"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,9 +29,7 @@
         </activity>
 
         <!-- EMPREGADO -->
-        <activity
-            android:name=".e_main"
-            android:screenOrientation="landscape" />
+
         <activity
             android:name=".e_pedidos"
             android:parentActivityName=".e_main"

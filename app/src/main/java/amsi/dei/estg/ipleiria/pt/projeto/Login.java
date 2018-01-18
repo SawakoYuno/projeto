@@ -88,20 +88,20 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                JsonObjectRequest request = new JsonObjectRequest();
-
-                String tipo = response.getString("tipo");
-
-                JsonObject dados = response.getJSONObject("dados");
-
-                attemptLogin();
-            }
-        });
+//        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+//        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                JsonObjectRequest request = new JsonObjectRequest();
+//
+//                String tipo = response.getString("tipo");
+//
+//                JsonObject dados = response.getJSONObject("dados");
+//
+//                attemptLogin();
+//            }
+//        });
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
