@@ -42,7 +42,9 @@ public class SingletonPedido implements PedidoListener{
     private static PedidoDBHelper dbHelper = null;
 
     //---------URL API ARTIGO-----------
-    private String mUrlAPIPedidos = "http://192.168.1.66:8888/pedidos";
+    private String mUrlAPIPedidos = "http://10.0.2.2:8888/pedidos";
+    //http://10.0.2.2:8888/
+    //http://192.168.1.66:8888/
     //----------------------------------
 
     private static RequestQueue volleyQueue = null;
