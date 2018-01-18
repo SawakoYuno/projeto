@@ -39,13 +39,22 @@ public class PedidoJsonParser {
                     e.printStackTrace();
                 }
 
+                SimpleDateFormat dateFormats = new SimpleDateFormat("HH:mm:ss");
+                Date horario = null;
+                try {
+                    horario = dateFormat.parse(pedidos.getString("hora_pedido"));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
                 int idPedido = pedidos.getInt("id");
                 int idUser = pedidos.getInt("id_user");
                 int idMesa = pedidos.getInt("id_mesa");
                 int idEstado = pedidos.getInt("id_estado");
                 Date data_pedido = date; //tipo data
+                Date hora_pedido = horario;
 
-                Pedidos auxPedidos = new Pedidos(idUser, idMesa, idEstado, data_pedido);
+                Pedidos auxPedidos = new Pedidos(idUser, idMesa, idEstado, data_pedido,hora_pedido);
                 tempListaPedidos.add(auxPedidos);
             }
         } catch (JSONException e) {
@@ -71,14 +80,22 @@ public class PedidoJsonParser {
                 e.printStackTrace();
             }
 
+            SimpleDateFormat dateFormats = new SimpleDateFormat("HH:mm:ss");
+            Date horario = null;
+            try {
+                horario = dateFormat.parse(pedidos.getString("hora_pedido"));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
             int idPedido = pedidos.getInt("id");
             int idUser = pedidos.getInt("id_user");
             int idMesa = pedidos.getInt("id_mesa");
             int idEstado = pedidos.getInt("id_estado");
             Date data_pedido = date;
+            Date hora_pedido = horario;
 
-            Pedidos auxPedidos = new Pedidos(idUser, idMesa, idEstado, data_pedido);
+            Pedidos auxPedidos = new Pedidos(idUser, idMesa, idEstado, data_pedido, hora_pedido);
             auxPedidos.setId(idPedido);
             return auxPedidos;
 

@@ -38,7 +38,7 @@ public class PedidoDBHelper extends SQLiteOpenHelper{
     public PedidoDBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         sqLiteDatabase = getWritableDatabase();
-        //this.onCreate(sqLiteDatabase);
+       // this.onCreate(sqLiteDatabase);
     }
 
 
@@ -129,7 +129,7 @@ public class PedidoDBHelper extends SQLiteOpenHelper{
                         e.printStackTrace();
                     }
 
-                    SimpleDateFormat dateFormate = new SimpleDateFormat("HH:mm:ss");
+                    SimpleDateFormat dateFormate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
                     Date horario = null;
                     try {
                         if (ponteiro.getString(5) != null)
