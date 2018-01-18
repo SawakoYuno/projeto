@@ -42,7 +42,7 @@ public class SingletonPedido implements PedidoListener{
     private static PedidoDBHelper dbHelper = null;
 
     //---------URL API ARTIGO-----------
-    private String mUrlAPIPedidos = "http://10.0.2.2:8888/pedidos";
+    private String mUrlAPIPedidos = "http://192.168.1.66:8888/pedidos";
     //----------------------------------
 
     private static RequestQueue volleyQueue = null;
@@ -165,6 +165,9 @@ public class SingletonPedido implements PedidoListener{
         SimpleDateFormat df = new SimpleDateFormat("yyyy-M-dd");
         String data = df.format(pedidos.getData_pedido());
         params.put("data_pedido", data);
+        SimpleDateFormat dfs = new SimpleDateFormat("HH:mm:ss");
+        String horario = dfs.format(pedidos.getHora_pedido());
+        params.put("hora_pedido", horario);
 
         System.out.println("---> params: " + params);
 
@@ -234,6 +237,7 @@ public class SingletonPedido implements PedidoListener{
                 params.put("id_mesa", pedidos.getId_mesa().toString());
                 params.put("id_estado", pedidos.getId_estado().toString());
                 params.put("data_pedido", pedidos.getData_pedido().toString());
+                params.put("hora_pedido", pedidos.getHora_pedido().toString());
 
                 return params;
             }

@@ -29,6 +29,8 @@ public class PedidoDBHelper extends SQLiteOpenHelper{
     private static final String ID_MESA = "id_mesa";
     private static final String ID_ESTADO = "id_estado";
     private static final String DATA_PEDIDO = "data_pedido";
+    private static final String HORA_PEDIDO = "hora_pedido";
+
 
     private SQLiteDatabase sqLiteDatabase;
 
@@ -47,7 +49,9 @@ public class PedidoDBHelper extends SQLiteOpenHelper{
                 ID_USER + " INTEGER NOT NULL," +
                 ID_MESA + " INTEGER NOT NULL," +
                 ID_ESTADO + " INTEGER NOT NULL," +
-                DATA_PEDIDO + " DATE);";
+                DATA_PEDIDO + " DATE," +
+                HORA_PEDIDO + " DATE);";
+
 
         sqLiteDatabase.execSQL(query);
     }
@@ -95,6 +99,8 @@ public class PedidoDBHelper extends SQLiteOpenHelper{
         item.put(ID_MESA, pedidos.getId_mesa());
         item.put(ID_ESTADO, pedidos.getId_estado());
         item.put(DATA_PEDIDO, pedidos.getData_pedido().toString());
+        item.put(HORA_PEDIDO, pedidos.getHora_pedido().toString());
+
 
         return sqLiteDatabase.update(TABLE_NAME, item, "id = ?", new String[]{"" + pedidos.getId()}) > 0;
     }
@@ -114,20 +120,30 @@ public class PedidoDBHelper extends SQLiteOpenHelper{
         if (ponteiro.moveToFirst())
         {
             do{
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-                Date date = null;
-                try {
-                    if (ponteiro.getString(4) != null)//só para testar
-                        date = dateFormat.parse(ponteiro.getString(4));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+                    Date date = null;
+                    try {
+                        if (ponteiro.getString(4) != null)//só para testar
+                            date = dateFormat.parse(ponteiro.getString(4));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    SimpleDateFormat dateFormate = new SimpleDateFormat("HH:mm:ss");
+                    Date horario = null;
+                    try {
+                        if (ponteiro.getString(5) != null)
+                            horario = dateFormat.parse(ponteiro.getString(5));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
 
                 Pedidos tempPedidods = new Pedidos(
                         ponteiro.getInt(1),
                         ponteiro.getInt(2),
                         ponteiro.getInt(3),
-                        date);
+                        date,
+                        horario);
                        // ponteiro.getString(dateFormat.toString())); //tipo data
 
                 tempPedidods.setId(ponteiro.getInt(0));

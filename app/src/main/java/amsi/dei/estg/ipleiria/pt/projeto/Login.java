@@ -30,21 +30,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.JsonObject;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import modelo.Pedidos;
-import utils.PedidoJsonParser;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -98,56 +88,20 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                JSONObject object = new JSONObject();
-                try {
-                    object.put("username", mEmailView.getText().toString());
-                    object.put("password", mPasswordView.getText().toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                //String url = "";//dps metam, nao sei qual é
-
-                /*JsonObjectRequest request = new JsonObjectRequest
-                        (Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                try {
-                                    System.out.println("---> Resposta pedido: " + response);
-
-
-                                    Pedidos novoPedido = PedidoJsonParser.parserJsonPedidos(response.toString(), context);
-                                    System.out.println("ID: " +novoPedido.getId());
-
-                                    VolleyLog.v("Response:%n %s", response.toString(4));
-
-                                    pedidoListener.onUpdateListaPedidosBD(novoPedido, 1);
-
-                                } catch (JSONException e) {
-                                    System.out.println("---> Erro pedido: " + e);
-                                }
-                            }
-
-                        }, new Response.ErrorListener() {
-
-                            public void onErrorResponse(VolleyError error) {
-
-                                System.out.println("---> Erro pedido 2: " + error);
-                                error.printStackTrace();
-                            }
-                        });*/
-
-/*                String tipo = response.getString("tipo");
-
-                JsonObject dados = response.getJSONObject("dados");
-
-                attemptLogin();*/
-            }
-        });
+//        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+//        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                JsonObjectRequest request = new JsonObjectRequest();
+//
+//                String tipo = response.getString("tipo");
+//
+//                JsonObject dados = response.getJSONObject("dados");
+//
+//                attemptLogin();
+//            }
+//        });
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);

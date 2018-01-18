@@ -19,7 +19,7 @@ public class SingletonUser {
     private static UserDBHelper dbHelper = null;
 
     //---------URL API ARTIGO-----------
-    private String mUrlAPIUser = "http://192.168.43.74:8888/user";
+    private String mUrlAPIUser = "http://192.168.1.66:8888/user";
     //----------------------------------
 
     private static RequestQueue volleyQueue = null;

@@ -17,6 +17,7 @@ public class Pedidos {
     private Integer id_mesa;
     private Integer id_estado;
     private Date data_pedido;
+    private Date hora_pedido;
 
     private ArrayList<Artigo> ListArtigos;
 
@@ -61,9 +62,16 @@ public class Pedidos {
         this.data_pedido = data_pedido;
     }
 
+    public Date getHora_pedido() {
+        return hora_pedido;
+    }
+
+    public void setHora_pedido(Date hora_pedido) {
+        this.hora_pedido = hora_pedido;
+    }
 
     /* CONSTRUTOR */
-    public Pedidos(Integer id_user, Integer id_mesa, Integer id_estado, Date data_pedido) {
+    public Pedidos(Integer id_user, Integer id_mesa, Integer id_estado, Date data_pedido, Date hora_pedido) {
 
         ListArtigos = new ArrayList<>();
 
@@ -71,6 +79,7 @@ public class Pedidos {
         this.id_mesa = id_mesa;
         this.id_estado = id_estado;
         this.data_pedido = data_pedido;
+        this.hora_pedido = hora_pedido;
     }
 
     public ArrayList<Artigo> getArtigos(){
