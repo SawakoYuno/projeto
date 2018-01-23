@@ -1,12 +1,13 @@
-package modelo;
+package singletons;
 
 
 
-import android.app.DownloadManager;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Base64;
 import android.util.Log;
-import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -22,12 +23,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import amsi.dei.estg.ipleiria.pt.projeto.R;
 import listeners.ArtigoListener;
+import modelo.Artigo;
+import dbhelper.ArtigoDBHelper;
 import utils.ArtigoJsonParser;
 
 
 public class SingletonArtigo implements ArtigoListener {
+
+    //final String authorization = Base64.encodeToString(authBytes, Base64.DEFAULT);
+
+    private String auth;
+    private SharedPreferences preferences;
+
+
     private static SingletonArtigo INSTANCE = null;
     private static ArtigoDBHelper dbHelper = null;
 
@@ -43,6 +52,7 @@ public class SingletonArtigo implements ArtigoListener {
     private List<Artigo> artigos;
 
     private ArtigoDBHelper artigoDBHelper;
+
 
 
     public static synchronized SingletonArtigo getInstance(Context context) {
@@ -63,6 +73,9 @@ public class SingletonArtigo implements ArtigoListener {
 
         dbHelper = new ArtigoDBHelper(context);
         artigos = dbHelper.getAllArtigosDB();
+
+        preferences = context.getSharedPreferences("APP_SETTINGS", Context.MODE_PRIVATE);
+        auth = preferences.getString("auth", "");
 
     }
 
@@ -114,8 +127,7 @@ public class SingletonArtigo implements ArtigoListener {
 
     public void getAllArtigoAPI(final Context context)
     {
-
-        //, boolean isConnected
+             //, boolean isConnected
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, mUrlAPIArtigos, null,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -136,23 +148,38 @@ public class SingletonArtigo implements ArtigoListener {
                         System.out.println("Erro ao fazer o pedido JSonArray!!");
                     }
                 }
-        );
-        // Adding JsonObject request to request queue
-        volleyQueue.add(jsonArrayRequest);
+                )
+
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Accept", "application/json");
+                params.put("Authorization", "Basic " + auth);
+                return params;
+            }
 
 
-    }
+        };
+
+            // Adding JsonObject request to request queue
+            //volleyQueue.add(jsonArrayRequest);
+
+
+            RequestQueue queue = Volley.newRequestQueue(context);
+            queue.add(jsonArrayRequest);
+
+        }
 
     /***********************************************************/
-    public void getArtigoTipoAPI(String tipo, final Context context)
-    {
+    public void getArtigoTipoAPI(String tipo, final Context context) {
         //, boolean isConnected
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, mUrlAPIArtigos  + "/tipo/" + tipo, null,
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, mUrlAPIArtigos + "/tipo/" + tipo, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
 
-                        artigos = ArtigoJsonParser.parserJsonArtigo(response,context);
+                        artigos = ArtigoJsonParser.parserJsonArtigo(response, context);
 
                         //adicionarArtigosBD(artigos);
 
@@ -165,9 +192,24 @@ public class SingletonArtigo implements ArtigoListener {
                         System.out.println("Erro ao fazer o pedido JSonArray!!");
                     }
                 }
-        );
 
-        volleyQueue.add(jsonArrayRequest);
+        ){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Accept", "application/json");
+                params.put("Authorization", "Basic " + auth);
+                return params;
+            }
+
+
+        };
+
+
+
+       // volleyQueue.add(jsonArrayRequest);
+        RequestQueue queue = Volley.newRequestQueue(context);
+        queue.add(jsonArrayRequest);
 
     }
 
@@ -197,6 +239,15 @@ public class SingletonArtigo implements ArtigoListener {
         ) {
 
             @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Accept", "application/json");
+                params.put("Authorization", "Basic " + auth);
+                return params;
+            }
+
+
+            @Override
             protected Map<String, String> getParams()
             {
                 Map<String, String>  params = new HashMap<String, String> ();
@@ -214,7 +265,9 @@ public class SingletonArtigo implements ArtigoListener {
 
         };
 
-        volleyQueue.add(putRequest);
+        //volleyQueue.add(putRequest);
+        RequestQueue queue = Volley.newRequestQueue(context);
+        queue.add(putRequest);
     }
     public void setArtigoListener(ArtigoListener artigoListener)
     {

@@ -1,30 +1,16 @@
 package Adaptadores;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-
-import java.io.File;
-import java.nio.file.Path;
 import java.util.List;
 
 import amsi.dei.estg.ipleiria.pt.projeto.R;
 import modelo.Artigo;
-import modelo.ArtigoDBHelper;
 
 
 public class ListaArtigoAdapter extends BaseAdapter {

@@ -10,13 +10,11 @@ import android.widget.ListView;
 
 import java.util.List;
 
-import android.widget.AdapterView;
-
 import Adaptadores.ListaArtigoAdapter;
 import Adaptadores.ListaBebidasAdapter;
 import listeners.ArtigoListener;
 import modelo.Artigo;
-import modelo.SingletonArtigo;
+import singletons.SingletonArtigo;
 
 
 public class c_pedirbebida extends AppCompatActivity implements ArtigoListener{

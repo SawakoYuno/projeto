@@ -3,7 +3,9 @@ package amsi.dei.estg.ipleiria.pt.projeto;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -57,6 +59,8 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
+    SharedPreferences preferences;
+    SharedPreferences.Editor prefEditor;
 
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -84,38 +88,50 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        setTitle("Bem vindo!");
-        mUsernameView = (AutoCompleteTextView) findViewById(R.id.username);
+        preferences = getSharedPreferences("APP_SETTINGS", Context.MODE_PRIVATE);
+        prefEditor = preferences.edit();
 
-        mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
-                }
-                return false;
+        String auth = preferences.getString("auth", "");
+
+        if (!auth.isEmpty())
+        {
+
+            String tipo = preferences.getString("tipo", "");
+
+            if(tipo.equals("cliente"))
+            {
+                //abrir menu cliente
+                Intent intent = new Intent(getApplicationContext(), c_main.class);
+                startActivity(intent);
+                finish();
+            } else if(tipo.equals("empregado"))
+            {
+                //abrir menu empregado
+                Intent intent = new Intent(getApplicationContext(), e_main.class);
+                startActivity(intent);
+                finish();
             }
-        });
+        }else
+        {
+            setTitle("Bem vindo!");
+            mUsernameView = (AutoCompleteTextView) findViewById(R.id.username);
 
-//        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-//        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                JsonObjectRequest request = new JsonObjectRequest();
-//
-//                String tipo = response.getString("tipo");
-//
-//                JsonObject dados = response.getJSONObject("dados");
-//
-//                attemptLogin();
-//            }
-//        });
+            mPasswordView = (EditText) findViewById(R.id.password);
+            mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+                    if (id == R.id.login || id == EditorInfo.IME_NULL) {
+                        attemptLogin();
+                        return true;
+                    }
+                    return false;
+                }
+            });
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
+            mLoginFormView = findViewById(R.id.login_form);
+            mProgressView = findViewById(R.id.login_progress);
+        }
+
     }
 
     /**
@@ -254,6 +270,9 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
                     @Override
                     public void onResponse(JSONObject response)
                     {
+                        //GUARDAR VARIÁVEL IMPORTANTE
+                        prefEditor.putString("auth", authorization);
+
                         String tipo = "";
 
                         try {
@@ -264,6 +283,8 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
 
                         if (tipo.equals("cliente"))
                         {
+                            prefEditor.putString("tipo", "cliente");
+                            prefEditor.apply();
                             //Abrir parte de cliente
                             Intent intent = new Intent(getApplicationContext(), c_main.class);
                             startActivity(intent);
@@ -272,6 +293,8 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
 
                         }else if (tipo.equals("empregado") || tipo.equals("admin"))
                         {
+                            prefEditor.putString("tipo", "empregado");
+                            prefEditor.apply();
                             //Abrir parte do empregado
                             Intent intent = new Intent(getApplicationContext(), e_main.class);
                             startActivity(intent);
@@ -303,9 +326,10 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(request);
     }
+}
 
 
-    private interface ProfileQuery {
+      interface ProfileQuery {
         String[] PROJECTION = {
                 ContactsContract.CommonDataKinds.Email.ADDRESS,
                 ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
@@ -319,7 +343,7 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mEmail;
          private final String mPassword;
@@ -340,13 +364,13 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
                 return false;
             }
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
+            //for (String credential : DUMMY_CREDENTIALS) {
+               // String[] pieces = credential.split(":");
+               // if (pieces[0].equals(mEmail)) {
                      //Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
+                   // return pieces[1].equals(mPassword);
+               // }
+            //}
 
             // TODO: register the new account here.
             return true;
@@ -354,19 +378,8 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
 
         @Override
         protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
+           /* mAuthTask = null;
             showProgress(false);
-
-/*            if (success) {
-                finish();
-
-                Intent intent = new Intent(getApplicationContext(), e_main.class);
-                //mudar e_main para c_main para testar cliente
-                startActivity(intent);
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
-            }*/
 
 
             //(username+":"+password)
@@ -430,7 +443,7 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
         protected void onCancelled() {
             mAuthTask = null;
             showProgress(false);
-        }
+        }*/
     }
 }
 

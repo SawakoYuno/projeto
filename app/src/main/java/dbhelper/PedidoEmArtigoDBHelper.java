@@ -1,4 +1,4 @@
-package modelo;
+package dbhelper;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -11,6 +11,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import modelo.PedidosEmArtigo;
 
 /**
  * Created by Utilizador on 02/01/2018.

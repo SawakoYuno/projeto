@@ -7,11 +7,10 @@ import android.widget.ListView;
 
 import java.util.List;
 
-import Adaptadores.ListaArtigoAdapter;
 import Adaptadores.ListaEmentaAdapter;
 import listeners.ArtigoListener;
 import modelo.Artigo;
-import modelo.SingletonArtigo;
+import singletons.SingletonArtigo;
 
 public class c_ementa extends AppCompatActivity implements ArtigoListener{
 

@@ -1,17 +1,15 @@
-package modelo;
+package singletons;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.ServerError;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
@@ -22,15 +20,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import listeners.PedidoListener;
+import dbhelper.PedidoDBHelper;
+import modelo.Pedidos;
 import utils.PedidoJsonParser;
 
 /**
@@ -53,6 +51,9 @@ public class SingletonPedido implements PedidoListener{
 
     private List<Pedidos> pedidos;
 
+    private String auth;
+    private SharedPreferences preferences;
+
 
     public static synchronized SingletonPedido getInstance(Context context) {
         if( INSTANCE == null)
@@ -71,6 +72,10 @@ public class SingletonPedido implements PedidoListener{
 
         dbHelper = new PedidoDBHelper(context);
         pedidos = dbHelper.getAllPedidosDB();
+
+        preferences = context.getSharedPreferences("APP_SETTINGS", Context.MODE_PRIVATE);
+        auth = preferences.getString("auth", "");
+
 
     }
 
@@ -238,6 +243,15 @@ public class SingletonPedido implements PedidoListener{
                     }
                 }
         ) {
+
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Accept", "application/json");
+                params.put("Authorization", "Basic " + auth);
+                return params;
+            }
 
             @Override
             protected Map<String, String> getParams()

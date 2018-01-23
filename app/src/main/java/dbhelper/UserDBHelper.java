@@ -1,4 +1,4 @@
-package modelo;
+package dbhelper;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import modelo.User;
 
 /**
  * Created by Joaquim on 02-01-2018.

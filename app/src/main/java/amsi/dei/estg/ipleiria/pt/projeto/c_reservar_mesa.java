@@ -5,15 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import modelo.Reserva;
-import modelo.SingletonReserva;
+import singletons.SingletonReserva;
 
 public class c_reservar_mesa extends AppCompatActivity {
 

@@ -1,6 +1,7 @@
-package modelo;
+package singletons;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -9,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import listeners.UserListener;
+import modelo.User;
+import dbhelper.UserDBHelper;
 
 /**
  * Created by Joaquim on 02-01-2018.
@@ -33,6 +36,11 @@ public class SingletonUser {
     private UserDBHelper userDBHelper;
 
 
+    private String auth;
+    private SharedPreferences preferences;
+
+
+
     public static synchronized SingletonUser getInstance(Context context) {
         if( INSTANCE == null)
         {
@@ -50,6 +58,10 @@ public class SingletonUser {
 
         dbHelper = new UserDBHelper(context);
         users = dbHelper.getAllUserDB();
+
+        preferences = context.getSharedPreferences("APP_SETTINGS", Context.MODE_PRIVATE);
+        auth = preferences.getString("auth", "");
+
 
     }
 }

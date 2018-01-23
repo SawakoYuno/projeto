@@ -2,7 +2,6 @@ package amsi.dei.estg.ipleiria.pt.projeto;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,36 +15,23 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.android.volley.Request;
-import com.android.volley.toolbox.StringRequest;
-
-import org.json.JSONObject;
-
-import java.sql.Time;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 
 import Adaptadores.ListaArtigoAdapter;
-import Adaptadores.ListaEmentaAdapter;
 import Adaptadores.ListaPedidoAdapter;
 import listeners.ArtigoListener;
 import listeners.PedidoListener;
 import listeners.PedidosEmArtigoListener;
 import modelo.Artigo;
-import modelo.ArtigoDBHelper;
-import modelo.Mesa;
 import modelo.Pedidos;
 import modelo.PedidosEmArtigo;
-import modelo.SingletonArtigo;
-import modelo.SingletonPedido;
-import modelo.SingletonPedidosEmArtigo;
+import singletons.SingletonArtigo;
+import singletons.SingletonPedido;
+import singletons.SingletonPedidosEmArtigo;
 
 public class e_pedidos extends AppCompatActivity implements ArtigoListener, PedidoListener, PedidosEmArtigoListener {
 

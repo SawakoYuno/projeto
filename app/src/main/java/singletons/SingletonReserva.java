@@ -1,17 +1,14 @@
-package modelo;
+package singletons;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.ServerError;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
@@ -22,16 +19,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import listeners.PedidoListener;
 import listeners.ReservaListener;
-import utils.PedidoJsonParser;
+import modelo.Reserva;
+import dbhelper.ReservaDBHelper;
 import utils.ReservaJsonParser;
 
 /**
@@ -54,6 +48,9 @@ public class SingletonReserva implements ReservaListener{
 
     private List<Reserva> reservas;
 
+    private String auth;
+    private SharedPreferences preferences;
+
 
     public static synchronized SingletonReserva getInstance(Context context) {
         if( INSTANCE == null)
@@ -71,6 +68,9 @@ public class SingletonReserva implements ReservaListener{
 
         dbHelper = new ReservaDBHelper(context);
         reservas = dbHelper.getAllReservasDB();
+
+        preferences = context.getSharedPreferences("APP_SETTINGS", Context.MODE_PRIVATE);
+        auth = preferences.getString("auth", "");
 
     }
 
@@ -158,6 +158,7 @@ public class SingletonReserva implements ReservaListener{
 
     public void adicionarReservaAPI(final Reserva reserva, final Context context) {
 
+
         HashMap<String, String> params = new HashMap<String,String>();
         params.put("nome", reserva.getNome());
         params.put("numeroTelefone", reserva.getNumeroTelefone().toString());
@@ -201,6 +202,7 @@ public class SingletonReserva implements ReservaListener{
         params.put("quantidade_pessoas", reserva.getQuantidade_pessoas().toString());
         params.put("horario", reserva.getHorario());
         params.put("id_mesa", "1");
+
 
         System.out.println("---> params: " + params);
 

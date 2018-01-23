@@ -1,9 +1,11 @@
-package modelo;
+package singletons;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -19,10 +21,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import listeners.PedidoListener;
 import listeners.PedidosEmArtigoListener;
-import utils.ArtigoJsonParser;
-import utils.PedidoJsonParser;
+import modelo.Artigo;
+import dbhelper.PedidoEmArtigoDBHelper;
+import modelo.PedidosEmArtigo;
 import utils.PedidosEmArtigoJsonParser;
 
 /**
@@ -46,6 +48,8 @@ public class SingletonPedidosEmArtigo implements PedidosEmArtigoListener{
 
     private List<PedidosEmArtigo> pedidosEmArtigoList;
 
+    private String auth;
+    private SharedPreferences preferences;
 
 
    // private static final SingletonPedidosEmArtigo ourInstance = new SingletonPedidosEmArtigo();
@@ -65,6 +69,9 @@ public class SingletonPedidosEmArtigo implements PedidosEmArtigoListener{
 
         dbHelper = new PedidoEmArtigoDBHelper(context);
         pedidosEmArtigoList = dbHelper.getAllPedidosEmArtigoDB();
+
+        preferences = context.getSharedPreferences("APP_SETTINGS", Context.MODE_PRIVATE);
+        auth = preferences.getString("auth", "");
 
 
     }
@@ -161,6 +168,15 @@ public class SingletonPedidosEmArtigo implements PedidosEmArtigoListener{
                     }
                 }
         ) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Accept", "application/json");
+                params.put("Authorization", "Basic " + auth);
+                return params;
+            }
+
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("id_artigo", artigo.getId().toString());
@@ -197,6 +213,15 @@ public class SingletonPedidosEmArtigo implements PedidosEmArtigoListener{
                     }
                 }
         ) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Accept", "application/json");
+                params.put("Authorization", "Basic " + auth);
+                return params;
+            }
+
 
             @Override
             protected Map<String, String> getParams()
