@@ -1,6 +1,8 @@
 package amsi.dei.estg.ipleiria.pt.projeto;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -20,26 +22,24 @@ public class e_main extends AppCompatActivity {
 
     public static final Integer RC_E_PEDIDOS = 100;
 
-
-
+    SharedPreferences preferences;
+    SharedPreferences.Editor prefEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_e_main);
         setTitle("Mesas");
+
+        preferences = getSharedPreferences("APP_SETTINGS",Context.MODE_PRIVATE);
+        prefEditor = preferences.edit();
+
     }
 
 
     public void onClick(View v) {
         Button btn = (Button) v;
         String texto = btn.getText().toString();
-
-        /*
-        Intent intent = new Intent(this, e_pedidos.class);
-        intent.putExtra(e_pedidos.btn, texto);
-        startActivity(intent);
-        */
 
         Intent intentId_mesa = new Intent(this, c_lista_pedidos.class);
         intentId_mesa.putExtra(e_pedidos.btn, texto);
@@ -59,8 +59,28 @@ public class e_main extends AppCompatActivity {
         MenuItem item_editar = menu.findItem(R.id.itemEditar);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(item_editar);
 
-        return super.onCreateOptionsMenu(menu);
+        MenuItem logout = menu.findItem(R.id.itemLogout);
+        SearchView searchViews = (SearchView) MenuItemCompat.getActionView(logout);
 
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.itemLogout:
+
+                prefEditor.putString("auth", "");
+                prefEditor.apply();
+
+                finish();
+                Intent verlogout = new Intent(this, Login.class);
+                startActivity(verlogout);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
