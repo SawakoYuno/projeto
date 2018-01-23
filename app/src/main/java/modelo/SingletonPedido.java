@@ -154,7 +154,12 @@ public class SingletonPedido implements PedidoListener{
                 }
         );
         // Adding JsonObject request to request queue
-        volleyQueue.add(jsonArrayRequest);
+        //volleyQueue.add(jsonArrayRequest);
+
+        /*****************************************************/
+        RequestQueue queue = Volley.newRequestQueue(context);
+        queue.add(jsonArrayRequest);
+        /*****************************************************/
 
     }
 
@@ -202,7 +207,12 @@ public class SingletonPedido implements PedidoListener{
                     }
                 });
 
-        volleyQueue.add(req);
+        //volleyQueue.add(req);
+
+        /*****************************************************/
+        RequestQueue queue = Volley.newRequestQueue(context);
+        queue.add(req);
+        /*****************************************************/
 
     }
 
@@ -246,7 +256,14 @@ public class SingletonPedido implements PedidoListener{
 
         };
 
-        volleyQueue.add(putRequest);
+        //volleyQueue.add(putRequest);
+
+        /*****************************************************/
+        RequestQueue queue = Volley.newRequestQueue(context);
+        queue.add(putRequest);
+        /*****************************************************/
+
+
     }
 
     public void eliminarPedidoAPI(final Pedidos pedidos,final int id, final Context context) {
@@ -272,7 +289,12 @@ public class SingletonPedido implements PedidoListener{
 
 
         );
-        volleyQueue.add(dr);
+        //volleyQueue.add(dr);
+        /*****************************************************/
+        RequestQueue queue = Volley.newRequestQueue(context);
+        queue.add(dr);
+        /*****************************************************/
+
     }
 
 

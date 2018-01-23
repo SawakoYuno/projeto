@@ -20,21 +20,31 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.google.gson.JsonObject;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -61,10 +71,12 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
     private UserLoginTask mAuthTask = null;
 
     // UI references.
-    private AutoCompleteTextView mEmailView;
+    private AutoCompleteTextView mUsernameView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+
+    String url = "http://10.0.2.2:8888/users/";
 
 
     @Override
@@ -73,8 +85,7 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
         setContentView(R.layout.activity_login);
 
         setTitle("Bem vindo!");
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        populateAutoComplete();
+        mUsernameView = (AutoCompleteTextView) findViewById(R.id.username);
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -107,50 +118,6 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
         mProgressView = findViewById(R.id.login_progress);
     }
 
-    private void populateAutoComplete() {
-        if (!mayRequestContacts()) {
-            return;
-        }
-
-        getLoaderManager().initLoader(0, null, this);
-    }
-
-    private boolean mayRequestContacts() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return true;
-        }
-        if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        }
-        if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
-            Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(android.R.string.ok, new View.OnClickListener() {
-                        @Override
-                        @TargetApi(Build.VERSION_CODES.M)
-                        public void onClick(View v) {
-                            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-                        }
-                    });
-        } else {
-            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-        }
-        return false;
-    }
-
-    /**
-     * Callback received when a permissions request has been completed.
-     */
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        if (requestCode == REQUEST_READ_CONTACTS) {
-            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                populateAutoComplete();
-            }
-        }
-    }
-
-
     /**
      * Attempts to sign in or register the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
@@ -162,11 +129,11 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
         }
 
         // Reset errors.
-        mEmailView.setError(null);
+        mUsernameView.setError(null);
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
+        String username = mUsernameView.getText().toString();
         String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
@@ -179,14 +146,10 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
             cancel = true;
         }
 
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
-            cancel = true;
-        } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
+        // Check for a valid username.
+        if (TextUtils.isEmpty(username)) {
+            mUsernameView.setError(getString(R.string.error_field_required));
+            focusView = mUsernameView;
             cancel = true;
         }
 
@@ -198,14 +161,9 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
+            mAuthTask = new UserLoginTask(username, password);
             mAuthTask.execute((Void) null);
         }
-    }
-
-    private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     private boolean isPasswordValid(String password) {
@@ -274,8 +232,6 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
             emails.add(cursor.getString(ProfileQuery.ADDRESS));
             cursor.moveToNext();
         }
-
-        addEmailsToAutoComplete(emails);
     }
 
     @Override
@@ -283,13 +239,69 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
 
     }
 
-    private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
-        //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(Login.this,
-                        android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
-        mEmailView.setAdapter(adapter);
+    public void onClickLogin(View view) {
+
+        byte[] authBytes = (mUsernameView.getText().toString()+":"+mPasswordView.getText().toString()).getBytes();
+        //MUITO IMPORTANTE -> guardar isto para usar SEMPRE (ex: num singleton, ou em todos)
+        //AINDA NÃO GUARDASTE ESTA VARIÁVEL. SE TENS AUTENTICAÇÃO NO RESTO DA API, PFF GUARDA
+        final String authorization = Base64.encodeToString(authBytes, Base64.DEFAULT);
+
+        JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.GET, url + mUsernameView.getText().toString() + "/tipo",null,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response)
+                    {
+                        String tipo = "";
+
+                        try {
+                            tipo = response.getString("tipo");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        if (tipo.equals("cliente"))
+                        {
+                            //Abrir parte de cliente
+                            Intent intent = new Intent(getApplicationContext(), c_main.class);
+                            startActivity(intent);
+                            //Prevenir que o utilizador volte atrás ao login
+                            finish();
+
+                        }else if (tipo.equals("empregado") || tipo.equals("admin"))
+                        {
+                            //Abrir parte do empregado
+                            Intent intent = new Intent(getApplicationContext(), e_main.class);
+                            startActivity(intent);
+                            //Prevenir que o utilizador volte atrás ao login
+                            finish();
+                        }
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(Login.this, "Erro ao fazer login", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Accept", "application/json");
+                //Necessário para passar na autenticação
+                params.put("Authorization", "Basic " + authorization);
+                return params;
+            }
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(request);
     }
 
 
@@ -310,11 +322,11 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mEmail;
-        private final String mPassword;
+         private final String mPassword;
 
         UserLoginTask(String email, String password) {
-            mEmail = email;
-            mPassword = password;
+           mEmail = email;
+           mPassword = password;
         }
 
         @Override
@@ -331,7 +343,7 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
             for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
                 if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
+                     //Account exists, return true if the password matches.
                     return pieces[1].equals(mPassword);
                 }
             }
@@ -345,7 +357,7 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
             mAuthTask = null;
             showProgress(false);
 
-            if (success) {
+/*            if (success) {
                 finish();
 
                 Intent intent = new Intent(getApplicationContext(), e_main.class);
@@ -354,7 +366,64 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
-            }
+            }*/
+
+
+            //(username+":"+password)
+            byte[] authBytes = (mUsernameView.getText().toString() +":"+mPasswordView.getText().toString()).getBytes();
+            //MUITO IMPORTANTE -> guardar isto para usar SEMPRE (ex: num singleton, ou em todos)
+            final String authorization = Base64.encodeToString(authBytes, Base64.DEFAULT);
+
+            JsonObjectRequest request = new JsonObjectRequest(
+                    Request.Method.GET, url + mUsernameView.getText().toString(),null,
+                    new Response.Listener<JSONObject>()
+                    {
+                        @Override
+                        public void onResponse(JSONObject response)
+                        {
+                            String tipo = "";
+
+                            try {
+                                tipo = response.getString("tipo");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            if (tipo == "cliente")
+                            {
+                                //Abrir parte de cliente
+                                Intent intent = new Intent(getApplicationContext(), c_main.class);
+                                startActivity(intent);
+
+                            }else if (tipo == "empregado")
+                            {
+                                //Abrir parte do empregado
+                                Intent intent = new Intent(getApplicationContext(), e_main.class);
+                                startActivity(intent);
+                            }
+                        }
+                    },
+                    new Response.ErrorListener()
+                    {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(Login.this, "Erro ao fazer login", Toast.LENGTH_SHORT).show();
+                        }
+
+
+                    }
+            ) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("Accept", "application/json");
+                    //Necessário para passar na autenticação
+                    params.put("Authorization", "Basic " + authorization);
+                    return params;
+                }
+            };
+
+
         }
 
         @Override
