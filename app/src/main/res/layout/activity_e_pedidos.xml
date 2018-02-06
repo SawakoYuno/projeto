@@ -168,6 +168,14 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/btnDetalhes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onClickDetalhes"
+            android:text="Detalhes" />
+
+        <Button
             android:id="@+id/btnEnviar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -181,6 +189,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Fatura" />
+
     </LinearLayout>
 
 </LinearLayout>

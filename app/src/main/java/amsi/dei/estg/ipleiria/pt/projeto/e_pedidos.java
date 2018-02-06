@@ -2,6 +2,7 @@ package amsi.dei.estg.ipleiria.pt.projeto;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,6 +34,8 @@ import singletons.SingletonArtigo;
 import singletons.SingletonPedido;
 import singletons.SingletonPedidosEmArtigo;
 
+import static amsi.dei.estg.ipleiria.pt.projeto.e_main.RC_E_PEDIDOS;
+
 public class e_pedidos extends AppCompatActivity implements ArtigoListener, PedidoListener, PedidosEmArtigoListener {
 
     private ListaArtigoAdapter adaptadorDaList;
@@ -51,7 +54,10 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
     private int i = 0;
     private Integer idPedido;
     private List<Artigo> listaPedidos = new ArrayList<>();//X
+    String texto;
 
+    // SharedPreferences preferences;
+    // SharedPreferences.Editor prefEditor;
 
 
     @Override
@@ -60,6 +66,10 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_e_pedidos);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+       /* preferences = getSharedPreferences("APP_SETTINGS",Context.MODE_PRIVATE);
+        prefEditor = preferences.edit();*/
+
 
         SingletonArtigo.getInstance(this).setArtigoListener(this);
         SingletonPedido.getInstance(this).setPedidosListener(this);
@@ -255,6 +265,21 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
         ListaArtigos.add(new Artigo(id, id_tipo_ementa, nome, detalhes, preco, quantidade, imagem));
 
 
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.itemEditar:
+                Intent criarDetalhesMesa = new Intent(this, e_detalhesMensa.class);
+                criarDetalhesMesa.putExtra(e_detalhesMensa.btn, texto);
+                startActivityForResult(criarDetalhesMesa, RC_E_PEDIDOS);
+                finish();
+                return true;
+
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

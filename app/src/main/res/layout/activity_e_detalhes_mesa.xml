@@ -72,20 +72,18 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/textView44"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Nome:"
             android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/txtnome"
-            android:layout_width="56dp"
+        <TextView
+            android:id="@+id/textViewNome"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName" />
+            android:layout_weight="1" />
 
     </LinearLayout>
 
@@ -96,20 +94,18 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/textView48"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Quantidade de pessoas:"
             android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/txtQntPessoas"
-            android:layout_width="56dp"
+        <TextView
+            android:id="@+id/textViewQuantidade"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName" />
+            android:layout_weight="1" />
 
     </LinearLayout>
 

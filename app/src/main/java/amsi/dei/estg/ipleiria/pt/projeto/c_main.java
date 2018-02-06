@@ -1,12 +1,22 @@
 package amsi.dei.estg.ipleiria.pt.projeto;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
 
 public class c_main extends AppCompatActivity {
+
+    SharedPreferences preferences;
+    SharedPreferences.Editor prefEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,7 +24,38 @@ public class c_main extends AppCompatActivity {
         setContentView(R.layout.activity_c_main);
         setTitle("Menu Principal");
 
+        preferences = getSharedPreferences("APP_SETTINGS", Context.MODE_PRIVATE);
+        prefEditor = preferences.edit();
 
+
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_e_main, menu);
+
+        MenuItem logout = menu.findItem(R.id.itemLogout);
+        SearchView searchViews = (SearchView) MenuItemCompat.getActionView(logout);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.itemLogout:
+
+                prefEditor.putString("auth", "");
+                prefEditor.apply();
+
+                finish();
+                Intent verlogout = new Intent(this, Login.class);
+                startActivity(verlogout);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void OnClickClientMain(View view) {

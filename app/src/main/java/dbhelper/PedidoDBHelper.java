@@ -40,7 +40,7 @@ public class PedidoDBHelper extends SQLiteOpenHelper{
     public PedidoDBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         sqLiteDatabase = getWritableDatabase();
-        //this.onCreate(sqLiteDatabase);
+       // this.onCreate(sqLiteDatabase);
     }
 
 
