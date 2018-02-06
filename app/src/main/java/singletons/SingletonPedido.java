@@ -40,7 +40,7 @@ public class SingletonPedido implements PedidoListener{
     private static PedidoDBHelper dbHelper = null;
 
     //---------URL API ARTIGO-----------
-    private String mUrlAPIPedidos = "http://10.0.2.2:8888/pedidos";
+    private String mUrlAPIPedidos = "http://192.168.1.66:8888/pedidos";
     //http://10.0.2.2:8888/
     //http://192.168.1.66:8888/
     //----------------------------------
@@ -157,7 +157,17 @@ public class SingletonPedido implements PedidoListener{
                         System.out.println("Erro ao fazer o pedido JSonArray!!");
                     }
                 }
-        );
+        ){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Accept", "application/json");
+                params.put("Authorization", "Basic " + auth);
+                return params;
+            }
+
+
+        };
         // Adding JsonObject request to request queue
         //volleyQueue.add(jsonArrayRequest);
 
@@ -210,7 +220,33 @@ public class SingletonPedido implements PedidoListener{
                         System.out.println("---> Erro pedido 2: " + error);
                         error.printStackTrace();
                     }
-                });
+                })
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Accept", "application/json");
+                params.put("Authorization", "Basic " + auth);
+                return params;
+            }
+
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String> ();
+                params.put("token", "AMSI-TOKEN");
+                params.put("id", pedidos.getId().toString());
+                params.put("id_user", pedidos.getId_user().toString());
+                params.put("id_mesa", pedidos.getId_mesa().toString());
+                params.put("id_estado", pedidos.getId_estado().toString());
+                params.put("data_pedido", pedidos.getData_pedido().toString());
+                params.put("hora_pedido", pedidos.getHora_pedido().toString());
+
+                return params;
+            }
+
+
+        };
 
         //volleyQueue.add(req);
 

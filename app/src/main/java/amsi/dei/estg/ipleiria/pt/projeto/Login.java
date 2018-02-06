@@ -80,7 +80,8 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
     private View mProgressView;
     private View mLoginFormView;
 
-    String url = "http://10.0.2.2:8888/users/";
+   // String url = "http://10.0.2.2:8888/users/";
+    String url = "http://192.168.1.66:8888/users/";
 
 
     @Override

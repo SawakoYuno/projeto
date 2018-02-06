@@ -41,8 +41,8 @@ public class SingletonArtigo implements ArtigoListener {
     private static ArtigoDBHelper dbHelper = null;
 
     //---------URL API ARTIGO-----------
-    //private String mUrlAPIArtigos = "http://192.168.1.66:8888/artigos";
-    private String mUrlAPIArtigos = "http://10.0.2.2:8888/artigos";
+    private String mUrlAPIArtigos = "http://192.168.1.66:8888/artigos";
+    //private String mUrlAPIArtigos = "http://10.0.2.2:8888/artigos";
     //----------------------------------
 
     private static RequestQueue volleyQueue = null;
@@ -127,6 +127,7 @@ public class SingletonArtigo implements ArtigoListener {
 
     public void getAllArtigoAPI(final Context context)
     {
+        System.out.println("--->"+auth);
              //, boolean isConnected
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, mUrlAPIArtigos, null,
                 new Response.Listener<JSONArray>() {
@@ -145,7 +146,7 @@ public class SingletonArtigo implements ArtigoListener {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        System.out.println("Erro ao fazer o pedido JSonArray!!");
+                        System.out.println("Erro ao fazer o pedido do artigoJSonArray!!");
                     }
                 }
                 )
