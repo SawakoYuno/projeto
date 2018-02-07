@@ -41,10 +41,6 @@ public class e_main extends AppCompatActivity {
         Button btn = (Button) v;
         String texto = btn.getText().toString();
 
-        Intent intentId_mesa = new Intent(this, c_lista_pedidos.class);
-        intentId_mesa.putExtra(e_pedidos.btn, texto);
-        startActivityForResult(intentId_mesa, RC_E_PEDIDOS);
-
         Intent criarPedido = new Intent(this, e_pedidos.class);
         criarPedido.putExtra(e_pedidos.btn, texto);
         startActivityForResult(criarPedido, RC_E_PEDIDOS);
@@ -101,5 +97,5 @@ public class e_main extends AppCompatActivity {
 
     }
 
-}
+    }
 }

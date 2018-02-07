@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Reservar Mes"
+            android:text="Reservar Mesa"
             android:textAlignment="center"
             android:textSize="24sp" />
 
@@ -64,7 +64,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView14"
+            android:id="@+id/textView15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nº de Telefone:"
