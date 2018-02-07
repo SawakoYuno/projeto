@@ -5,8 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -31,6 +33,7 @@ public class ListaPedidoAdapter extends BaseAdapter {
     {
         TextView txtNome;
         TextView txtQuant;
+        Button buttonEliminar;
 
     }
 
@@ -62,16 +65,30 @@ public class ListaPedidoAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
         View v = view;
 
         if (v == null) {
+
             inflater = LayoutInflater.from(contexto);
             v = inflater.inflate(R.layout.item_e_listapedidos, viewGroup, false);
 
             viewHolder = new ViewHolder();
             viewHolder.txtNome = v.findViewById(R.id.txtnomePedido);
             viewHolder.txtQuant = v.findViewById(R.id.txtquantPedido);
+            viewHolder.buttonEliminar = v.findViewById(R.id.buttonEliminar);
+            viewHolder.buttonEliminar.setOnClickListener(new View.OnClickListener(){
+
+                @Override
+                public void onClick(View view) {
+                    System.out.println("--->houve click" + i);
+                    listaPedidos.remove(i);
+
+                    refresh(listaPedidos);
+
+                }
+            });
+
         }else{
             viewHolder = (ViewHolder) view.getTag();
         }
@@ -82,6 +99,8 @@ public class ListaPedidoAdapter extends BaseAdapter {
         viewHolder.txtQuant.setText(artigo.getQuantidade().toString());
 
         v.setTag(viewHolder);
+
+
 
         return v;
         }
