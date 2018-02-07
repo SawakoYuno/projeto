@@ -247,7 +247,7 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
 //        int id_pedidos = pedidosEmArtigosList.get(listaPedidos.get(id));
         ArrayList<Artigo>ListaArtigos;
 
-        id_mesa = 1;
+        id_mesa = Integer.parseInt(txtNmesa.getText().toString());
         id_estado = 1;
 
         pedidos = new Pedidos(
