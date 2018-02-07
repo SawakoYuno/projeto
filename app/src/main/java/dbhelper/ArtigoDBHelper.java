@@ -32,7 +32,7 @@ public class ArtigoDBHelper extends SQLiteOpenHelper{
     public ArtigoDBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         sqLiteDatabase = getWritableDatabase();
-
+        //this.onCreate(sqLiteDatabase);
     }
 
     @Override

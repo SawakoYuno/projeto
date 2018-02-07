@@ -52,7 +52,6 @@ public class c_reservar_mesa extends AppCompatActivity {
                     Integer.parseInt(NumeroTelefone.getText().toString()),
                     Integer.parseInt(QuantiPessoas.getText().toString()),
                     Horario.getText().toString(),
-                    //horario,
                     id_mesa);
 
 
