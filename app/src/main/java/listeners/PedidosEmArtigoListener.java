@@ -14,4 +14,6 @@ public interface PedidosEmArtigoListener {
 
 
     void onUpdateListaPedidosEmArtigoBD(PedidosEmArtigo pedidosEmArtigo, int operacao);
+
+
 }

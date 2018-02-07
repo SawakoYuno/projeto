@@ -15,15 +15,38 @@ import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.sql.SQLOutput;
+import java.util.ArrayList;
+import java.util.List;
+
+import listeners.MesaListener;
+import singletons.SingletonPedido;
 
 
-public class e_main extends AppCompatActivity {
+public class e_main extends AppCompatActivity implements MesaListener {
 
     public static final Integer RC_E_PEDIDOS = 100;
 
     SharedPreferences preferences;
     SharedPreferences.Editor prefEditor;
+
+    private JSONObject listaCondicoes;
+
+    private Button button1;
+    private Button button2;
+    private Button button3;
+    private Button button4;
+    private Button button5;
+    private Button button6;
+    private Button button7;
+    private Button button8;
+    private Button button9;
+
+    private List<Button> listabtns;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +57,29 @@ public class e_main extends AppCompatActivity {
         preferences = getSharedPreferences("APP_SETTINGS",Context.MODE_PRIVATE);
         prefEditor = preferences.edit();
 
+        button1 = findViewById(R.id.btn1M);
+        button2 = findViewById(R.id.btn2M);
+        button3 = findViewById(R.id.btn3M);
+        button4 = findViewById(R.id.btn4M);
+        button5 = findViewById(R.id.btn5M);
+        button6 = findViewById(R.id.btn6M);
+        button7 = findViewById(R.id.btn7M);
+        button8 = findViewById(R.id.btn8M);
+        button9 = findViewById(R.id.btn9M);
+
+        listabtns = new ArrayList<>();
+        listabtns.add(button1);
+        listabtns.add(button2);
+        listabtns.add(button3);
+        listabtns.add(button4);
+        listabtns.add(button5);
+        listabtns.add(button6);
+        listabtns.add(button7);
+        listabtns.add(button8);
+        listabtns.add(button9);
+
+        SingletonPedido.getInstance(this).setMesaListener(this);
+        SingletonPedido.getInstance(this).onbterCOndicaoMesas(this);
     }
 
 
@@ -88,6 +134,7 @@ public class e_main extends AppCompatActivity {
             {
                 //Toast.makeText(this, "Pedidos criado com sucesso", Toast.LENGTH_SHORT).show();
                 Snackbar.make(findViewById(R.id.layoutEMAIN), "Pedidos criado com sucesso", Snackbar.LENGTH_SHORT).show();
+                SingletonPedido.getInstance(this).onbterCOndicaoMesas(this);
                // adaptadordaListVP.notifyDataSetChanged();
             }else
             {
@@ -97,5 +144,25 @@ public class e_main extends AppCompatActivity {
 
     }
 
+    }
+
+    @Override
+    public void onRefreshCondicoes(JSONObject listaCondicoes) {
+        this.listaCondicoes = listaCondicoes;
+
+        for (Button btn: listabtns) {
+            try {
+                if (listaCondicoes.getString(btn.getText().toString()) != null)
+                {
+                    if (listaCondicoes.getString(btn.getText().toString()).equals("ocupada"))
+                    {
+                        btn.setBackgroundColor(getResources().getColor(R.color.colorBaunilha));
+                    }
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

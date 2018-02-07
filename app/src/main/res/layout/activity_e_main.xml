@@ -50,7 +50,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btn1"
+            android:id="@+id/btn1M"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -61,7 +61,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/btn2"
+            android:id="@+id/btn2M"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -72,7 +72,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/btn3"
+            android:id="@+id/btn3M"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -90,7 +90,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btn4"
+            android:id="@+id/btn4M"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -101,7 +101,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/btn5"
+            android:id="@+id/btn5M"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -112,7 +112,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/btn6"
+            android:id="@+id/btn6M"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -131,7 +131,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btn7"
+            android:id="@+id/btn7M"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -142,7 +142,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/btn8"
+            android:id="@+id/btn8M"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -153,7 +153,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/btn9"
+            android:id="@+id/btn9M"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"

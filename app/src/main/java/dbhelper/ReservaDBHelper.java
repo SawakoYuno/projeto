@@ -61,7 +61,7 @@ public class ReservaDBHelper extends SQLiteOpenHelper{
             String query = "DROP TABLE IF EXISTS " + TABLE_NAME;
             sqLiteDatabase.execSQL(query);
 
-            onCreate(sqLiteDatabase);
+            //onCreate(sqLiteDatabase);
         }
     }
 

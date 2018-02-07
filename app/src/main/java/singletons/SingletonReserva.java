@@ -40,8 +40,7 @@ public class SingletonReserva implements ReservaListener{
     private static ReservaDBHelper dbHelper = null;
 
     //---------URL API RESERVA-----------
-    //private String mUrlAPIReserva = "http://192.168.1.135:8888/reservas";
-    private String mUrlAPIReserva = "http://192.168.1.66:8888/reservas";
+    private String mUrlAPIReserva = "http://10.0.2.2:8888/reservas";
     //http://10.0.2.2:8888/
     //----------------------------------
 
