@@ -29,6 +29,7 @@ import java.util.Map;
 import listeners.MesaListener;
 import listeners.PedidoListener;
 import dbhelper.PedidoDBHelper;
+import modelo.Artigo;
 import modelo.Pedidos;
 import utils.PedidoJsonParser;
 
@@ -64,6 +65,8 @@ public class SingletonPedido implements PedidoListener{
     private String auth;
     private SharedPreferences preferences;
 
+    private ArrayList<List<Artigo>> listaEstadoArtigos;
+
 
     public static synchronized SingletonPedido getInstance(Context context) {
         if( INSTANCE == null)
@@ -85,6 +88,25 @@ public class SingletonPedido implements PedidoListener{
 
         preferences = context.getSharedPreferences("APP_SETTINGS", Context.MODE_PRIVATE);
         auth = preferences.getString("auth", "");
+
+        //Parvoeira
+
+        ArrayList<Artigo> listaTemplate = new ArrayList<>();
+
+        listaEstadoArtigos = new ArrayList<>();
+
+        //x9
+        listaEstadoArtigos.add(listaTemplate);
+        listaEstadoArtigos.add(listaTemplate);
+        listaEstadoArtigos.add(listaTemplate);
+
+        listaEstadoArtigos.add(listaTemplate);
+        listaEstadoArtigos.add(listaTemplate);
+        listaEstadoArtigos.add(listaTemplate);
+
+        listaEstadoArtigos.add(listaTemplate);
+        listaEstadoArtigos.add(listaTemplate);
+        listaEstadoArtigos.add(listaTemplate);
 
 
     }
@@ -428,5 +450,15 @@ public class SingletonPedido implements PedidoListener{
         };
 
         volleyQueue.add(request);
+    }
+
+    public void adicionarArtigoEstado(Integer n_mesa, Artigo artigo)
+    {
+        listaEstadoArtigos.get(n_mesa-1).add(artigo);
+    }
+
+    public ArrayList<Artigo> getArtigosEstado(Integer n_mesa)
+    {
+        return (ArrayList<Artigo>) listaEstadoArtigos.get(n_mesa-1);
     }
 }
