@@ -263,7 +263,7 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
         byte[] authBytes = (mUsernameView.getText().toString()+":"+mPasswordView.getText().toString()).getBytes();
         //MUITO IMPORTANTE -> guardar isto para usar SEMPRE (ex: num singleton, ou em todos)
         //AINDA NÃO GUARDASTE ESTA VARIÁVEL. SE TENS AUTENTICAÇÃO NO RESTO DA API, PFF GUARDA
-        final String authorization = Base64.encodeToString(authBytes, Base64.DEFAULT);
+        final String authorization = Base64.encodeToString(authBytes, Base64.NO_WRAP);
 
         JsonObjectRequest request = new JsonObjectRequest(
                 Request.Method.GET, url + mUsernameView.getText().toString() + "/tipo",null,
