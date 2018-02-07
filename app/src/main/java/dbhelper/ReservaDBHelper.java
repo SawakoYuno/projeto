@@ -36,8 +36,7 @@ public class ReservaDBHelper extends SQLiteOpenHelper{
     public ReservaDBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         sqLiteDatabase = getWritableDatabase();
-        onCreate(sqLiteDatabase);
-
+        //onCreate(sqLiteDatabase);
     }
 
 
@@ -51,7 +50,7 @@ public class ReservaDBHelper extends SQLiteOpenHelper{
                 HORARIO + " VARCHAR NOT NULL," +
                 ID_MESA + " INTEGER);";
 
-        //sqLiteDatabase.execSQL(query);
+        sqLiteDatabase.execSQL(query);
     }
 
     @Override
