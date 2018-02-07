@@ -13,5 +13,7 @@ public interface PedidosEmArtigoListener {
     void onRefreshListaPedidosEmArtigo(List<PedidosEmArtigo> pedidosEmArtigoList);
 
 
-    void onUpdateListaPedidosEmArtigoBD(PedidosEmArtigo pedidosEmArtigo, int operacao);
+    void onUpdateListaPedidosEmArtigoBD(PedidosEmArtigo pedidosEmArtigo, int operacao, String estado_mesa);
+
+
 }
