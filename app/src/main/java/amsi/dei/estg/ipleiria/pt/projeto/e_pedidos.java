@@ -289,10 +289,17 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
 
     @Override
     public void onUpdateListaPedidosEmArtigoBD(PedidosEmArtigo pedidosEmArtigo, int operacao) {
+
+        SingletonPedidosEmArtigo.getInstance(this).getEstado_MesaAPI("condicao", this);
+
+
         Intent voltarAtras = new Intent();
         setResult(200, voltarAtras);
         /*Intent goBack = new Intent(this, e_main.class);
         startActivity(goBack);*/
+
+
+
         finish();
     }
 

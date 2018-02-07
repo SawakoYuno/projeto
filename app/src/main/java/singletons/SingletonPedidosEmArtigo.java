@@ -24,6 +24,7 @@ import java.util.Map;
 import listeners.PedidosEmArtigoListener;
 import modelo.Artigo;
 import dbhelper.PedidoEmArtigoDBHelper;
+import modelo.Mesa;
 import modelo.PedidosEmArtigo;
 import utils.PedidosEmArtigoJsonParser;
 
@@ -36,8 +37,12 @@ public class SingletonPedidosEmArtigo implements PedidosEmArtigoListener{
     private static SingletonPedidosEmArtigo INSTANCE = null;
     private static PedidoEmArtigoDBHelper dbHelper = null;
 
+    private List<Mesa> mesas;
+
     //---------URL API PEDIDOS_EM_ARTIGOS-----------
     private String mUrlAPIPedidosEmArtigos = "http://10.0.2.2:8888/pedidos-em-artigos";
+
+    private String mUrlAPIMesa = "http://10.0.2.2:8888/mesas/";
     //http://10.0.2.2:8888/
     //192.168.1.66:8888
     //----------------------------------
@@ -190,6 +195,47 @@ public class SingletonPedidosEmArtigo implements PedidosEmArtigoListener{
         volleyQueue.add(postRequest);
 
     }
+
+    /***********************************************************/
+    public void getEstado_MesaAPI(String condicao, final Context context) {
+        //, boolean isConnected
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, mUrlAPIMesa + "/id/" + condicao, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println("Erro ao fazer o pedido JSonArray!!");
+                    }
+                }
+
+        ){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Accept", "application/json");
+                params.put("Authorization", "Basic " + auth);
+                return params;
+            }
+
+
+        };
+
+
+
+        // volleyQueue.add(jsonArrayRequest);
+        RequestQueue queue = Volley.newRequestQueue(context);
+        queue.add(jsonArrayRequest);
+
+    }
+
+    /***********************************************************/
+
 
     public void atualizarPedidoEmArtigoAPI(final int id, final PedidosEmArtigo pedidosEmArtigo, final Context context) {
 
