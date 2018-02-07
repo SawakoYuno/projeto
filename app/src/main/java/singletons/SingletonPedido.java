@@ -461,4 +461,5 @@ public class SingletonPedido implements PedidoListener{
     {
         return (ArrayList<Artigo>) listaEstadoArtigos.get(n_mesa-1);
     }
+
 }
