@@ -16,6 +16,8 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -25,6 +27,7 @@ import java.util.List;
 import Adaptadores.ListaArtigoAdapter;
 import Adaptadores.ListaPedidoAdapter;
 import listeners.ArtigoListener;
+import listeners.MesaListener;
 import listeners.PedidoListener;
 import listeners.PedidosEmArtigoListener;
 import modelo.Artigo;
@@ -36,7 +39,7 @@ import singletons.SingletonPedidosEmArtigo;
 
 import static amsi.dei.estg.ipleiria.pt.projeto.e_main.RC_E_PEDIDOS;
 
-public class e_pedidos extends AppCompatActivity implements ArtigoListener, PedidoListener, PedidosEmArtigoListener {
+public class e_pedidos extends AppCompatActivity implements ArtigoListener, PedidoListener, PedidosEmArtigoListener{
 
     private ListaArtigoAdapter adaptadorDaList;
     private ListaPedidoAdapter adaptadordaListVP;
@@ -290,7 +293,7 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
     @Override
     public void onUpdateListaPedidosEmArtigoBD(PedidosEmArtigo pedidosEmArtigo, int operacao) {
 
-        SingletonPedidosEmArtigo.getInstance(this).getEstado_MesaAPI("condicao", this);
+        SingletonPedidosEmArtigo.getInstance(this).getEstado_MesaAPI(txtNmesa.getText().toString(), this);
 
 
         Intent voltarAtras = new Intent();
@@ -302,6 +305,5 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
 
         finish();
     }
-
 
 }

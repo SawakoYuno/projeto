@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import listeners.MesaListener;
 import listeners.PedidoListener;
 import dbhelper.PedidoDBHelper;
 import modelo.Pedidos;
@@ -41,6 +42,9 @@ public class SingletonPedido implements PedidoListener{
 
     //---------URL API ARTIGO-----------
     private String mUrlAPIPedidos = "http://10.0.2.2:8888/pedidos";
+
+    private String mUrlAPIMesa = "http://10.0.2.2:8888/mesas";
+
     //http://10.0.2.2:8888/
     //http://192.168.1.66:8888/
     //----------------------------------
@@ -48,6 +52,12 @@ public class SingletonPedido implements PedidoListener{
     private static RequestQueue volleyQueue = null;
 
     private PedidoListener pedidoListener;
+
+    public void setMesaListener(MesaListener mesaListener) {
+        this.mesaListener = mesaListener;
+    }
+
+    private MesaListener mesaListener;
 
     private List<Pedidos> pedidos;
 
@@ -387,5 +397,36 @@ public class SingletonPedido implements PedidoListener{
                 return pd;
         }
         return null;
+    }
+
+    public void onbterCOndicaoMesas(final Context context)
+    {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, mUrlAPIMesa + "/condicao", null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                System.out.println("---> Condicao mesas: " + response);
+
+                if (mesaListener != null)
+                    mesaListener.onRefreshCondicoes(response);
+            }
+
+        }, new Response.ErrorListener() {
+
+            public void onErrorResponse(VolleyError error) {
+
+                System.out.println("---> Erro mesa: " + error);
+                error.printStackTrace();
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Accept", "application/json");
+                params.put("Authorization", "Basic " + auth);
+                return params;
+            }
+        };
+
+        volleyQueue.add(request);
     }
 }

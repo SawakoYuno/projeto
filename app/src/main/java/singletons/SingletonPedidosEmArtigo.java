@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -199,7 +200,7 @@ public class SingletonPedidosEmArtigo implements PedidosEmArtigoListener{
     /***********************************************************/
     public void getEstado_MesaAPI(String condicao, final Context context) {
         //, boolean isConnected
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, mUrlAPIMesa + "/id/" + condicao, null,
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, mUrlAPIMesa + condicao + "/condicao", null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
@@ -227,7 +228,7 @@ public class SingletonPedidosEmArtigo implements PedidosEmArtigoListener{
         };
 
 
-
+        jsonArrayRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         // volleyQueue.add(jsonArrayRequest);
         RequestQueue queue = Volley.newRequestQueue(context);
         queue.add(jsonArrayRequest);
