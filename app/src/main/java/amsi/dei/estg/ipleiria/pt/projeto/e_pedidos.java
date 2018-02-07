@@ -120,6 +120,17 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
             }
         });//X
 
+        listviewPedidos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Artigo idArtigoSelect = SingletonArtigo.getInstance(e_pedidos.this).pesquisarArtigoPosition(i);
+                listaPedidos.remove(idArtigoSelect);
+                atualizaPedido(idArtigoSelect);
+
+            }
+        });
+
 
         final SwipeRefreshLayout refreshLayout = findViewById(R.id.swipeRefreshLista);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -247,7 +258,7 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
 //        int id_pedidos = pedidosEmArtigosList.get(listaPedidos.get(id));
         ArrayList<Artigo>ListaArtigos;
 
-        id_mesa = Integer.parseInt(txtNmesa.getText().toString());
+        id_mesa = 1;
         id_estado = 1;
 
         pedidos = new Pedidos(
@@ -262,7 +273,7 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
 
 
         ListaArtigos = pedidos.getArtigos();
-
+        ListaArtigos.add(new Artigo(id, id_tipo_ementa, nome, detalhes, preco, quantidade, imagem));
 
 
     }
