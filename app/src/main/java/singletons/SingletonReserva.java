@@ -178,6 +178,8 @@ public class SingletonReserva implements ReservaListener{
                             System.out.println("---> Resposta Reserva: " + response);
 
                             VolleyLog.v("Response:%n %s", response.toString(4));
+                            if (reservaListener != null)
+                                reservaListener.onUpdateListaReservaBD(null, 1);
 
                         } catch (JSONException e) {
                             System.out.println("---> Erro Reserva: " + e);
