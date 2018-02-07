@@ -7,10 +7,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.List;
+
+import listeners.ReservaListener;
 import modelo.Reserva;
 import singletons.SingletonReserva;
 
-public class c_reservar_mesa extends AppCompatActivity {
+public class c_reservar_mesa extends AppCompatActivity implements ReservaListener{
 
     private Reserva criarReserva;
 
@@ -30,6 +33,8 @@ public class c_reservar_mesa extends AppCompatActivity {
         NumeroTelefone = (EditText) findViewById(R.id.txtNtelefone);
         QuantiPessoas = (EditText) findViewById(R.id.txtQuantiPessoas);
         Horario = (EditText) findViewById(R.id.txtHorario);
+
+        SingletonReserva.getInstance(this).setReservaListener(this);
 
 
     }
@@ -54,13 +59,22 @@ public class c_reservar_mesa extends AppCompatActivity {
                     Horario.getText().toString(),
                     id_mesa);
 
-
-            Intent returnIntent = new Intent();
-
             SingletonReserva.getInstance(this).adicionarReservaAPI(criarReserva, this);
 
-            Toast.makeText(this, "Enviado com sucesso", Toast.LENGTH_SHORT).show();
+
         }
 
         }
+
+    @Override
+    public void onRefreshListaReserva(List<Reserva> listaReserva) {
+
+    }
+
+    @Override
+    public void onUpdateListaReservaBD(Reserva reserva, int operacao) {
+        Intent returnIntent = new Intent();
+        setResult(200, returnIntent);
+        finish();
+    }
 }

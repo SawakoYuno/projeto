@@ -12,11 +12,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 public class c_main extends AppCompatActivity {
 
     SharedPreferences preferences;
     SharedPreferences.Editor prefEditor;
+
+    private static final int RC_RESERVA = 297;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +68,7 @@ public class c_main extends AppCompatActivity {
         switch (type) {
             case "Reservar":
                 Intent intentR = new Intent(this, c_reservar_mesa.class);
-                startActivity(intentR);
+                startActivityForResult(intentR, RC_RESERVA);
                 break;
             case "Ementa":
                 Intent intentE = new Intent(this, c_ementa.class);
@@ -83,5 +86,19 @@ public class c_main extends AppCompatActivity {
         }
 
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == RC_RESERVA)
+        {
+            if (resultCode == 200)
+            {
+                Toast.makeText(this, "Reservado com sucesso", Toast.LENGTH_SHORT).show();
+            }else
+            {
+                Toast.makeText(this, "Erro ao reservar", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
