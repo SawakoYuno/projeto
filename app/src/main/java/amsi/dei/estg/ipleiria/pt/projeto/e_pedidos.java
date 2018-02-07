@@ -262,7 +262,7 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
 
 
         ListaArtigos = pedidos.getArtigos();
-        ListaArtigos.add(new Artigo(id, id_tipo_ementa, nome, detalhes, preco, quantidade, imagem));
+
 
 
     }
