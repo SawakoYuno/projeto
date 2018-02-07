@@ -20,7 +20,6 @@ import singletons.SingletonArtigo;
 public class c_pedirbebida extends AppCompatActivity implements ArtigoListener{
 
     private ListaBebidasAdapter adaptadorBebidas;
-    private Context context;
     private GridView grelhaBebida;
     private ListView listaBebida;
     private List<Artigo> ListBebida;
@@ -36,14 +35,17 @@ public class c_pedirbebida extends AppCompatActivity implements ArtigoListener{
         setContentView(R.layout.activity_c_pedirbebida);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        grelhaBebida = (GridView) findViewById(R.id.grelhaBedida);
+
+
         SingletonArtigo.getInstance(this).setArtigoListener(this);
-        SingletonArtigo.getInstance(this).getArtigoTipoAPI("Bebidas", this);
+        SingletonArtigo.getInstance(this).getArtigoTipoAPI("bebidas", this);
 
-        grelhaBebida = (GridView) findViewById(R.id.ListaMenu);
 
-        adaptadorDaList = new ListaArtigoAdapter(this, SingletonArtigo.getInstance(this).getArtigo());
 
-        grelhaBebida.setAdapter(adaptadorDaList);
+        /*adaptadorDaList = new ListaArtigoAdapter(this, SingletonArtigo.getInstance(this).getArtigo());
+
+        grelhaBebida.setAdapter(adaptadorDaList);*/
 
 
         grelhaBebida.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -68,9 +70,8 @@ public class c_pedirbebida extends AppCompatActivity implements ArtigoListener{
     @Override
     public void onRefreshListaArtigos(List<Artigo> ListBebida) {
 
-        adaptadorBebidas = new ListaBebidasAdapter( context, ListBebida);
-        GridView grelhaBedida = (GridView) findViewById(R.id.grelhaBedida);
-        grelhaBedida.setAdapter(adaptadorBebidas);
+        adaptadorBebidas = new ListaBebidasAdapter(this, ListBebida);
+        grelhaBebida.setAdapter(adaptadorBebidas);
 
     }
 
