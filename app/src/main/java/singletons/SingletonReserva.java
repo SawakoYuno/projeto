@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -22,6 +23,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import listeners.ReservaListener;
 import modelo.Reserva;
@@ -38,7 +40,7 @@ public class SingletonReserva implements ReservaListener{
     private static ReservaDBHelper dbHelper = null;
 
     //---------URL API RESERVA-----------
-    private String mUrlAPIReserva = "http://10.0.2.2:8888/reservas";
+    private String mUrlAPIReserva = "http://192.168.1.135:8888/reservas";
     //http://10.0.2.2:8888/
     //----------------------------------
 
@@ -189,9 +191,36 @@ public class SingletonReserva implements ReservaListener{
                         System.out.println("---> Erro Reserva 2: " + error);
                         error.printStackTrace();
                     }
-                });
+                })
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Accept", "application/json");
+                params.put("Authorization", "Basic " + auth);
+                return params;
+            }
 
-        volleyQueue.add(req);
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String> ();
+                params.put("token", "AMSI-TOKEN");
+                params.put("id", reserva.getId().toString());
+                params.put("id_mesa", reserva.getId_mesa().toString());
+                params.put("nome", reserva.getNome());
+                params.put("numeroTelefone", reserva.getNumeroTelefone().toString());
+                params.put("quantidade_pessoas", reserva.getQuantidade_pessoas().toString());
+                params.put("horario", reserva.getHorario());
+
+                return params;
+            }
+        };
+        /*****************************************************/
+        RequestQueue queue = Volley.newRequestQueue(context);
+        queue.add(req);
+        /*****************************************************/
+
     }
 
     public void atualizarReservaAPI(final int id, final Reserva reserva, final Context context) {
