@@ -69,6 +69,7 @@ public class ListaPedidoAdapter extends BaseAdapter {
         View v = view;
 
         if (v == null) {
+
             inflater = LayoutInflater.from(contexto);
             v = inflater.inflate(R.layout.item_e_listapedidos, viewGroup, false);
 
