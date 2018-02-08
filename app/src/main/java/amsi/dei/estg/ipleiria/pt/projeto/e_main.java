@@ -87,8 +87,17 @@ public class e_main extends AppCompatActivity implements MesaListener {
         Button btn = (Button) v;
         String texto = btn.getText().toString();
 
+        String estado = "livre";
+
+        try {
+            estado = listaCondicoes.getString(texto);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         Intent criarPedido = new Intent(this, e_pedidos.class);
         criarPedido.putExtra(e_pedidos.btn, texto);
+        criarPedido.putExtra(e_pedidos.c_estado, estado);
         startActivityForResult(criarPedido, RC_E_PEDIDOS);
 
 

@@ -51,6 +51,9 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
     private Pedidos pedidos;
     private Context context;
     public static final String btn = "BTN";
+    public static final String c_estado = "ESTADO";
+    private String estado;
+    private Integer nMesa;
     public static final String EXTRA_ID_Artigo = "artigo_id";
     private TextView txtNmesa;
     private Bundle extra;
@@ -73,6 +76,14 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
        /* preferences = getSharedPreferences("APP_SETTINGS",Context.MODE_PRIVATE);
         prefEditor = preferences.edit();*/
 
+        txtNmesa = (TextView) findViewById(R.id.txtNmesa);
+
+        extra = getIntent().getExtras();
+
+        txtNmesa.setText(extra.getString("BTN"));
+        this.estado = extra.getString(c_estado);
+        nMesa = Integer.parseInt(extra.getString("BTN"));
+
 
         SingletonArtigo.getInstance(this).setArtigoListener(this);
         SingletonPedido.getInstance(this).setPedidosListener(this);
@@ -83,17 +94,20 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
 
         //final List<Artigo> listaPedidos = new ArrayList<>();
 
-        txtNmesa = (TextView) findViewById(R.id.txtNmesa);
-
-        extra = getIntent().getExtras();
-
-        txtNmesa.setText(extra.getString("BTN"));
-
         SingletonPedido.getInstance(this).getAllPedidosAPI(this);
 
         artigoList = SingletonArtigo.getInstance(this).getArtigo();
         pedidosList = SingletonPedido.getInstance(this).getPedidos();
         pedidosEmArtigosList = SingletonPedidosEmArtigo.getInstance(this).getPedidosEmArtigoList();
+
+        //-----
+
+        if (estado.equals("ocupada"))
+        {
+            listaPedidos = SingletonPedido.getInstance(this).getArtigosEstado(nMesa);
+        }
+
+        //-----
 
         listaviewArtigos = (GridView) findViewById(R.id.ListaMenu);
         listviewPedidos = (ListView) findViewById(R.id.ListaPedidos);//X
@@ -209,30 +223,9 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
         }
     }
 
-    @Override
-    public void onRefreshListaPedidos(List<Pedidos> listaPedidos) {
 
-    }
-
-    @Override
-    public void onUpdateListaPedidosBD(Pedidos pedidos, int operacao) {
-        idPedido = pedidos.getId();
-
-        Integer max = listaPedidos.size();
-        Integer i = 0;
-
-        for(Artigo meuPedido:listaPedidos)
-        {
-            i++;
-            SingletonPedidosEmArtigo.getInstance(this).adicionarPedidoEmArtigoAPI(meuPedido, idPedido, i, max, this);
-
-        }
-        //podia ter posto com for normal, mas agora olha
-
-    }
-
-
-    public void OnClickEnviar(View view) {
+    public void criarPedido()
+    {
         int id_user = 4;
         int id_mesa;
         int id_estado;
@@ -261,7 +254,7 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
 //        int id_pedidos = pedidosEmArtigosList.get(listaPedidos.get(id));
         ArrayList<Artigo>ListaArtigos;
 
-        id_mesa = 1;
+        id_mesa = nMesa;
         id_estado = 1;
 
         pedidos = new Pedidos(
@@ -277,8 +270,60 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
 
         ListaArtigos = pedidos.getArtigos();
         ListaArtigos.add(new Artigo(id, id_tipo_ementa, nome, detalhes, preco, quantidade, imagem));
+    }
+
+    public void criarPedidosArtigo(Integer idPedido)
+    {
+        Integer max = listaPedidos.size();
+        Integer i = 0;
+
+        Integer d = SingletonPedido.getInstance(this).getArtigosEstado(nMesa).size();
+        System.out.println("--> d "+d);;
+
+        System.out.println("--> max"+max );
+        for(Artigo meuPedido:listaPedidos)
+        {
+            i++;
+            System.out.println("--> entrou 2 - " + i);
+            //if (!SingletonPedido.getInstance(this).getArtigosEstado(nMesa).contains(meuPedido))
+            if (i >= d)
+            {
+                System.out.println("--> entrou 3");
+                SingletonPedido.getInstance(this).adicionarArtigoEstado(nMesa, meuPedido);
+                SingletonPedidosEmArtigo.getInstance(this).adicionarPedidoEmArtigoAPI(meuPedido, idPedido, i, max, this);
+            }
+        }
+        System.out.println("--> fora");
+    }
+
+    @Override
+    public void onRefreshListaPedidos(List<Pedidos> listaPedidos)
+    {
+
+    }
+
+    @Override
+    public void onUpdateListaPedidosBD(Pedidos pedidos, int operacao) {
+        idPedido = pedidos.getId();
+
+        SingletonPedido.getInstance(this).setPedidoEstado(nMesa, idPedido);
+
+        criarPedidosArtigo(idPedido);
+    }
 
 
+    public void OnClickEnviar(View view)
+    {
+        System.out.println("-->"+estado);
+        if (estado.equals("livre"))
+        {
+            criarPedido();
+        }else
+        {
+            System.out.println("--> entrou 1");
+            Integer idPedido = SingletonPedido.getInstance(this).getPedidoEstado(nMesa);
+            criarPedidosArtigo(idPedido);
+        }
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -304,15 +349,12 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
     @Override
     public void onUpdateListaPedidosEmArtigoBD(PedidosEmArtigo pedidosEmArtigo, int operacao) {
 
-        SingletonPedidosEmArtigo.getInstance(this).getEstado_MesaAPI(txtNmesa.getText().toString(), this);
-
+        if (estado.equals("livre")) {
+            SingletonPedidosEmArtigo.getInstance(this).getEstado_MesaAPI(txtNmesa.getText().toString(), this);
+        }
 
         Intent voltarAtras = new Intent();
         setResult(200, voltarAtras);
-        /*Intent goBack = new Intent(this, e_main.class);
-        startActivity(goBack);*/
-
-
 
         finish();
     }

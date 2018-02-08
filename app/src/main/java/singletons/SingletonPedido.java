@@ -66,6 +66,7 @@ public class SingletonPedido implements PedidoListener{
     private SharedPreferences preferences;
 
     private ArrayList<List<Artigo>> listaEstadoArtigos;
+    private Integer[] listaEstadoPedido;
 
 
     public static synchronized SingletonPedido getInstance(Context context) {
@@ -109,6 +110,32 @@ public class SingletonPedido implements PedidoListener{
         listaEstadoArtigos.add(listaTemplate);
 
 
+        //Ainda mais parvoeira
+
+        listaEstadoPedido = new Integer[9];
+        listaEstadoPedido[0] = 0;
+        listaEstadoPedido[1] = 0;
+        listaEstadoPedido[2] = 0;
+        listaEstadoPedido[3] = 0;
+        listaEstadoPedido[4] = 0;
+        listaEstadoPedido[5] = 0;
+        listaEstadoPedido[6] = 0;
+        listaEstadoPedido[7] = 0;
+        listaEstadoPedido[8] = 0;
+        //listaEstadoPedido = new ArrayList<>();
+
+/*        listaEstadoPedido.add(0);
+        listaEstadoPedido.add(0);
+        listaEstadoPedido.add(0);
+
+        listaEstadoPedido.add(0);
+        listaEstadoPedido.add(0);
+        listaEstadoPedido.add(0);
+
+        listaEstadoPedido.add(0);
+        listaEstadoPedido.add(0);
+        listaEstadoPedido.add(0);
+*/
     }
 
     public void lerDB()
@@ -460,6 +487,17 @@ public class SingletonPedido implements PedidoListener{
     public ArrayList<Artigo> getArtigosEstado(Integer n_mesa)
     {
         return (ArrayList<Artigo>) listaEstadoArtigos.get(n_mesa-1);
+    }
+
+
+    public void setPedidoEstado(Integer n_mesa, Integer idPedido)
+    {
+        listaEstadoPedido[n_mesa-1] = idPedido;
+    }
+
+    public Integer getPedidoEstado(Integer n_mesa)
+    {
+        return listaEstadoPedido[n_mesa-1];
     }
 
 }
