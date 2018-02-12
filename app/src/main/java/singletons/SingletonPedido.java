@@ -22,6 +22,7 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -485,11 +486,13 @@ public class SingletonPedido implements PedidoListener{
     public void registarFatura(Fatura fatura)
     {
         JSONObject object = new JSONObject();
-
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        String dateTime = dateFormat.format(date);
         try {
             object.put("id_meio_pagamento", fatura.getId_meio_pagamento());
             object.put("id_pedidos", fatura.getId_pedidos());
-            object.put("data_fatura", fatura.getData_fatura());
+            object.put("data_fatura", dateTime);
             object.put("obs", fatura.getObs());
             object.put("nif", fatura.getNif());
         } catch (JSONException e) {

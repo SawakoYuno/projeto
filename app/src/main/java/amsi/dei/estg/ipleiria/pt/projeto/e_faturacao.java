@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -158,11 +159,10 @@ public class e_faturacao extends AppCompatActivity implements PedidoListener{
 
     public void onClickImprimir(View view)
     {
-        SingletonPedido.getInstance(this).limparArtigoEstado(nMesa);
+//        SingletonPedido.getInstance(this).limparArtigoEstado(nMesa);
         SingletonPedidosEmArtigo.getInstance(this).getEstado_MesaAPI(nMesa.toString(), this);
 
         Integer idPedido = SingletonPedido.getInstance(this).getPedidoEstado(nMesa);
-
 
         Integer nif = 000000000;
 
@@ -204,6 +204,8 @@ public class e_faturacao extends AppCompatActivity implements PedidoListener{
         System.out.println("RECEBIDO: " + f_recebido);
         System.out.println("TROCO: " + f_troco);
         System.out.println("********************************************");
+
+        SingletonPedido.getInstance(this).limparArtigoEstado(nMesa);
 
         Intent voltarAtras = new Intent();
         setResult(200, voltarAtras);
