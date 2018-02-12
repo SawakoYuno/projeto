@@ -13,13 +13,21 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 import Adaptadores.ListaPedidoAdapter;
+import listeners.PedidoListener;
 import modelo.Artigo;
+import modelo.Fatura;
+import modelo.Pedidos;
 import singletons.SingletonPedido;
+import singletons.SingletonPedidosEmArtigo;
 
-public class e_faturacao extends AppCompatActivity {
+public class e_faturacao extends AppCompatActivity implements PedidoListener{
     private String array_spinnerPagamentos[];
     private String array_spinnerIva[];
 
@@ -30,12 +38,16 @@ public class e_faturacao extends AppCompatActivity {
     private ArrayList<Artigo> listaArtigos;
     private Double subtotal;
     private Double total;
+    private Spinner sIva;
+    private Spinner sPagamentos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_e_faturacao);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        SingletonPedido.getInstance(this).setPedidosListener(this);
 
         total = 0.00;
 
@@ -44,7 +56,7 @@ public class e_faturacao extends AppCompatActivity {
         array_spinnerPagamentos[0]="Dinheiro";
         array_spinnerPagamentos[1]="Cartão de crédito";
         array_spinnerPagamentos[2]="Cheque";
-        Spinner sPagamentos = (Spinner) findViewById(R.id.spinnerPagamentos);
+        sPagamentos = (Spinner) findViewById(R.id.spinnerTipoPagamento);
         ArrayAdapter adapterPagamentos = new ArrayAdapter(this, android.R.layout.simple_spinner_item, array_spinnerPagamentos);
         sPagamentos.setAdapter(adapterPagamentos);
 
@@ -52,7 +64,7 @@ public class e_faturacao extends AppCompatActivity {
         array_spinnerIva=new String[2];
         array_spinnerIva[0]="26%";
         array_spinnerIva[1]="3%";
-        Spinner sIva = (Spinner) findViewById(R.id.spinnerIva);
+        sIva = (Spinner) findViewById(R.id.spinnerIva);
         ArrayAdapter adapterIva = new ArrayAdapter(this, android.R.layout.simple_spinner_item, array_spinnerIva);
         sIva.setAdapter(adapterIva);
 
@@ -137,8 +149,66 @@ public class e_faturacao extends AppCompatActivity {
                 Double valTroco = total - valRecebido;
 
                 valTroco = Math.round( valTroco * 100.0 ) / 100.0;
+                if (valRecebido > total)
+                    valTroco = valTroco*-1;
                 troco.setText(Double.toString(valTroco));
             }
         }
+    }
+
+    public void onClickImprimir(View view)
+    {
+        SingletonPedido.getInstance(this).limparArtigoEstado(nMesa);
+        SingletonPedidosEmArtigo.getInstance(this).getEstado_MesaAPI(nMesa.toString(), this);
+
+        Integer idPedido = SingletonPedido.getInstance(this).getPedidoEstado(nMesa);
+
+
+        Integer nif = 000000000;
+
+        Fatura fatura = new Fatura(sPagamentos.getSelectedItemPosition()+1, idPedido, null, "", nif);
+        SingletonPedido.getInstance(this).registarFatura(fatura);
+
+
+    }
+
+    @Override
+    public void onRefreshListaPedidos(List<Pedidos> listaPedidos) {
+
+    }
+
+    @Override
+    public void onUpdateListaPedidosBD(Pedidos pedidos, int operacao) {
+        TextView recebido = findViewById(R.id.recebido);
+        TextView troco = findViewById(R.id.troco);
+
+        String f_nMesa = nMesa.toString();
+        String f_subtotal = subtotal.toString();
+        String f_total = total.toString();
+        String f_recebido = recebido.getText().toString();
+        String f_troco = troco.getText().toString();
+        String f_iva = array_spinnerIva[sIva.getSelectedItemPosition()];
+        String f_met = array_spinnerPagamentos[sPagamentos.getSelectedItemPosition()];
+
+        System.out.println("********************************************");
+        System.out.println("*****************FATURA*********************");
+        System.out.println("N MESA: " + f_nMesa);
+        System.out.println("CONSUMIDO: ");
+        for (Artigo item:listaArtigos) {
+            System.out.println(" ---> "+item.getNome());
+        }
+        System.out.println("SUBTOTAL: "+f_subtotal);
+        System.out.println("IVA: " + f_iva);
+        System.out.println("TOTAL: " + f_total);
+        System.out.println("METODO PAGAMENTO: " + f_met);
+        System.out.println("RECEBIDO: " + f_recebido);
+        System.out.println("TROCO: " + f_troco);
+        System.out.println("********************************************");
+
+        Intent voltarAtras = new Intent();
+        setResult(200, voltarAtras);
+
+        finish();
+
     }
 }

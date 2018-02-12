@@ -362,6 +362,20 @@ public class e_pedidos extends AppCompatActivity implements ArtigoListener, Pedi
     public void onClickFatura(View view) {
         Intent faturaIntent = new Intent(this, e_faturacao.class);
         faturaIntent.putExtra(e_faturacao.R_MESA, nMesa);
-        startActivity(faturaIntent);
+        startActivityForResult(faturaIntent, 2);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 2)
+        {
+            if (resultCode == 200)
+            {
+                Intent voltarAtras = new Intent();
+                setResult(202, voltarAtras);
+
+                finish();
+            }
+        }
     }
 }

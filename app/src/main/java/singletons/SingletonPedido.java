@@ -30,6 +30,7 @@ import listeners.MesaListener;
 import listeners.PedidoListener;
 import dbhelper.PedidoDBHelper;
 import modelo.Artigo;
+import modelo.Fatura;
 import modelo.Pedidos;
 import utils.PedidoJsonParser;
 
@@ -45,6 +46,8 @@ public class SingletonPedido implements PedidoListener{
     private String mUrlAPIPedidos = "http://10.0.2.2:8888/pedidos";
 
     private String mUrlAPIMesa = "http://10.0.2.2:8888/mesas";
+
+    private String mUrlAPIFatura = "http://10.0.2.2:8888/faturas";
 
     //http://10.0.2.2:8888/
     //http://192.168.1.66:8888/
@@ -479,6 +482,53 @@ public class SingletonPedido implements PedidoListener{
         volleyQueue.add(request);
     }
 
+    public void registarFatura(Fatura fatura)
+    {
+        JSONObject object = new JSONObject();
+
+        try {
+            object.put("id_meio_pagamento", fatura.getId_meio_pagamento());
+            object.put("id_pedidos", fatura.getId_pedidos());
+            object.put("data_fatura", fatura.getData_fatura());
+            object.put("obs", fatura.getObs());
+            object.put("nif", fatura.getNif());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        System.out.println(object.toString());
+
+        JsonObjectRequest req = new JsonObjectRequest
+                (Request.Method.POST, mUrlAPIFatura, object, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        System.out.println("---> Resposta fatura: " + response);
+
+                        if (pedidoListener != null) //Devia ser um dedicado
+                            pedidoListener.onUpdateListaPedidosBD(null, 1);
+                    }
+
+                }, new Response.ErrorListener() {
+
+                    public void onErrorResponse(VolleyError error) {
+
+                        System.out.println("---> Erro fatura 2: " + error);
+                        error.printStackTrace();
+                    }
+                })
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Accept", "application/json");
+                params.put("Authorization", "Basic " + auth);
+                return params;
+            }
+        };
+
+        volleyQueue.add(req);
+    }
+
     public void adicionarArtigoEstado(Integer n_mesa, Artigo artigo)
     {
         listaEstadoArtigos.get(n_mesa-1).add(artigo);
@@ -487,6 +537,11 @@ public class SingletonPedido implements PedidoListener{
     public ArrayList<Artigo> getArtigosEstado(Integer n_mesa)
     {
         return (ArrayList<Artigo>) listaEstadoArtigos.get(n_mesa-1);
+    }
+
+    public void limparArtigoEstado(Integer n_mesa)
+    {
+        listaEstadoArtigos.get(n_mesa-1).clear();
     }
 
 

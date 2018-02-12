@@ -278,7 +278,6 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="Tipo de pagamento:" />
 
         <Spinner
@@ -343,6 +342,7 @@
             android:id="@+id/btnIprimir"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onClickImprimir"
             android:text="Imprimir" />
     </LinearLayout>
 

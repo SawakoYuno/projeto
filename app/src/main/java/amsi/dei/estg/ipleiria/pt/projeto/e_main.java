@@ -145,6 +145,10 @@ public class e_main extends AppCompatActivity implements MesaListener {
                 Snackbar.make(findViewById(R.id.layoutEMAIN), "Pedidos criado com sucesso", Snackbar.LENGTH_SHORT).show();
                 SingletonPedido.getInstance(this).onbterCOndicaoMesas(this);
                // adaptadordaListVP.notifyDataSetChanged();
+            }else if (resultCode == 202)
+            {
+                Snackbar.make(findViewById(R.id.layoutEMAIN), "Fatura emitida com sucesso", Snackbar.LENGTH_SHORT).show();
+                SingletonPedido.getInstance(this).onbterCOndicaoMesas(this);
             }else
             {
                 //Toast.makeText(this, "Erro ao criar os pedidos", Toast.LENGTH_SHORT).show();
@@ -167,7 +171,6 @@ public class e_main extends AppCompatActivity implements MesaListener {
                     {
                         btn.setBackgroundColor(getResources().getColor(R.color.colorBaunilha));
                     }
-
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

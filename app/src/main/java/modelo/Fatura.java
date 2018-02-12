@@ -66,8 +66,7 @@ public class Fatura {
     }
 
     /* CONSTRUTOR */
-    public Fatura(int id, int id_meio_pagamento, int id_pedidos, Date data_fatura, String obs, int nif) {
-        this.id = id;
+    public Fatura(int id_meio_pagamento, int id_pedidos, Date data_fatura, String obs, int nif) {
         this.id_meio_pagamento = id_meio_pagamento;
         this.id_pedidos = id_pedidos;
         this.data_fatura = data_fatura;
