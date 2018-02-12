@@ -11,20 +11,19 @@
     <LinearLayout
         android:id="@+id/linearCima"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:layout_weight="0.1"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/textView3"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="Mesa:" />
 
         <TextView
-            android:id="@+id/txtMesa"
+            android:id="@+id/txtMesaFatura"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -147,6 +146,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/btn7"
+                android:onClick="onClick"
                 android:text="C" />
 
             <Button
@@ -155,6 +155,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/btn8"
                 android:layout_toEndOf="@id/btnC"
+                android:onClick="onClick"
                 android:text="0" />
 
             <Button
@@ -163,7 +164,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/btn9"
                 android:layout_toEndOf="@id/btn0"
-                android:text="," />
+                android:onClick="onClick"
+                android:text="." />
 
 
         </RelativeLayout>
@@ -231,7 +233,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="25" />
+            android:text="00" />
 
         <Space
             android:layout_width="154dp"
@@ -239,14 +241,14 @@
             android:layout_weight="1" />
 
         <LinearLayout
-            android:id="@+id/LinearLayout"
+            android:id="@+id/LinearLayout2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView11"
+                android:id="@+id/textView12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -297,8 +299,43 @@
         android:layout_weight="0.1"
         android:orientation="horizontal">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total: "/>
+
+        <TextView
+            android:id="@+id/total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="20dp"
+            android:text="00"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Recebido: "/>
+
+        <TextView
+            android:id="@+id/recebido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="20dp"
+            android:text="00"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Troco: "/>
+
+        <TextView
+            android:id="@+id/troco"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="20dp"
+            android:text="00"/>
         <Space
-            android:layout_width="449dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
