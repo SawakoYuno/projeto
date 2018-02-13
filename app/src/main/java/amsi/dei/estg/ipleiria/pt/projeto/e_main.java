@@ -51,6 +51,7 @@ public class e_main extends AppCompatActivity implements MesaListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_e_main);
         setTitle("Mesas");
 
