@@ -11,6 +11,10 @@
     <!-- VERIFICAR LIGAÇÃO À INTERNET -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -72,6 +76,12 @@
         <activity
             android:name=".c_lista_pedidos"
             android:parentActivityName=".c_funcionalidades" />
+
+        <service android:name="org.eclipse.paho.android.service.MqttService" />
+        <service
+            android:name=".MqttMessageService"
+            android:enabled="true"
+            android:exported="false"></service>
 
     </application>
 

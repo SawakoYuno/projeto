@@ -41,9 +41,13 @@ public class SingletonPedidosEmArtigo implements PedidosEmArtigoListener{
     private List<Mesa> mesas;
 
     //---------URL API PEDIDOS_EM_ARTIGOS-----------
-    private String mUrlAPIPedidosEmArtigos = "http://10.0.2.2:8888/pedidos-em-artigos";
+    //private String mUrlAPIPedidosEmArtigos = "http://10.0.2.2:8888/pedidos-em-artigos";
+    private String mUrlAPIPedidosEmArtigos = "http://192.168.1.66:8888/pedidos-em-artigos";
 
-    private String mUrlAPIMesa = "http://10.0.2.2:8888/mesas/";
+
+  // private String mUrlAPIMesa = "http://10.0.2.2:8888/mesas/";
+    private String mUrlAPIMesa = "http://192.168.1.66:8888/mesas/";
+
     //http://10.0.2.2:8888/
     //192.168.1.66:8888
     //----------------------------------

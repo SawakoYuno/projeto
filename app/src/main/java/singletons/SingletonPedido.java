@@ -44,11 +44,14 @@ public class SingletonPedido implements PedidoListener{
     private static PedidoDBHelper dbHelper = null;
 
     //---------URL API ARTIGO-----------
-    private String mUrlAPIPedidos = "http://10.0.2.2:8888/pedidos";
+    private String mUrlAPIPedidos = "http://192.168.1.66:8888/pedidos";
+   // private String mUrlAPIPedidos = "http://10.0.2.2:8888/pedidos";
 
-    private String mUrlAPIMesa = "http://10.0.2.2:8888/mesas";
+    private String mUrlAPIMesa = "http://192.168.1.66:8888/mesas";
+//    private String mUrlAPIMesa = "http://10.0.2.2:8888/mesas";
 
-    private String mUrlAPIFatura = "http://10.0.2.2:8888/faturas";
+    private String mUrlAPIFatura = "http://192.168.1.66:8888/faturas";
+  //  private String mUrlAPIFatura = "http://10.0.2.2:8888/faturas";
 
     //http://10.0.2.2:8888/
     //http://192.168.1.66:8888/
